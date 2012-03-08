@@ -34,7 +34,7 @@ class Opauth{
 			'debug' => $this->config['debug']
 		);
 		
-		if (is_array($this->config['strategies']) && count($this->config['strategies']) > 0)
+		if (isset($this->config['strategies']) && is_array($this->config['strategies']) && count($this->config['strategies']) > 0)
 			$this->strategies = $this->config['strategies'];
 		else
 			trigger_error('No Opauth strategies defined', E_USER_ERROR);

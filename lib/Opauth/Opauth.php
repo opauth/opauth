@@ -75,17 +75,20 @@ class Opauth{
 		
 		if (!empty($this->env['params'][0])) $this->env['strategy'] = $this->env['params'][0];
 	}
+	
 /**
  * Load strategies from user-input $config
  */	
 	protected function _loadStrategies(){
 		if (isset($this->config['strategies']) && is_array($this->config['strategies']) && count($this->config['strategies']) > 0){
 			foreach ($this->config['strategies'] as $key => $strategy){
-				if (!is_array($strategy)) $key = $strategy;
+				if (!is_array($strategy)){
+					$key = $strategy;
+					$strategy = array();
+				}
 				
-				$this->strategies[$key] = array( 
-					'name' => strtoupper(substr($key, 0, 1)).substr($key, 1)
-				);
+				if (empty($strategy['name'])) $strategy['name'] = strtoupper(substr($key, 0, 1)).substr($key, 1);
+				$this->strategies[$key] = $strategy;
 			}
 		}
 		else{

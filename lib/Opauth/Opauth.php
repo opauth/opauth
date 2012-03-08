@@ -27,13 +27,12 @@ class Opauth{
 		
 		$this->_parseUri();
 		
-		/*
 		if (!empty($this->env['strategy'])){
-			
-			//require 'OpauthStrategy.php';
-			//$this->Strategy = 
+			if (array_search($this->env['strategy'], $this->configs['strategies'])){
+				require 'OpauthStrategy.php'; 
+			}
+			debug('Error - Invalid strategy.');
 		}
-		*/
 	}
 	
 	/**

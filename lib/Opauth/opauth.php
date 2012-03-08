@@ -30,5 +30,12 @@ class Opauth{
 	protected function _parseUri(){
 		$this->env['request'] = substr($this->configs['uri'], strlen($this->configs['path']) - 1);
 		
+		if (preg_match_all('/\/([A-Za-z0-9-_]+)/', $this->env['request'], $matches)){
+			foreach ($matches[1] as $match){
+				$this->env['params'][] = $match;
+			}
+		}
+		
+		if (!empty($this->env['params'][0])) $this->env['strategy'] = $this->env['params'][0];
 	}
 }

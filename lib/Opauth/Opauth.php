@@ -43,10 +43,12 @@ class Opauth{
 		$this->_parseUri();
 		
 		if (!empty($this->env['strategy'])){
-			if (array_search($this->env['strategy'], $this->strategies)){
-				require 'OpauthStrategy.php'; 
+			if (array_search($this->env['strategy'], $this->strategies) !== false){
+				require $this->env['LIB'].'OpauthStrategy.php'; 
 			}
-			self::debug('Error - Invalid strategy.');
+			else{
+				trigger_error('Unsupported or undefined Opauth strategy - '.$this->env['strategy'], E_USER_ERROR);
+			}
 		}
 	}
 	

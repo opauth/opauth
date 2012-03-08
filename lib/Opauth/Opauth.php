@@ -53,6 +53,7 @@ class Opauth{
 				require $this->env['LIB'].'OpauthStrategy.php';
 				require $this->env['STRATEGY'].$strategy['name'].'.php';
 				
+				$this->Strategy = new Facebook($this);
 			}
 			else{
 				trigger_error('Unsupported or undefined Opauth strategy - '.$this->env['strategy'], E_USER_ERROR);
@@ -96,7 +97,7 @@ class Opauth{
  * Prints out variable with <pre> tags
  * - If debug is false, no printing
  */	
-	protected function debug($var){
+	public function debug($var){
 		if ($this->env['debug'] !== false){
 			echo "<pre>";
 			print_r($var);

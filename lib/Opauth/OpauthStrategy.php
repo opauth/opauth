@@ -9,6 +9,7 @@ class OpauthStrategy{
 	
 	public function __construct(&$Opauth){
 		$this->Opauth = $Opauth;
+		$this->Opauth->debug('hey');
 	}
 	
 	public function request(){

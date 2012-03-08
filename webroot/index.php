@@ -1,5 +1,5 @@
 <?php
 define('LIB', '../lib/Opauth/');
 
-require LIB.'opauth.php';
+require LIB.'Opauth.php';
 $Opauth = new Opauth( array('debug' => true) );

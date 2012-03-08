@@ -21,7 +21,7 @@ $config = array(
 /**
  * Uncomment if you would like to view debug messages
  */
-	// 'debug' => true,
+	//'debug' => true,
 
 	
 /**

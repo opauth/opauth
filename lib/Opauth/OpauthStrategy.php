@@ -5,11 +5,12 @@
  *
  */
 class OpauthStrategy{
-	public $Opauth;
+	protected $Opauth;
+	protected $strategy;
 	
-	public function __construct(&$Opauth){
+	public function __construct(&$Opauth, $strategy){
 		$this->Opauth = $Opauth;
-		$this->Opauth->debug('hey');
+		$this->strategy = $strategy;
 	}
 	
 	public function request(){

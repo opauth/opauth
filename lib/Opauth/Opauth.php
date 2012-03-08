@@ -43,18 +43,13 @@ class Opauth{
 			'debug' => $this->config['debug']
 		);
 		
-		if (isset($this->config['strategies']) && is_array($this->config['strategies']) && count($this->config['strategies']) > 0)
-			$this->strategies = $this->config['strategies'];
-		else
-			trigger_error('No Opauth strategies defined', E_USER_ERROR);
-		
-		/* Run */
+		$this->_loadStrategies();
 		$this->_parseUri();
 		
+		/* Run */
 		if (!empty($this->env['strategy'])){
-			if (array_search($this->env['strategy'], $this->strategies) !== false){
+			if (array_key_exists($this->env['strategy'], $this->strategies)){
 				require $this->env['LIB'].'OpauthStrategy.php';
-				
 				
 			}
 			else{
@@ -76,6 +71,23 @@ class Opauth{
 		}
 		
 		if (!empty($this->env['params'][0])) $this->env['strategy'] = $this->env['params'][0];
+	}
+/**
+ * Load strategies from user-input $config
+ */	
+	protected function _loadStrategies(){
+		if (isset($this->config['strategies']) && is_array($this->config['strategies']) && count($this->config['strategies']) > 0){
+			foreach ($this->config['strategies'] as $key => $strategy){
+				if (!is_array($strategy)) $key = $strategy;
+				
+				$this->strategies[$key] = array( 
+					'name' => strtoupper(substr($key, 0, 1)).substr($key, 1)
+				);
+			}
+		}
+		else{
+			trigger_error('No Opauth strategies defined', E_USER_ERROR);
+		}
 	}
 	
 /**

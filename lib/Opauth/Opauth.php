@@ -6,6 +6,7 @@
 class Opauth{
 	/**
 	 * User configuraable settings
+	 * - Do not refer to this anywhere in logic, except in __construct() of Opauth
 	 */
 	public $configs;	
 	
@@ -14,24 +15,35 @@ class Opauth{
 	 */
 	public $env;
 	
+	/** 
+	 * Defined strategies
+	 */
+	public $strategies;
+	
 	public function __construct($configs = array()){
-		echo 'Welcome to Opauth';
 		
+		/* Setup */
 		$this->configs = array_merge(array(
 			'uri' => $_SERVER['REQUEST_URI'],
 			'path' => '/',
 			'debug' => false
 		), $configs);
 		
-		if ($this->configs['debug']) require('debug.php');
+		$this->env = array(
+			'LIB' => dirname(__FILE__).'/',
+			'debug' => $this->configs['debug']
+		);
 		
+		$this->strategies = $this->configs['strategies'];
+		
+		/* Run */
 		$this->_parseUri();
 		
 		if (!empty($this->env['strategy'])){
-			if (array_search($this->env['strategy'], $this->configs['strategies'])){
+			if (array_search($this->env['strategy'], $this->strategies)){
 				require 'OpauthStrategy.php'; 
 			}
-			debug('Error - Invalid strategy.');
+			echo 'Error - Invalid strategy.';
 		}
 	}
 	

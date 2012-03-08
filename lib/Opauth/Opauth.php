@@ -49,7 +49,9 @@ class Opauth{
 		/* Run */
 		if (!empty($this->env['strategy'])){
 			if (array_key_exists($this->env['strategy'], $this->strategies)){
+				$strategy = $this->strategies[$this->env['strategy']];
 				require $this->env['LIB'].'OpauthStrategy.php';
+				require $this->env['STRATEGY'].$strategy['name'].'.php';
 				
 			}
 			else{

@@ -1,0 +1,5 @@
+Opauth Catchall Webroot
+
+ - Only required if you are sending traffic directly to Opauth's webroot
+
+ - If you instantiate Opauth directly, either from your app or PHP framework, this webroot will not be used. You are safe to delete it if you wish.

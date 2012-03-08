@@ -51,7 +51,7 @@ class Opauth{
 			if (array_key_exists($this->env['strategy'], $this->strategies)){
 				$strategy = $this->strategies[$this->env['strategy']];
 				require $this->env['LIB'].'OpauthStrategy.php';
-				require $this->env['STRATEGY'].$strategy['name'].'.php';
+				require $this->env['STRATEGY'].$strategy['name'].'/'.$strategy['name'].'.php';
 				
 				$this->Strategy = new $strategy['name']($this, $strategy);
 			}

@@ -5,4 +5,15 @@
  *
  */
 class OpauthStrategy{
+	public $Opauth;
+	
+	public function __construct(&$Opauth){
+		$this->Opauth = $Opauth;
+	}
+	
+	public function request(){
+	}
+	
+	public function callback(){
+	}
 }

@@ -26,6 +26,14 @@ class Opauth{
 		if ($this->configs['debug']) require('debug.php');
 		
 		$this->_parseUri();
+		
+		/*
+		if (!empty($this->env['strategy'])){
+			
+			//require 'OpauthStrategy.php';
+			//$this->Strategy = 
+		}
+		*/
 	}
 	
 	/**

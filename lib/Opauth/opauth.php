@@ -1,17 +1,23 @@
 <?php
 class Opauth{
-	public function __construct($uri = null){
+	public $configs;
+	
+	public function __construct($configs = array()){
 		echo 'Welcome to Opauth';
 		
-		if (!is_null($uri)) $this->_uri($uri);
+		$this->configs = array_merge(array(
+			'uri' => $_SERVER['REQUEST_URI'],
+			'path' => '/'
+		), $configs);
+		
+		$this->_parseUri();
 	}
 	
 	/**
 	 * Parses Request URI
 	 */
-	private function _uri($uri = null){
-		if (is_null($uri)) $uri = $_SERVER['REQUEST_URI'];
+	protected function _parseUri(){
 		
-		echo $uri;
+		echo $this->configs['uri'];
 	}
 }

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Opauth core
+ *
+ */
 class Opauth{
 	/**
 	 * User configuraable settings

@@ -6,7 +6,9 @@
 class Opauth{
 /**
  * User configuraable settings
+ * 
  * - Do not refer to this anywhere in logic, except in __construct() of Opauth
+ * - TODO: Documentation on config
  */
 	public $config;	
 	
@@ -17,6 +19,12 @@ class Opauth{
 	
 /** 
  * Defined strategies
+ * - array key	: URL-friendly name, preferably all lowercase
+ * - name		: Class and file name. If unset, Opauth automatically capitalize first letter as name
+ * 
+ * eg. array( 'facebook', 'flickr' );
+ * eg. array( 'foobar' => array( 'name' => 'FooBar') );
+ * 
  */
 	public $strategies;
 	
@@ -31,6 +39,7 @@ class Opauth{
 		
 		$this->env = array(
 			'LIB' => dirname(__FILE__).'/',
+			'STRATEGY' => dirname(__FILE__).'/Strategy/',
 			'debug' => $this->config['debug']
 		);
 		
@@ -44,7 +53,9 @@ class Opauth{
 		
 		if (!empty($this->env['strategy'])){
 			if (array_search($this->env['strategy'], $this->strategies) !== false){
-				require $this->env['LIB'].'OpauthStrategy.php'; 
+				require $this->env['LIB'].'OpauthStrategy.php';
+				
+				
 			}
 			else{
 				trigger_error('Unsupported or undefined Opauth strategy - '.$this->env['strategy'], E_USER_ERROR);
@@ -66,6 +77,7 @@ class Opauth{
 		
 		if (!empty($this->env['params'][0])) $this->env['strategy'] = $this->env['params'][0];
 	}
+	
 /**
  * Prints out variable with <pre> tags
  * - If debug is false, no printing

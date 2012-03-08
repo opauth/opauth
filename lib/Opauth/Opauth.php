@@ -4,20 +4,20 @@
  *
  */
 class Opauth{
-	/**
-	 * User configuraable settings
-	 * - Do not refer to this anywhere in logic, except in __construct() of Opauth
-	 */
+/**
+ * User configuraable settings
+ * - Do not refer to this anywhere in logic, except in __construct() of Opauth
+ */
 	public $configs;	
 	
-	/**
-	 * Environment variables
-	 */
+/**
+ * Environment variables
+ */
 	public $env;
 	
-	/** 
-	 * Defined strategies
-	 */
+/** 
+ * Defined strategies
+ */
 	public $strategies;
 	
 	public function __construct($configs = array()){
@@ -43,13 +43,13 @@ class Opauth{
 			if (array_search($this->env['strategy'], $this->strategies)){
 				require 'OpauthStrategy.php'; 
 			}
-			echo 'Error - Invalid strategy.';
+			self::debug('Error - Invalid strategy.');
 		}
 	}
 	
-	/**
-	 * Parses Request URI
-	 */
+/**
+ * Parses Request URI
+ */
 	protected function _parseUri(){
 		$this->env['request'] = substr($this->configs['uri'], strlen($this->configs['path']) - 1);
 		
@@ -60,5 +60,16 @@ class Opauth{
 		}
 		
 		if (!empty($this->env['params'][0])) $this->env['strategy'] = $this->env['params'][0];
+	}
+/**
+ * Prints out variable with <pre> tags
+ * - If debug is false, no printing
+ */	
+	protected function debug($var){
+		if ($this->env['debug'] !== false){
+			echo "<pre>";
+			print_r($var);
+			echo "</pre>";
+		}
 	}
 }

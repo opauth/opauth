@@ -1,0 +1,40 @@
+<?php
+/**
+ * Opauth config file
+ * - Only required if you are sending traffic directly to Opauth's webroot
+ * - If you are using Opauth plugin for framework, you are very likely not requiring any configs.
+ * 
+ * To use: rename to opauth.conf.php and tweak as you like
+ * 
+ */
+
+$config = array(
+/**
+ * Path where Opauth is accessed.
+ * eg. if Opauth is reached via http://example.org/auth/, path should then be '/path/'
+ * 
+ */
+	'path' => '/',
+
+	
+/**
+ * Uncomment if you would like to view debug messages
+ */
+	// 'debug' => true,
+
+	
+/**
+ * Strategies, refer to individual strategy's documentation on configuration requirements.
+ * 
+ * eg.
+ * 'strategies' => array(
+ *   'facebook => array(
+ *      'app_id' => 'APP ID',
+ *      'app_secret' => 'APP_SECRET'
+ *    ),
+ * )
+ *
+ */
+	
+	'strategies' => array()
+)

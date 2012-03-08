@@ -5,17 +5,18 @@
  *
  */
 class OpauthStrategy{	
-/**
- * Compulsory config keys
- */
-	public $expects = array('app_id', 'app_secret');
 	
 /**
- * Optional config keys with respective default values
+ * Compulsory config keys, listed as unassociative arrays
+ * eg. array('app_id', 'app_secret');
  */
-	public $defaults = array(
-		'scope' => null
-	);
+	public $expects;
+	
+/**
+ * Optional config keys with respective default values, listed as associative arrays
+ * eg. array('scope' => 'email');
+ */
+	public $defaults;
 	
 	public $name;
 	protected $Opauth;
@@ -26,6 +27,18 @@ class OpauthStrategy{
 		$this->strategy = $strategy;
 		
 		$this->name = $strategy['name'];
+		
+		if (is_array($this->expects)){
+			foreach ($this->expects as $key){
+				$this->expects($key);
+			}
+		}
+		
+		if (is_array($this->defaults)){
+			foreach ($this->defaults as $key => $value){
+				$this->optional($key, $value);
+			}
+		}
 	}
 	
 	public function request(){

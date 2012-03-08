@@ -5,17 +5,22 @@
  * - If you instantiate Opauth directly from your app or PHP framework, this will not be run.
  * 
  */
-define('OPAUTH_ROOT', dirname(dirname(__FILE__)).'/');
+
+/**
+ * Define paths
+ */
+define('OPAUTH_WEBROOT', dirname(__FILE__).'/');
+define('OPAUTH_ROOT', dirname(OPAUTH_WEBROOT).'/');
 define('OPAUTH_LIB', OPAUTH_ROOT.'lib/Opauth/');
 
 /**
  * Load config
  */
-if (!file_exists(OPAUTH_ROOT.'opauth.conf.php')){
-	trigger_error('Config file missing at '.OPAUTH_ROOT.'opauth.conf.php', E_USER_ERROR);
+if (!file_exists(OPAUTH_WEBROOT.'opauth.conf.php')){
+	trigger_error('Config file missing at '.OPAUTH_WEBROOT.'opauth.conf.php', E_USER_ERROR);
 	exit();
 }
-require OPAUTH_ROOT.'opauth.conf.php';
+require OPAUTH_WEBROOT.'opauth.conf.php';
 
 /**
  * Instantiate Opauth with the loaded config

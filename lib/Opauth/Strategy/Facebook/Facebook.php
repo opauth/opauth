@@ -12,7 +12,8 @@ class Facebook extends OpauthStrategy{
  * eg. array('scope' => 'email');
  */
 	public $defaults = array(
-		'scope' => null
+		'scope' => null,
+		'redirect_uri' => '{OPAUTH_PATH}after_fb'
 	);
 	
 	public function __construct(&$Opauth, $strategy){
@@ -23,14 +24,13 @@ class Facebook extends OpauthStrategy{
  * Auth request
  */
 	public function request(){
-		echo 'Request';
-		exit();
 		$url = 'https://www.facebook.com/dialog/oauth';
-		
 		$params = array(
 			'client_id' => $this->strategy['app_id'],
 			'redirect_uri' => $this->strategy['redirect_uri']
 		);
+		print_r($params);
+		exit();
 		if (!empty($this->configs['scope'])) $params['scope'] = $this->configs['scope'];
 		
 		return $url.'?'.http_build_query($params);	

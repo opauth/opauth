@@ -39,6 +39,8 @@ class OpauthStrategy{
 				$this->optional($key, $value);
 			}
 		}
+		
+		$this->replacePlaceholders();
 	}
 	
 /**
@@ -87,5 +89,21 @@ class OpauthStrategy{
 		}
 		
 		else return $this->strategy[$key];
+	}
+	
+/**
+ * Replaced defined placeholders with actual values
+ */	
+	protected function replacePlaceholders(){
+		/* Define placeholders */
+		$placeholders = array(
+			'{OPAUTH_PATH}' => $this->Opauth->config['path']
+		);
+		
+		if (is_array($this->strategy)){
+			foreach ($this->strategy as $key=>$value){
+				$this->strategy[$key] = str_replace(array_keys($placeholders), array_values($placeholders), $value);
+			}
+		}
 	}
 }

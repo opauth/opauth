@@ -41,12 +41,19 @@ class OpauthStrategy{
 		}
 	}
 	
+/**
+ * Auth request
+ * aka Log in or Register
+ */
 	public function request(){
 	}
 	
 	public function callback(){
 	}
 
+	public function callAction($action){
+		return $this->{$action}();
+	}
 	
 /**
  * Ensures that a compulsory value is set, throws an error if it's not set

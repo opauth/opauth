@@ -29,10 +29,11 @@ class Facebook extends OpauthStrategy{
 			'client_id' => $this->strategy['app_id'],
 			'redirect_uri' => $this->strategy['redirect_uri']
 		);
-		print_r($params);
-		exit();
+
 		if (!empty($this->configs['scope'])) $params['scope'] = $this->configs['scope'];
 		
+		echo $url.'?'.http_build_query($params);
+		exit();
 		return $url.'?'.http_build_query($params);	
 	}
 }

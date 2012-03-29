@@ -52,8 +52,14 @@ class OpauthStrategy{
 	
 	public function callback(){
 	}
-
-	public function callAction($action){
+	
+/**
+ * Call an action from a defined strategy
+ *
+ * @param string $action Action name to call
+ * @param string $defaultAction If an action is not defined in a strategy, calls $defaultAction
+ */
+	public function callAction($action, $defaultAction = 'request'){
 		return $this->{$action}();
 	}
 	

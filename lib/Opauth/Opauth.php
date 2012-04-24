@@ -71,7 +71,7 @@ class Opauth{
  * Parses Request URI
  */
 	protected function _parseUri(){
-		$this->env['request'] = substr($this->config['uri'], strlen($this->config['path']) - 1);
+		$this->env['request'] = substr($this->env['uri'], strlen($this->env['path']) - 1);
 		
 		if (preg_match_all('/\/([A-Za-z0-9-_]+)/', $this->env['request'], $matches)){
 			foreach ($matches[1] as $match){
@@ -87,8 +87,8 @@ class Opauth{
  * Load strategies from user-input $config
  */	
 	protected function _loadStrategies(){
-		if (isset($this->config['strategies']) && is_array($this->config['strategies']) && count($this->config['strategies']) > 0){
-			foreach ($this->config['strategies'] as $key => $strategy){
+		if (isset($this->env['strategies']) && is_array($this->env['strategies']) && count($this->env['strategies']) > 0){
+			foreach ($this->env['strategies'] as $key => $strategy){
 				if (!is_array($strategy)){
 					$key = $strategy;
 					$strategy = array();

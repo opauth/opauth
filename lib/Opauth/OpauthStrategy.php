@@ -34,13 +34,15 @@ class OpauthStrategy{
 			}
 		}
 		
+		print_r($this->defaults);
+		exit();
 		if (is_array($this->defaults)){
 			foreach ($this->defaults as $key => $value){
 				$this->optional($key, $value);
 			}
 		}
 		
-		$this->replacePlaceholders();
+		//$this->replacePlaceholders();
 	}
 	
 /**
@@ -103,7 +105,7 @@ class OpauthStrategy{
 	protected function replacePlaceholders(){
 		/* Define placeholders */
 		$placeholders = array(
-			'{OPAUTH_PATH}' => $this->Opauth->config['path']
+			'{OPAUTH_PATH}' => $this->Opauth->env['path']
 		);
 		
 		if (is_array($this->strategy)){

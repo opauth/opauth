@@ -13,7 +13,7 @@ class Facebook extends OpauthStrategy{
  */
 	public $defaults = array(
 		'scope' => null,
-		'redirect_uri' => '{OPAUTH_PATH}after_fb'
+		'redirect_uri' => '{path}after_fb'
 	);
 	
 	public function __construct(&$Opauth, $strategy){
@@ -29,7 +29,7 @@ class Facebook extends OpauthStrategy{
 			'client_id' => $this->strategy['app_id'],
 			'redirect_uri' => $this->strategy['redirect_uri']
 		);
-
+		
 		if (!empty($this->configs['scope'])) $params['scope'] = $this->configs['scope'];
 		
 		echo $url.'?'.http_build_query($params);

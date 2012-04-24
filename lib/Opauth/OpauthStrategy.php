@@ -34,11 +34,9 @@ class OpauthStrategy{
 			}
 		}
 		
-		print_r($this->defaults);
-		exit();
 		if (is_array($this->defaults)){
 			foreach ($this->defaults as $key => $value){
-				$this->optional($key, $value);
+				$this->optional($key, $this->envReplace($value));
 			}
 		}
 		
@@ -100,18 +98,20 @@ class OpauthStrategy{
 	}
 	
 /**
- * Replace defined placeholders with actual values
- */	
-	protected function replacePlaceholders(){
-		/* Define placeholders */
-		$placeholders = array(
-			'{OPAUTH_PATH}' => $this->Opauth->env['path']
-		);
-		
-		if (is_array($this->strategy)){
-			foreach ($this->strategy as $key=>$value){
-				$this->strategy[$key] = str_replace(array_keys($placeholders), array_values($placeholders), $value);
+ * Replace defined env values enclused in {} with actual values
+ */
+	protected function envReplace($value){
+		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
+			foreach ($matches[1] as $key){
+				if (array_key_exists($key, $this->Opauth->env)){
+					$value = str_replace('{'.$key.'}', $this->Opauth->env[$key], $value);
+				}
 			}
+			
+			return $value;
 		}
+		
+		return $value;
 	}
+	
 }

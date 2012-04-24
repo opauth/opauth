@@ -30,18 +30,23 @@ class Opauth{
 	
 	public function __construct($config = array()){
 		
-		/* Setup */
+	/**
+	 * Configurable settings
+	 */
 		$this->config = array_merge(array(
 			'uri' => $_SERVER['REQUEST_URI'],
 			'path' => '/',
 			'debug' => false
 		), $config);
-		
-		$this->env = array(
+	
+	/**
+	 * Environment variables, including config
+	 * Used mainly as accessors
+	 */
+		$this->env = array_merge(array(
 			'LIB' => dirname(__FILE__).'/',
-			'STRATEGY' => dirname(__FILE__).'/Strategy/',
-			'debug' => $this->config['debug']
-		);
+			'STRATEGY' => dirname(__FILE__).'/Strategy/'
+		), $this->config);
 		
 		$this->_loadStrategies();
 		$this->_parseUri();

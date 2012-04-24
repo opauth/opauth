@@ -13,7 +13,7 @@ class Facebook extends OpauthStrategy{
  */
 	public $defaults = array(
 		'scope' => null,
-		'redirect_uri' => '{path}after_fb'
+		'redirect_uri' => '{complete_path}after_fb'
 	);
 	
 	public function __construct(&$Opauth, $strategy){

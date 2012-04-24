@@ -34,7 +34,7 @@ class Opauth{
 	 * Configurable settings
 	 */
 		$this->config = array_merge(array(
-			'uri' => $_SERVER['REQUEST_URI'],
+			'host' => 'http://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
 			'debug' => false
 		), $config);
@@ -44,8 +44,10 @@ class Opauth{
 	 * Used mainly as accessors
 	 */
 		$this->env = array_merge(array(
+			'uri' => $_SERVER['REQUEST_URI'],
 			'LIB' => dirname(__FILE__).'/',
-			'STRATEGY' => dirname(__FILE__).'/Strategy/'
+			'STRATEGY' => dirname(__FILE__).'/Strategy/',
+			'complete_path' => str_replace("//", "/", $this->config['host'].$this->config['path'])
 		), $this->config);
 		
 		$this->_loadStrategies();

@@ -43,8 +43,6 @@ class OpauthStrategy{
 				$this->optional($key, $this->envReplace($value));
 			}
 		}
-		
-		//$this->replacePlaceholders();
 	}
 	
 /**

@@ -98,7 +98,7 @@ class OpauthStrategy{
 	}
 	
 /**
- * Replaced defined placeholders with actual values
+ * Replace defined placeholders with actual values
  */	
 	protected function replacePlaceholders(){
 		/* Define placeholders */

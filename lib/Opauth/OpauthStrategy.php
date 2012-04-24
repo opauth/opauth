@@ -20,6 +20,10 @@ class OpauthStrategy{
 	
 	public $name;
 	protected $Opauth;
+
+/**
+ * Configurations and settings unique to a particular strategy
+ */
 	protected $strategy;
 	
 	public function __construct(&$Opauth, $strategy){

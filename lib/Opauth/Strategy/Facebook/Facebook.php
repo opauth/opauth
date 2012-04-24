@@ -30,10 +30,9 @@ class Facebook extends OpauthStrategy{
 			'redirect_uri' => $this->strategy['redirect_uri']
 		);
 		
-		if (!empty($this->configs['scope'])) $params['scope'] = $this->configs['scope'];
-		
+		if (!empty($this->strategy['scope'])) $params['scope'] = $this->strategy['scope'];
+
 		echo $url.'?'.http_build_query($params);
-		exit();
 		return $url.'?'.http_build_query($params);	
 	}
 }

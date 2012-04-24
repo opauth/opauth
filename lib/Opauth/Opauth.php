@@ -45,8 +45,8 @@ class Opauth{
 	 */
 		$this->env = array_merge(array(
 			'uri' => $_SERVER['REQUEST_URI'],
-			'LIB' => dirname(__FILE__).'/',
-			'STRATEGY' => dirname(__FILE__).'/Strategy/',
+			'lib_dir' => dirname(__FILE__).'/',
+			'strategy_dir' => dirname(__FILE__).'/Strategy/',
 			'complete_path' => str_replace("//", "/", $this->config['host'].$this->config['path'])
 		), $this->config);
 		
@@ -57,8 +57,8 @@ class Opauth{
 		if (!empty($this->env['strategy'])){
 			if (array_key_exists($this->env['strategy'], $this->strategies)){
 				$strategy = $this->strategies[$this->env['strategy']];
-				require $this->env['LIB'].'OpauthStrategy.php';
-				require $this->env['STRATEGY'].$strategy['name'].'/'.$strategy['name'].'.php';
+				require $this->env['lib_dir'].'OpauthStrategy.php';
+				require $this->env['strategy_dir'].$strategy['name'].'/'.$strategy['name'].'.php';
 				
 				$this->Strategy = new $strategy['name']($this, $strategy);
 				$this->Strategy->callAction($this->env['action']);

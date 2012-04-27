@@ -40,6 +40,20 @@ class Facebook extends OpauthStrategy{
  * Internal callback, after Facebook's OAuth
  */
 	public function int_callback(){
-		print_r($_GET);
+		if (array_key_exists('code', $_GET) && !empty($_GET['code'])){
+			$url = 'https://graph.facebook.com/oauth/access_token';
+			$params = array(
+				'client_id' =>$this->strategy['app_id'],
+				'client_secret' => $this->strategy['app_secret'],
+				'redirect_uri'=> $this->strategy['redirect_uri'],
+				'code' => trim($_GET['code'])
+			);
+			
+			$response = $this->httpRequest($url.'?'.http_build_query($params));
+			echo $response;
+		}
+		else{
+			// Error or authentication declined
+		}
 	}
 }

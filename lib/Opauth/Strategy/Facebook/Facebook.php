@@ -89,6 +89,7 @@ class Facebook extends OpauthStrategy{
 		}
 		else{
 			// Error or authentication declined
+			// TODO: error handling
 		}
 	}
 	

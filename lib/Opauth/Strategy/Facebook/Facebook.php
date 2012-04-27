@@ -50,10 +50,28 @@ class Facebook extends OpauthStrategy{
 			);
 			
 			$response = $this->httpRequest($url.'?'.http_build_query($params));
-			echo $response;
+			
+			parse_str($response, $results);
+			if (!empty($results) && !empty($results['access_token'])){
+				$me = $this->me($results['access_token']);
+				print_r($me);
+			}
 		}
 		else{
 			// Error or authentication declined
+		}
+	}
+	
+/**
+ * Queries Facebook Graph API for user info
+ *
+ * @param string $access_token 
+ * @return array Parsed JSON results
+ */
+	public function me($access_token){
+		$me = $this->httpRequest('https://graph.facebook.com/me?access_token='.$access_token);
+		if (!empty($me)){
+			return json_decode($me);
 		}
 	}
 }

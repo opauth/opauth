@@ -34,11 +34,11 @@ class Opauth{
 	 * Configurable settings
 	 */
 		$this->config = array_merge(array(
-			'host' => 'http://'.$_SERVER['HTTP_HOST'],
+			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
 			'debug' => false
 		), $config);
-	
+		
 	/**
 	 * Environment variables, including config
 	 * Used mainly as accessors

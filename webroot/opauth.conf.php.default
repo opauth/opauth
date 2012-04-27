@@ -39,6 +39,6 @@ $config = array(
  *
  */
 	'strategies' => array(
-		// Add individual strategies here.
+		// Define individual strategies and their respective configs here.
 	),
 );

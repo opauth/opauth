@@ -116,12 +116,4 @@ class Opauth{
 			echo "</pre>";
 		}
 	}
-	
-/**
- * Redirect to $url with HTTP header
- */
-	public function redirect($url, $exit = true){
-		header("Location: $url");
-		if ($exit) exit();
-	}
 }

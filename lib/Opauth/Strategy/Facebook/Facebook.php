@@ -33,7 +33,7 @@ class Facebook extends OpauthStrategy{
 		if (!empty($this->strategy['response_type'])) $params['response_type'] = $this->strategy['response_type'];
 		if (!empty($this->strategy['display'])) $params['display'] = $this->strategy['display'];
 		
-		$this->Opauth->redirect($url.'?'.http_build_query($params));
+		$this->redirect($url.'?'.http_build_query($params));
 	}
 	
 /**

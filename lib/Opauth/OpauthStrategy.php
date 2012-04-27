@@ -18,6 +18,11 @@ class OpauthStrategy{
  */
 	public $defaults;
 	
+/**
+ * Auth array, containing results after successful authentication
+ */
+	public $auth;
+	
 	public $name;
 	protected $Opauth;
 

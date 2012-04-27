@@ -45,7 +45,7 @@ class Opauth{
 	 */
 		$this->env = array_merge(array(
 			'uri' => $_SERVER['REQUEST_URI'],
-			'complete_path' => str_replace("//", "/", $this->config['host'].$this->config['path']),			
+			'complete_path' => $this->config['host'].$this->config['path'],
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'
 		), $this->config);

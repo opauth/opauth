@@ -12,7 +12,7 @@ class Facebook extends OpauthStrategy{
  * eg. array('scope' => 'email');
  */
 	public $defaults = array(
-		'redirect_uri' => '{complete_path}int_callback'
+		'redirect_uri' => '{complete_path}facebook/int_callback'
 	);
 	
 	public function __construct(&$Opauth, $strategy){
@@ -34,5 +34,12 @@ class Facebook extends OpauthStrategy{
 		if (!empty($this->strategy['display'])) $params['display'] = $this->strategy['display'];
 		
 		$this->Opauth->redirect($url.'?'.http_build_query($params));
+	}
+	
+/**
+ * Internal callback, after Facebook's OAuth
+ */
+	public function int_callback(){
+		print_r($_GET);
 	}
 }

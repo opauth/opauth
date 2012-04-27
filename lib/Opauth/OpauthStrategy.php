@@ -57,7 +57,21 @@ class OpauthStrategy{
 	public function request(){
 	}
 	
+/**
+ * Packs $auth nicely and send to callback_url
+ */
 	public function callback(){
+		$timestamp = date('c');
+		
+		$params = array(
+			'auth' => $this->auth, 
+			'timestamp' => $timestamp,
+			'signature' => $this->sign($timestamp)
+		);
+		
+		print_r($params);
+		
+		exit();
 	}
 	
 /**
@@ -144,5 +158,20 @@ class OpauthStrategy{
 		}
 		
 		return file_get_contents($url, false, $context);
+	}
+	
+/**
+ * Security: Sign $auth before redirecting to callback_uri
+ * 
+ * @param $timestamp ISO 8601 formatted date
+ * @return string Resulting signature
+ */
+	protected function sign($timestamp = null){
+		if (is_null($timestamp)) $timestamp = date('c');
+		
+		$hash = $this->auth['provider'].$this->auth['uid'].$timestamp;
+		for ($i = 0; $i < 300; ++$i) $hash = sha1($hash);
+		
+		return $hash;
 	}
 }

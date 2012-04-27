@@ -119,9 +119,25 @@ class OpauthStrategy{
 /**
  * Redirect to $url with HTTP header
  */
-	public function redirect($url, $exit = true){
+	protected function redirect($url, $exit = true){
 		header("Location: $url");
 		if ($exit) exit();
 	}
 	
+/**
+ * Simple HTTP request with file_get_contents
+ * - Reluctant to use cURL at the moment for not wanting to add an additional dependency unless necessary
+ * 
+ * @param $url Full URL to load
+ * @param $options array with context of file_get_contents
+ * @return string Content of destination, without headers
+ */
+	protected function httpRequest($url, $options = null){
+		$context = null;
+		if (!empty($options) && is_array($options)){
+			$context = stream_context_create($options);
+		}
+		
+		return file_get_contents($url, false, $context);
+	}
 }

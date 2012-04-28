@@ -62,13 +62,15 @@ class Opauth{
 			trigger_error('Please change the value of \'Security.salt\' to a salt value specific to your application', E_USER_NOTICE);
 		}
 		
-		
 		$this->_loadStrategies();
 		$this->_parseUri();
 		
 		/* Run */
 		if (!empty($this->env['strategy'])){
-			if (array_key_exists($this->env['strategy'], $this->strategies)){
+			if (strtolower($this->env['strategy']) == 'callback'){
+				$this->callback();
+			}
+			elseif (array_key_exists($this->env['strategy'], $this->strategies)){
 				$strategy = $this->strategies[$this->env['strategy']];
 				require $this->env['lib_dir'].'OpauthStrategy.php';
 				require $this->env['strategy_dir'].$strategy['name'].'/'.$strategy['name'].'.php';
@@ -116,6 +118,15 @@ class Opauth{
 		else{
 			trigger_error('No Opauth strategies defined', E_USER_ERROR);
 		}
+	}
+	
+/**
+ * Callback: prints out $auth values, and acts as a guide on Opauth security
+ * Application should redirect callback URL to application-side.
+ */
+	public function callback(){
+		echo "<strong>Note: </strong>Application should set callback URL to application-side for further steps.\n<br>";
+		print_r($_GET);
 	}
 	
 /**

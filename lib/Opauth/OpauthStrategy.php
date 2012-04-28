@@ -170,7 +170,7 @@ class OpauthStrategy{
 		if (is_null($timestamp)) $timestamp = date('c');
 		
 		$hash = $this->auth['provider'].$this->auth['uid'].$timestamp;
-		for ($i = 0; $i < 300; ++$i) $hash = sha1($hash);
+		for ($i = 0; $i < $this->Opauth->env['Security.iteration']; ++$i) $hash = sha1($hash.$this->Opauth->env['Security.salt']);
 		
 		return $hash;
 	}

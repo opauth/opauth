@@ -42,8 +42,8 @@ class Opauth{
 			/**
 			 * Security settings
 			 */
-			'security.iteration' => 300,
-			'security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'
+			'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
+			'Security.iteration' => 300
 			
 		), $config);
 		

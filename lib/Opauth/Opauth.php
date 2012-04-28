@@ -39,9 +39,9 @@ class Opauth{
 			'callback_uri' => '/callback',
 			'debug' => false,
 			
-			/**
-			 * Security settings
-			 */
+		/**
+		 * Security settings
+		 */
 			'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 			'Security.iteration' => 300
 			
@@ -57,6 +57,11 @@ class Opauth{
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'
 		), $this->config);
+	
+		if ($this->env['Security.salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
+			trigger_error('Please change the value of \'Security.salt\' to a salt value specific to your application', E_USER_NOTICE);
+		}
+		
 		
 		$this->_loadStrategies();
 		$this->_parseUri();

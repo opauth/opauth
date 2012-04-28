@@ -36,7 +36,15 @@ class Opauth{
 		$this->config = array_merge(array(
 			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
-			'debug' => false
+			'callback_uri' => '/callback',
+			'debug' => false,
+			
+			/**
+			 * Security settings
+			 */
+			'security.iteration' => 300,
+			'security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'
+			
 		), $config);
 		
 	/**

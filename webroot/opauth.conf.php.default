@@ -17,6 +17,15 @@ $config = array(
  */
 	'path' => '/',
 
+/**
+ * Uncomment if you would like to view debug messages
+ */
+	'debug' => true,
+
+/**
+ * A random string used for signing of $auth response.
+ */
+	'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 	
 /**
  * Uncomment if you would like to view debug messages

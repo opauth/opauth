@@ -152,9 +152,34 @@ class OpauthStrategy{
 	protected function sign($timestamp = null){
 		if (is_null($timestamp)) $timestamp = date('c');
 		
-		$hash = sha1(print_r($this->auth, true).$timestamp);
+		$input = sha1(print_r($this->auth, true).$timestamp);
+		$hash = $this->hash($input, $this->Opauth->env['Security.iteration'], $this->Opauth->env['Security.salt']);
+		
+		return $hash;
+	}
+	
+/**
+ * Static hashing funciton
+ * 
+ * @param string $input Input string
+ * @param int $iteration Number of hash interations
+ * @param string $salt
+ * @return string Resulting hash
+ */
+	public static function hash($input, $iteration, $salt){
+		$iteration = intval($iteration);
+		if ($iteration <= 0) return false;
+		
+		for ($i = 0; $i < $iteration; ++$i) $input = sha1($input.$salt);
+		return $input;	
+	}
+	
+	public static function validate($provider, $uid, $timestamp, $signature){
+		$hash = $provider.$uid.$timestamp;
+		
 		for ($i = 0; $i < $this->Opauth->env['Security.iteration']; ++$i) $hash = sha1($hash.$this->Opauth->env['Security.salt']);
 		
 		return $hash;
+		
 	}
 }

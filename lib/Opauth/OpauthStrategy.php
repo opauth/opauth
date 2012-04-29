@@ -152,7 +152,7 @@ class OpauthStrategy{
 	protected function sign($timestamp = null){
 		if (is_null($timestamp)) $timestamp = date('c');
 		
-		$hash = $this->auth['provider'].$this->auth['uid'].$timestamp;
+		$hash = sha1(print_r($this->auth, true).$timestamp);
 		for ($i = 0; $i < $this->Opauth->env['Security.iteration']; ++$i) $hash = sha1($hash.$this->Opauth->env['Security.salt']);
 		
 		return $hash;

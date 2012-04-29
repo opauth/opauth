@@ -127,7 +127,7 @@ class Opauth{
 /**
  * Replace defined env values enclused in {} with actual values
  */
-	protected function envReplace($value){
+	public function envReplace($value){
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
 			foreach ($matches[1] as $key){
 				if (array_key_exists($key, $this->env)){

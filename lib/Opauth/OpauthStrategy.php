@@ -58,7 +58,9 @@ class OpauthStrategy{
 	}
 	
 /**
- * Packs $auth nicely and send to callback_url
+ * Packs $auth nicely and send to callback_uri
+ * TODO: adds POST support as GET params may encounter browser limit on URL length
+ * 
  */
 	public function callback(){
 		$timestamp = date('c');
@@ -69,11 +71,7 @@ class OpauthStrategy{
 			'signature' => $this->sign($timestamp)
 		);
 
-		$this->redirect($this->Opauth->env['callback_uri']);
-		
-		
-		
-		exit();
+		$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
 	}
 	
 /**

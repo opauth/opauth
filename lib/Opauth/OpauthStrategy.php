@@ -171,7 +171,7 @@ class OpauthStrategy{
 		$iteration = intval($iteration);
 		if ($iteration <= 0) return false;
 		
-		for ($i = 0; $i < $iteration; ++$i) $input = sha1($input.$salt.$timestamp);
+		for ($i = 0; $i < $iteration; ++$i) $input = base_convert(sha1($input.$salt.$timestamp), 16, 36);
 		return $input;	
 	}
 	

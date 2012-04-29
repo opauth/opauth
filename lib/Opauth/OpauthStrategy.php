@@ -175,12 +175,4 @@ class OpauthStrategy{
 		return $input;	
 	}
 	
-	public static function validate($provider, $uid, $timestamp, $signature){
-		$hash = $provider.$uid.$timestamp;
-		
-		for ($i = 0; $i < $this->Opauth->env['Security.iteration']; ++$i) $hash = sha1($hash.$this->Opauth->env['Security.salt']);
-		
-		return $hash;
-		
-	}
 }

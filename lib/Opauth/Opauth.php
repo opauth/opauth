@@ -43,7 +43,8 @@ class Opauth{
 		 * Security settings
 		 */
 			'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
-			'Security.iteration' => 300
+			'Security.iteration' => 300,
+			'Security.timeout' => '2 minutes'
 			
 		), $config);
 		
@@ -185,6 +186,12 @@ class Opauth{
 			$provider = $_REQUEST['input'];
 			$timestamp = $_REQUEST['timestamp'];
 			$signature = $_REQUEST['signature'];
+		}
+		
+		$timestamp = strtotime($timestamp);
+		if ($timestamp < strtotime('-'.$this->env['Security.timeout']) || $timestamp > time()){
+			$reason = "Auth response expired";
+			return false;
 		}
 		
 		require $this->env['lib_dir'].'OpauthStrategy.php';

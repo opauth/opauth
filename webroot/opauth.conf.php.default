@@ -20,7 +20,7 @@ $config = array(
 /**
  * Uncomment if you would like to view debug messages
  */
-	'debug' => true,
+	//'debug' => true,
 
 /**
  * A random string used for signing of $auth response.
@@ -28,10 +28,15 @@ $config = array(
 	'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 	
 /**
- * Uncomment if you would like to view debug messages
+ * Higher value, better security, slower hashing;
+ * Lower value, lower security, faster hashing.
  */
-	//'debug' => true,
-
+	//'Security.iteration' => 300,	
+	
+/**
+ * Time limit for valid $auth response, starting from $auth response generation to validation.
+ */
+	//'Security.timeout' => '2 minutes',
 	
 /**
  * Strategies, refer to individual strategy's documentation on configuration requirements.

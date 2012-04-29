@@ -36,7 +36,7 @@ class Opauth{
 		$this->config = array_merge(array(
 			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
-			'callback_uri' => '/callback',
+			'callback_uri' => '{path}callback',
 			'debug' => false,
 			
 		/**
@@ -57,6 +57,10 @@ class Opauth{
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'
 		), $this->config);
+		
+		foreach ($this->env as $key => $value){
+			$this->env[$key] = $this->envReplace($value);
+		}
 	
 		if ($this->env['Security.salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
 			trigger_error('Please change the value of \'Security.salt\' to a salt value specific to your application', E_USER_NOTICE);
@@ -119,6 +123,24 @@ class Opauth{
 			trigger_error('No Opauth strategies defined', E_USER_ERROR);
 		}
 	}
+	
+/**
+ * Replace defined env values enclused in {} with actual values
+ */
+	protected function envReplace($value){
+		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
+			foreach ($matches[1] as $key){
+				if (array_key_exists($key, $this->env)){
+					$value = str_replace('{'.$key.'}', $this->env[$key], $value);
+				}
+			}
+
+			return $value;
+		}
+
+		return $value;
+	}
+
 	
 /**
  * Callback: prints out $auth values, and acts as a guide on Opauth security

@@ -85,7 +85,8 @@ class OpauthStrategy{
  * @param string $defaultAction If an action is not defined in a strategy, calls $defaultAction
  */
 	public function callAction($action, $defaultAction = 'request'){
-		return $this->{$action}();
+		if (method_exists($this, $action)) return $this->{$action}();
+		else return $this->{$defaultAction}();
 	}
 	
 /**

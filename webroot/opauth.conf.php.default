@@ -11,8 +11,8 @@
 $config = array(
 /**
  * Path where Opauth is accessed.
- * - End with an ending /
- * - eg. if Opauth is reached via http://example.org/auth/, path is '/path/'
+ * - Begins and ends with /
+ * - eg. if Opauth is reached via http://example.org/auth/, path is '/auth/'
  * 
  */
 	'path' => '/',

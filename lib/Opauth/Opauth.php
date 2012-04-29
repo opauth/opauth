@@ -147,9 +147,57 @@ class Opauth{
  * Application should redirect callback URL to application-side.
  */
 	public function callback(){
-		echo "<strong>Note: </strong>Application should set callback URL to application-side for further steps.\n<br>";
-		print_r($_GET);
+		echo "<strong>Note: </strong>Application should set callback URL to application-side for further specific authentication process.\n<br>";
+		
+	/**
+	 * Validation
+	 */
+		if (empty($_REQUEST['auth']) || empty($_REQUEST['timestamp']) || empty($_REQUEST['signature']) || empty($_REQUEST['auth']['provider']) || empty($_REQUEST['auth']['uid'])){
+			echo "<strong>Invalid auth: </strong> Missing key elements.\n<br>";
+		}
+		elseif (!$this->validate(sha1(print_r($_REQUEST['auth'], true).$_REQUEST['timestamp']), $_REQUEST['timestamp'], $_REQUEST['signature'], $reason)){
+			echo "<strong>Invalid auth: </strong> $reason.\n<br>";
+		}
+		
+		
+	/**
+	 * Auth request dump
+	 */
+		echo "<pre>";
+		print_r($_REQUEST);
+		echo "</pre>";
 	}
+	
+/**
+ * Validate $auth response
+ * Accepts either function call or HTTP-based call
+ * 
+ * @param string $input = sha1(print_r($_REQUEST['auth'], true).$_REQUEST['timestamp'])
+ * @param string $timestamp = $_REQUEST['timestamp'])
+ * @param string $signature = $_REQUEST['signature']
+ * @param $reason Sets reason for failure if validation fails
+ * @return boolean
+ */
+	public function validate($input = null, $timestamp = null, $signature = null, &$reason = null){
+		$functionCall = true;
+		if (!empty($_REQUEST['input']) && !empty($_REQUEST['timestamp']) && !empty($_REQUEST['signature'])){
+			$functionCall = false;
+			$provider = $_REQUEST['input'];
+			$timestamp = $_REQUEST['timestamp'];
+			$signature = $_REQUEST['signature'];
+		}
+		
+		require $this->env['lib_dir'].'OpauthStrategy.php';
+		$hash = OpauthStrategy::hash($input, $this->env['Security.iteration'], $this->env['Security.salt']);
+		
+		if (strcasecmp($hash, $signature) !== 0){
+			$reason = "Signature does not validate";
+			return false;
+		}
+		
+		return true;
+	}
+	
 	
 /**
  * Prints out variable with <pre> tags

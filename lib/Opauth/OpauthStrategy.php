@@ -152,8 +152,8 @@ class OpauthStrategy{
 	protected function sign($timestamp = null){
 		if (is_null($timestamp)) $timestamp = date('c');
 		
-		$input = sha1(print_r($this->auth, true).$timestamp);
-		$hash = $this->hash($input, $this->Opauth->env['Security.iteration'], $this->Opauth->env['Security.salt']);
+		$input = sha1(print_r($this->auth, true));
+		$hash = $this->hash($input, $timestamp, $this->Opauth->env['Security.iteration'], $this->Opauth->env['Security.salt']);
 		
 		return $hash;
 	}
@@ -162,15 +162,16 @@ class OpauthStrategy{
  * Static hashing funciton
  * 
  * @param string $input Input string
+ * @param string $timestamp ISO 8601 formatted date * 
  * @param int $iteration Number of hash interations
  * @param string $salt
  * @return string Resulting hash
  */
-	public static function hash($input, $iteration, $salt){
+	public static function hash($input, $timestamp, $iteration, $salt){
 		$iteration = intval($iteration);
 		if ($iteration <= 0) return false;
 		
-		for ($i = 0; $i < $iteration; ++$i) $input = sha1($input.$salt);
+		for ($i = 0; $i < $iteration; ++$i) $input = sha1($input.$salt.$timestamp);
 		return $input;	
 	}
 	

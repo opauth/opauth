@@ -156,7 +156,7 @@ class Opauth{
 		if (empty($_REQUEST['auth']) || empty($_REQUEST['timestamp']) || empty($_REQUEST['signature']) || empty($_REQUEST['auth']['provider']) || empty($_REQUEST['auth']['uid'])){
 			echo "<strong>Invalid auth: </strong> Missing key elements.\n<br>";
 		}
-		elseif (!$this->validate(sha1(print_r($_REQUEST['auth'], true).$_REQUEST['timestamp']), $_REQUEST['timestamp'], $_REQUEST['signature'], $reason)){
+		elseif (!$this->validate(sha1(print_r($_REQUEST['auth'], true)), $_REQUEST['timestamp'], $_REQUEST['signature'], $reason)){
 			echo "<strong>Invalid auth: </strong> $reason.\n<br>";
 		}
 		
@@ -188,14 +188,14 @@ class Opauth{
 			$signature = $_REQUEST['signature'];
 		}
 		
-		$timestamp = strtotime($timestamp);
-		if ($timestamp < strtotime('-'.$this->env['Security.timeout']) || $timestamp > time()){
+		$timestamp_int = strtotime($timestamp);
+		if ($timestamp_int < strtotime('-'.$this->env['Security.timeout']) || $timestamp_int > time()){
 			$reason = "Auth response expired";
 			return false;
 		}
 		
 		require $this->env['lib_dir'].'OpauthStrategy.php';
-		$hash = OpauthStrategy::hash($input, $this->env['Security.iteration'], $this->env['Security.salt']);
+		$hash = OpauthStrategy::hash($input, $timestamp, $this->env['Security.iteration'], $this->env['Security.salt']);
 		
 		if (strcasecmp($hash, $signature) !== 0){
 			$reason = "Signature does not validate";

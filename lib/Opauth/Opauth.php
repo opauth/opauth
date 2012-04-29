@@ -178,6 +178,8 @@ class Opauth{
  * @param string $signature = $_REQUEST['signature']
  * @param $reason Sets reason for failure if validation fails
  * @return boolean
+ * 
+ * TODO: Accepts validate calls via POST/GET
  */
 	public function validate($input = null, $timestamp = null, $signature = null, &$reason = null){
 		$functionCall = true;

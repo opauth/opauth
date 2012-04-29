@@ -66,6 +66,9 @@ class OpauthStrategy{
 	public function callback(){
 		$timestamp = date('c');
 		
+		// Object doesn't translate very well when going through HTTP
+		$this->auth = $this->recursiveGetObjectVars($this->auth);
+		
 		$params = array(
 			'auth' => $this->auth, 
 			'timestamp' => $timestamp,
@@ -175,5 +178,17 @@ class OpauthStrategy{
 		for ($i = 0; $i < $iteration; ++$i) $input = base_convert(sha1($input.$salt.$timestamp), 16, 36);
 		return $input;	
 	}
-	
+
+/**
+* Recursively converts object into array
+*/
+	public static function recursiveGetObjectVars($obj){
+		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
+		foreach ($_arr as $key => $val){
+			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
+			$arr[$key] = $val;
+		}
+		
+		return $arr;
+	}
 }

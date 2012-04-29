@@ -67,7 +67,7 @@ class Facebook extends OpauthStrategy{
 						'token' => $results['access_token'],
 						'expires' => date('c', time() + $results['expires'])
 					),
-					'raw' => get_object_vars($me)
+					'raw' => $me
 				);
 				
 				if (!empty($me->email)) $this->auth['info']['email'] = $me->email;
@@ -85,6 +85,7 @@ class Facebook extends OpauthStrategy{
 				 * - phone: not accessible via Facebook Graph API
 				 */
 				
+				$this->callback();
 			}
 		}
 		else{

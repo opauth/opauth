@@ -94,6 +94,38 @@ class Facebook extends OpauthStrategy{
 		}
 	}
 	
+	public function int_callback_test(){
+		$this->auth = array(
+			'provider' => 'facebook',
+			'uid' => '860460678',
+			'info' => array(
+				'name' => 'Opauth Test',
+				'image' => 'https://graph.facebook.com/860460678/picture?type=square',
+				'first_name' => 'Opauth',
+	            'last_name' => 'Test',
+	            'urls' => array(
+					'facebook' => 'http://www.facebook.com/profile.php?id=860460678'
+				)
+			),
+			'credentials' => array(
+				'token' => 'test_token',
+				'expires' => '2012-06-26T09:36:05+08:00'
+			),
+			'raw' => array(
+				'id' => '860460678',
+				'name' => 'Opauth Test',
+				'first_name' => 'Opauth',
+	            'last_name' => 'Test',
+				'link' => 'http://www.facebook.com/profile.php?id=860460678',
+	            'timezone' => '8',
+				'locale' => 'en_US',
+				'updated_time' => '2012-04-27T01:33:59+0000'
+			)
+		);
+		
+		$this->callback();
+	}
+	
 /**
  * Queries Facebook Graph API for user info
  *

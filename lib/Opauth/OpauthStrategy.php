@@ -74,8 +74,19 @@ class OpauthStrategy{
 			'timestamp' => $timestamp,
 			'signature' => $this->sign($timestamp)
 		);
-
-		$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
+		
+		$method = $this->Opauth->env['callback_method'];
+		
+		switch($method){
+			case 'session':
+				session_start();
+				$_SESSION['auth'] = $params;
+				$this->redirect($this->Opauth->env['callback_uri']);
+				break;
+			case 'get':
+			default:
+				$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
+		}
 	}
 	
 /**

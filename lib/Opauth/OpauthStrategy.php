@@ -78,14 +78,14 @@ class OpauthStrategy{
 		$transport = $this->Opauth->env['callback_transport'];
 		
 		switch($transport){
+			case 'get':
+				$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
+				break;			
 			case 'session':
+			default:			
 				session_start();
 				$_SESSION['auth'] = $params;
 				$this->redirect($this->Opauth->env['callback_uri']);
-				break;
-			case 'get':
-			default:
-				$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
 		}
 	}
 	

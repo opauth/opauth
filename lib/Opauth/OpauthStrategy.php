@@ -59,9 +59,6 @@ class OpauthStrategy{
 	
 /**
  * Packs $auth nicely and send to callback_uri
- * TODO: adds POST support as GET params may encounter browser limit on URL length
- * TODO: adds pass by session support as well if domain of callback_uri is the same as Opauth's
- * 
  */
 	public function callback(){
 		$timestamp = date('c');

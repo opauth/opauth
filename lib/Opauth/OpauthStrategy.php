@@ -80,7 +80,10 @@ class OpauthStrategy{
 		switch($transport){
 			case 'get':
 				$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
-				break;			
+				break;
+			case 'post':
+				$this->clientPost($this->Opauth->env['callback_uri'], $params);
+				break;
 			case 'session':
 			default:			
 				session_start();
@@ -194,7 +197,7 @@ class OpauthStrategy{
 /**
 * Recursively converts object into array
 */
-	public static function recursiveGetObjectVars($obj){
+	protected static function recursiveGetObjectVars($obj){
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
 		foreach ($_arr as $key => $val){
 			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
@@ -222,5 +225,24 @@ class OpauthStrategy{
 		}
 		
 		return $results;
+	}
+
+/**
+ * Generates a simple HTML form with $params initialized and post results via JavaScript
+ */
+	protected static function clientPost($url, $params = array()){
+		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
+		
+		if (!empty($params) && is_array($params)){
+			$flat = self::flattenArray($params);
+			foreach ($flat as $key => $value){
+				$html .= '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+			}
+		}
+		
+		$html .= '</form>';
+		$html .= '<script type="text/javascript">function postit(){ document.auth.submit(); }</script>';
+		$html .= '</body></html>';
+		echo $html;
 	}
 }

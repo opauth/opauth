@@ -203,4 +203,24 @@ class OpauthStrategy{
 		
 		return $arr;
 	}
+
+/**
+ * Recursively converts multidimensional array into POST-friendly single dimensional array
+ */
+	protected static function flattenArray($array, $prefix = null, $results = array()){
+		//if (is_null($prefix)) $prefix = 'array';
+
+		foreach ($array as $key => $val){
+			$name = (empty($prefix)) ? $key : $prefix."[$key]";
+			
+			if (is_array($val)){
+				$results = array_merge($results, self::flattenArray($val, $name));
+			}
+			else{
+				$results[$name] = $val;
+			}
+		}
+		
+		return $results;
+	}
 }

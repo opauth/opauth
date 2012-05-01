@@ -37,6 +37,7 @@ class Opauth{
 			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
 			'callback_uri' => '{path}callback',
+			'callback_transport' => 'session',
 			'debug' => false,
 			
 		/**

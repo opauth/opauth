@@ -75,9 +75,9 @@ class OpauthStrategy{
 			'signature' => $this->sign($timestamp)
 		);
 		
-		$method = $this->Opauth->env['callback_method'];
+		$transport = $this->Opauth->env['callback_transport'];
 		
-		switch($method){
+		switch($transport){
 			case 'session':
 				session_start();
 				$_SESSION['auth'] = $params;

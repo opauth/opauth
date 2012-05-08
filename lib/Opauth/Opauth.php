@@ -177,7 +177,7 @@ class Opauth{
  * Validate $auth response
  * Accepts either function call or HTTP-based call
  * 
- * @param string $input = sha1(print_r($_REQUEST['auth'], true).$_REQUEST['timestamp'])
+ * @param string $input = sha1(print_r($auth, true))
  * @param string $timestamp = $_REQUEST['timestamp'])
  * @param string $signature = $_REQUEST['signature']
  * @param $reason Sets reason for failure if validation fails

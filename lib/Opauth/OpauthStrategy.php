@@ -85,7 +85,7 @@ class OpauthStrategy{
 			case 'session':
 			default:			
 				session_start();
-				$_SESSION['auth'] = $params;
+				$_SESSION['opauth'] = $params;
 				$this->redirect($this->Opauth->env['callback_uri']);
 		}
 	}

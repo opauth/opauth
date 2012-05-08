@@ -152,12 +152,32 @@ class Opauth{
 		echo "<strong>Note: </strong>Application should set callback URL to application-side for further specific authentication process.\n<br>";
 		
 	/**
+	* Fetch auth
+	*/
+		$response = null;
+		switch($this->env['callback_transport']){
+			case 'session':
+				session_start();
+				$response = $_SESSION['opauth'];
+				break;
+			case 'post':
+				$response = $_POST;
+				break;
+			case 'get':
+				$response = $_GET;
+				break;
+			default:
+				echo '<strong style="color: red;">Error: </strong>Unsupported callback_transport.'."<br>\n";
+				break;
+		}
+				
+	/**
 	 * Validation
 	 */
-		if (empty($_REQUEST['auth']) || empty($_REQUEST['timestamp']) || empty($_REQUEST['signature']) || empty($_REQUEST['auth']['provider']) || empty($_REQUEST['auth']['uid'])){
+		if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])){
 			echo '<strong style="color: red;">Invalid auth: </strong>Missing key auth components.'."<br>\n";
 		}
-		elseif (!$this->validate(sha1(print_r($_REQUEST['auth'], true)), $_REQUEST['timestamp'], $_REQUEST['signature'], $reason)){
+		elseif (!$this->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason)){
 			echo '<strong style="color: red;">Invalid auth: </strong>'.$reason.".<br>\n";
 		}
 		else{
@@ -169,7 +189,7 @@ class Opauth{
 	 * Auth request dump
 	 */
 		echo "<pre>";
-		print_r($_REQUEST);
+		print_r($response);
 		echo "</pre>";
 	}
 	

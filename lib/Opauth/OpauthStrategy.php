@@ -58,7 +58,8 @@ class OpauthStrategy{
 	}
 	
 /**
- * Packs $auth nicely and send to callback_uri
+ * Packs $auth nicely and send to callback_uri, ships $auth either via GET, POST or session.
+ * Set shipping transport via callback_transport config, default being session.
  */
 	public function callback(){
 		$timestamp = date('c');

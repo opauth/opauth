@@ -186,7 +186,7 @@ class Opauth{
 		
 		
 	/**
-	 * Auth request dump
+	 * Auth response dump
 	 */
 		echo "<pre>";
 		print_r($response);

@@ -1,0 +1,74 @@
+<?php
+/**
+ * Opauth complete config file template for advanced user
+ * =======================================================
+ * To use: rename to opauth.conf.php and tweak as you like
+ * For quick and easy set up, refer to opauth.conf.php.default
+ * 
+ * Notes:
+ * opauth.conf.php is only required if you are sending traffic directly to Opauth's webroot.
+ * If you are using Opauth plugin for framework, you are very likely not requiring any configs.
+ * 
+ */
+
+$config = array(
+/**
+ * Path where Opauth is accessed.
+ * - Begins and ends with /
+ * - eg. if Opauth is reached via http://example.org/auth/, path is '/auth/'
+ * 
+ */
+	'path' => '/',
+
+/**
+ * Uncomment if you would like to view debug messages
+ */
+	//'debug' => true,
+	
+/**
+ * Callback URI: redirected to after authentication, successful or otherwise
+ */
+	//'callback_uri' => '{path}callback',
+
+/**
+ * Callback transport, for sending of $auth response
+ * - 'session': Default. Works best unless callback_uri is on a different domain than Opauth
+ * - 'post': Works cross-domain, but relies on availability of client-side JavaScript.
+ * - 'get': Works cross-domain, but may be limited or corrupted by browser URL length limit (eg. IE8/IE9 has 2083-char limit)
+ */
+	//'callback_transport' => 'session',
+
+/**
+ * A random string used for signing of $auth response.
+ */
+	'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
+	
+/**
+ * Higher value, better security, slower hashing;
+ * Lower value, lower security, faster hashing.
+ */
+	//'Security.iteration' => 300,	
+	
+/**
+ * Time limit for valid $auth response, starting from $auth response generation to validation.
+ */
+	//'Security.timeout' => '2 minutes',
+	
+/**
+ * Strategies, refer to individual strategy's documentation on configuration requirements.
+ * 
+ * eg.
+ * 'strategies' => array(
+ * 
+ *   'facebook => array(
+ *      'app_id' => 'APP ID',
+ *      'app_secret' => 'APP_SECRET'
+ *    ),
+ * 
+ * )
+ *
+ */
+	'strategies' => array(
+		// Define individual strategies and their respective configs here.
+	),
+);

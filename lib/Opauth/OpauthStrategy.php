@@ -58,8 +58,8 @@ class OpauthStrategy{
 	}
 	
 /**
- * Packs $auth nicely and send to callback_uri, ships $auth either via GET, POST or session.
- * Set shipping transport via callback_transport config, default being session.
+ * Packs $auth nicely and send to Callback.uri, ships $auth either via GET, POST or session.
+ * Set shipping transport via Callback.transport config, default being session.
  */
 	public function callback(){
 		$timestamp = date('c');
@@ -73,20 +73,20 @@ class OpauthStrategy{
 			'signature' => $this->sign($timestamp)
 		);
 		
-		$transport = $this->Opauth->env['callback_transport'];
+		$transport = $this->Opauth->env['Callback.transport'];
 		
 		switch($transport){
 			case 'get':
-				$this->redirect($this->Opauth->env['callback_uri'].'?'.http_build_query($params));
+				$this->redirect($this->Opauth->env['Callback.uri'].'?'.http_build_query($params));
 				break;
 			case 'post':
-				$this->clientPost($this->Opauth->env['callback_uri'], $params);
+				$this->clientPost($this->Opauth->env['Callback.uri'], $params);
 				break;
 			case 'session':
 			default:			
 				session_start();
 				$_SESSION['opauth'] = $params;
-				$this->redirect($this->Opauth->env['callback_uri']);
+				$this->redirect($this->Opauth->env['Callback.uri']);
 		}
 	}
 	
@@ -161,7 +161,7 @@ class OpauthStrategy{
 	}
 	
 /**
- * Security: Sign $auth before redirecting to callback_uri
+ * Security: Sign $auth before redirecting to Callback.uri
  * 
  * @param $timestamp ISO 8601 formatted date
  * @return string Resulting signature

@@ -28,15 +28,15 @@ $config = array(
 /**
  * Callback URI: redirected to after authentication, successful or otherwise
  */
-	//'callback_uri' => '{path}callback',
+	//'Callback.uri' => '{path}callback',
 
 /**
  * Callback transport, for sending of $auth response
- * - 'session': Default. Works best unless callback_uri is on a different domain than Opauth
+ * - 'session': Default. Works best unless Callback.uri is on a different domain than Opauth
  * - 'post': Works cross-domain, but relies on availability of client-side JavaScript.
  * - 'get': Works cross-domain, but may be limited or corrupted by browser URL length limit (eg. IE8/IE9 has 2083-char limit)
  */
-	//'callback_transport' => 'session',
+	//'Callback.transport' => 'session',
 
 /**
  * A random string used for signing of $auth response.

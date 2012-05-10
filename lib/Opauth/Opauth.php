@@ -36,8 +36,8 @@ class Opauth{
 		$this->config = array_merge(array(
 			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
-			'callback_uri' => '{path}callback',
-			'callback_transport' => 'session',
+			'Callback.uri' => '{path}callback',
+			'Callback.transport' => 'session',
 			'debug' => false,
 			
 		/**
@@ -155,7 +155,7 @@ class Opauth{
 	* Fetch auth
 	*/
 		$response = null;
-		switch($this->env['callback_transport']){
+		switch($this->env['Callback.transport']){
 			case 'session':
 				session_start();
 				$response = $_SESSION['opauth'];
@@ -167,7 +167,7 @@ class Opauth{
 				$response = $_GET;
 				break;
 			default:
-				echo '<strong style="color: red;">Error: </strong>Unsupported callback_transport.'."<br>\n";
+				echo '<strong style="color: red;">Error: </strong>Unsupported Callback.transport.'."<br>\n";
 				break;
 		}
 				

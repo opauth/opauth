@@ -175,13 +175,13 @@ class Opauth{
 	 * Validation
 	 */
 		if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])){
-			echo '<strong style="color: red;">Invalid auth: </strong>Missing key auth components.'."<br>\n";
+			echo '<strong style="color: red;">Invalid auth response: </strong>Missing key auth response components.'."<br>\n";
 		}
 		elseif (!$this->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason)){
-			echo '<strong style="color: red;">Invalid auth: </strong>'.$reason.".<br>\n";
+			echo '<strong style="color: red;">Invalid auth response: </strong>'.$reason.".<br>\n";
 		}
 		else{
-			echo '<strong style="color: green;">OK: </strong>Auth is validated.'."<br>\n";
+			echo '<strong style="color: green;">OK: </strong>Auth response is validated.'."<br>\n";
 		}
 		
 		

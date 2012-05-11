@@ -108,13 +108,13 @@ class OpauthStrategy{
  */
 	protected function expects($key, $not = null){
 		if (!array_key_exists($key, $this->strategy)){
-			trigger_error($this->name." config value ($key) expected.", E_USER_ERROR);
+			trigger_error($this->name." config parameter for \"$key\" expected.", E_USER_ERROR);
 			exit();
 		}
 		
 		$value = $this->strategy[$key];
 		if (empty($value) || $value == $not){
-			trigger_error($this->name." config value ($key) expected.", E_USER_ERROR);
+			trigger_error($this->name." config parameter for \"$key\" expected.", E_USER_ERROR);
 			exit();
 		}
 		

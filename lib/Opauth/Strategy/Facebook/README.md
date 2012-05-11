@@ -11,12 +11,13 @@ Getting Started
 2. Place this at `path_to_opauth/lib/Opauth/Strategy/Facebook/`
 3. Add the following to Opauth config's `strategies` array:
 
-```php 
-	'facebook' => array(
-		'app_id' => 'YOUR OWN FACEBOOK APP ID',
-		'app_secret' => 'YOUR OWN FACEBOOK APP SECRET KEY'
-	)
-```
+	```php
+	<?php
+		'facebook' => array(
+			'app_id' => 'YOUR OWN FACEBOOK APP ID',
+			'app_secret' => 'YOUR OWN FACEBOOK APP SECRET KEY'
+		)
+	```
 
 4. Send users to `://path_to_opauth/facebook` for authentication.
 
@@ -27,8 +28,9 @@ Strategy parameters
 `app_id`, `app_secret`
 
 ### Optional
-`scope`, `state`, `response_type`, `display`  
-Refer to [Facebook's OAuth Dialog documentation][2] for details on these parameters
+`scope`, `state`, `response_type`, `display`
+
+Refer to Facebook's [OAuth Dialog documentation][2] for details on these parameters
 
 License
 ---------
@@ -54,4 +56,4 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 [1]: https://github.com/uzyn/opauth	"Opauth"
-[2]: https://developers.facebook.com/docs/reference/dialogs/oauth/	"Facebook OAuth Dialog documentation"
+[2]: https://developers.facebook.com/docs/reference/dialogs/oauth/	"OAuth Dialog documentation"

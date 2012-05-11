@@ -30,7 +30,7 @@ Strategy parameters
 ### Optional
 `scope`, `state`, `response_type`, `display`
 
-Refer to Facebook's [OAuth Dialog documentation][2] for details on these parameters
+Refer to Facebook's [OAuth Dialog documentation](https://developers.facebook.com/docs/reference/dialogs/oauth/) for details on these parameters
 
 License
 ---------
@@ -56,4 +56,3 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 
 [1]: https://github.com/uzyn/opauth	"Opauth"
-[2]: https://developers.facebook.com/docs/reference/dialogs/oauth/	"OAuth Dialog documentation"

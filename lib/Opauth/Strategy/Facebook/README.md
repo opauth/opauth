@@ -9,13 +9,15 @@ Getting Started
 ---------------
 1. Set up [Opauth][1]
 2. Place this at `path_to_opauth/lib/Opauth/Strategy/Facebook/`
-3. Add the following to Opauth config's `strategies` array:  
+3. Add the following to Opauth config's `strategies` array:
+
 ```php 
 	'facebook' => array(
 		'app_id' => 'YOUR OWN FACEBOOK APP ID',
 		'app_secret' => 'YOUR OWN FACEBOOK APP SECRET KEY'
 	)
 ```
+
 4. Send users to `://path_to_opauth/facebook` for authentication.
 
 Strategy parameters

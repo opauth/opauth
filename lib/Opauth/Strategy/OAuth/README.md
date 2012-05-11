@@ -1,8 +1,6 @@
 Opauth OAuth
 =============
-[Opauth][1] strategy for OAuth.
-
-Implemented using tmhOAuth's 1.0A library
+[Opauth][1] strategy implementing OAuth, using [tmhOAuth](https://github.com/themattharris/tmhOAuth).
 
 Getting Started, or not
 -----------------------
@@ -16,3 +14,5 @@ Opauth-OAuth is MIT Licensed
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 tmhOAuth is [Apache 2 licensed](https://github.com/themattharris/tmhOAuth/blob/master/LICENSE).
+
+[1]: https://github.com/uzyn/opauth	"Opauth"

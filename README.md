@@ -2,8 +2,8 @@ Opauth
 =======
 Opauth is a multi-provider authentication framework for PHP, inspired by [OmniAuth for Ruby](https://github.com/intridea/omniauth).
 
-__This project is still under heavy-development. DO NOT USE.__
-Initial release is scheduled for late May 2012.
+__This project is still under heavy-development. DO NOT USE.__  
+Initial stable release is scheduled for late May 2012.
 
 Getting Started
 ---------------
@@ -11,8 +11,7 @@ Getting Started
 
 License
 ---------
-The MIT License
-
+The MIT License  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a
@@ -32,10 +31,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
-
-Postscript
-----------
-> Still day beneath the sun  
-> Asking you who is the one  
-> And when the day is late  
-> We know who must forever wait

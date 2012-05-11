@@ -1,8 +1,8 @@
 Opauth
 =======
-Opauth is a multi-provider authentication framework for PHP, inspired by [OmniAuth for Ruby](https://github.com/intridea/omniauth).
+Opauth is a __multi-provider authentication framework__ for PHP, inspired by [OmniAuth for Ruby](https://github.com/intridea/omniauth).
 
-__This project is still under heavy-development. DO NOT USE.__  
+__This project is still under heavy development. DO NOT USE.__  
 Initial stable release is scheduled for late May 2012.
 
 Getting Started

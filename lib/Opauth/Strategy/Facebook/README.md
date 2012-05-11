@@ -24,7 +24,7 @@ Getting Started
 Strategy parameters
 -----------------------
 
-### Compulsory
+### Required
 `app_id`, `app_secret`
 
 ### Optional

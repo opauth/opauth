@@ -55,12 +55,13 @@ $config = array(
 	//'Security.timeout' => '2 minutes',
 	
 /**
- * Strategies, refer to individual strategy's documentation on configuration requirements.
+ * Strategy
+ * Refer to individual strategy's documentation on configuration requirements.
  * 
  * eg.
- * 'strategies' => array(
+ * 'Strategy' => array(
  * 
- *   'facebook => array(
+ *   'Facebook' => array(
  *      'app_id' => 'APP ID',
  *      'app_secret' => 'APP_SECRET'
  *    ),
@@ -68,7 +69,8 @@ $config = array(
  * )
  *
  */
-	'strategies' => array(
-		// Define individual strategies and their respective configs here.
+	'Strategy' => array(
+		// Define strategies and their respective configs here
+
 	),
 );

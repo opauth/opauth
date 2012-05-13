@@ -26,12 +26,13 @@ $config = array(
 	'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 		
 /**
- * Strategies, refer to individual strategy's documentation on configuration requirements.
+ * Strategy
+ * Refer to individual strategy's documentation on configuration requirements.
  * 
  * eg.
- * 'strategies' => array(
+ * 'Strategy' => array(
  * 
- *   'facebook => array(
+ *   'Facebook' => array(
  *      'app_id' => 'APP ID',
  *      'app_secret' => 'APP_SECRET'
  *    ),
@@ -39,7 +40,8 @@ $config = array(
  * )
  *
  */
-	'strategies' => array(
-		// Define individual strategies and their respective configs here.
+	'Strategy' => array(
+		// Define strategies and their respective configs here
+		
 	),
 );

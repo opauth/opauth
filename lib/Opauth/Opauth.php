@@ -18,15 +18,9 @@ class Opauth{
 	public $env;
 	
 /** 
- * Defined strategies
- * - array key	: URL-friendly name, preferably all lowercase
- * - name		: Class and file name. If unset, Opauth automatically capitalize first letter as name
- * 
- * eg. array( 'facebook', 'flickr' );
- * eg. array( 'foobar' => array( 'name' => 'FooBar') );
- * 
+ * Strategy map: for mapping URL-friendly name to Class name
  */
-	public $strategies;
+	public $strategyMap;
 	
 	public function __construct($config = array()){
 		
@@ -70,19 +64,21 @@ class Opauth{
 		
 		$this->_loadStrategies();
 		$this->_parseUri();
-		
+
 		/* Run */
-		if (!empty($this->env['strategy'])){
-			if (strtolower($this->env['strategy']) == 'callback'){
+		if (!empty($this->env['params']['strategy'])){
+			if (strtolower($this->env['params']['strategy']) == 'callback'){
 				$this->callback();
 			}
-			elseif (array_key_exists($this->env['strategy'], $this->strategies)){
-				$strategy = $this->strategies[$this->env['strategy']];
+			elseif (array_key_exists($this->env['params']['strategy'], $this->strategyMap)){
+				$name = $this->strategyMap[$this->env['params']['strategy']];
+				$strategy = $this->env['Strategy'][$name];
+
 				require $this->env['lib_dir'].'OpauthStrategy.php';
-				require $this->env['strategy_dir'].$strategy['name'].'/'.$strategy['name'].'.php';
+				require $this->env['strategy_dir'].$name.'/'.$name.'.php';
 				
-				$this->Strategy = new $strategy['name']($this, $strategy);
-				$this->Strategy->callAction($this->env['action']);
+				$this->Strategy = new $name($this, $strategy);
+				$this->Strategy->callAction($this->env['params']['action']);
 			}
 			else{
 				trigger_error('Unsupported or undefined Opauth strategy - '.$this->env['strategy'], E_USER_ERROR);
@@ -102,23 +98,26 @@ class Opauth{
 			}
 		}
 		
-		if (!empty($this->env['params'][0])) $this->env['strategy'] = $this->env['params'][0];
-		if (!empty($this->env['params'][1])) $this->env['action'] = $this->env['params'][1];
+		if (!empty($this->env['params'][0])) $this->env['params']['strategy'] = $this->env['params'][0];
+		if (!empty($this->env['params'][1])) $this->env['params']['action'] = $this->env['params'][1];
 	}
 	
 /**
  * Load strategies from user-input $config
  */	
 	protected function _loadStrategies(){
-		if (isset($this->env['strategies']) && is_array($this->env['strategies']) && count($this->env['strategies']) > 0){
-			foreach ($this->env['strategies'] as $key => $strategy){
+		if (isset($this->env['Strategy']) && is_array($this->env['Strategy']) && count($this->env['Strategy']) > 0){
+			foreach ($this->env['Strategy'] as $key => $strategy){
 				if (!is_array($strategy)){
 					$key = $strategy;
 					$strategy = array();
 				}
+
+				// Define a URL-friendly name
+				if (empty($strategy['_opauth_url_name'])) $strategy['_opauth_url_name'] = strtolower($key);
+				$this->strategyMap[$strategy['_opauth_url_name']] = $key;
 				
-				if (empty($strategy['name'])) $strategy['name'] = strtoupper(substr($key, 0, 1)).substr($key, 1);
-				$this->strategies[$key] = $strategy;
+				$this->env['Strategy'][$key] = $strategy;
 			}
 		}
 		else{

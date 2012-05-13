@@ -1,7 +1,7 @@
 <?php
 /**
- * Opauth complete config file template for advanced user
- * =======================================================
+ * Opauth configuration file template for advanced user
+ * ====================================================
  * To use: rename to opauth.conf.php and tweak as you like
  * For quick and easy set up, refer to opauth.conf.php.default
  * 

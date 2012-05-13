@@ -7,7 +7,7 @@
  * 
  * Notes:
  * opauth.conf.php is only required if you are sending traffic directly to Opauth's webroot.
- * If you are using Opauth plugin for framework, you are very likely not requiring any configs.
+ * If you are using Opauth plugin for framework, you are very likely not requiring opauth.conf.php
  * 
  */
 

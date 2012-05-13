@@ -15,10 +15,6 @@ class Facebook extends OpauthStrategy{
 		'redirect_uri' => '{complete_path}facebook/int_callback'
 	);
 	
-	public function __construct(&$Opauth, $strategy){
-		parent::__construct($Opauth, $strategy);
-	}
-	
 /**
  * Auth request
  */

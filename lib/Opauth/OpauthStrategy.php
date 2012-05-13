@@ -23,7 +23,14 @@ class OpauthStrategy{
  */
 	public $auth;
 	
-	public $name;
+/**
+ * Name of strategy
+ */
+	public $name = null;
+	
+/**
+ * Pointer to Opauth instance
+ */
 	protected $Opauth;
 
 /**
@@ -35,7 +42,9 @@ class OpauthStrategy{
 		$this->Opauth = $Opauth;
 		$this->strategy = $strategy;
 		
-		$this->name = $strategy['name'];
+		if ($this->name === null){
+			$this->name = (isset($name) ? $name : get_class($this));
+		}
 		
 		if (is_array($this->expects)){
 			foreach ($this->expects as $key){

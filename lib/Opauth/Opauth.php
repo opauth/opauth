@@ -158,6 +158,7 @@ class Opauth{
 			case 'session':
 				session_start();
 				$response = $_SESSION['opauth'];
+				unset($_SESSION['opauth']);
 				break;
 			case 'post':
 				$response = $_POST;

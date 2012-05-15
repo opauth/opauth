@@ -8,15 +8,15 @@ class OAuth extends OpauthStrategy{
 		'consumer_key', 		
 		'consumer_secret',
 									// Example: for Twitter
-		'host',					 	// 'api.twitter.com',
-		'request_token_path',		// 'oauth/request_token'
-		'access_token_path'			// 'oauth/authorize' or 'oauth/authenticate'
+		'request_token_url',		// 'https://api.twitter.com/oauth/request_token'
+		'access_token_url'			// 'https://api.twitter.com/oauth/authorize' or 'https://api.twitter.com/oauth/authenticate'
 	);
 	
 /**
  * Compulsory configuration options
  */
 	public $defaults = array(
+		'method' => 'POST', 		// The HTTP method being used. e.g. POST, GET, HEAD etc 
 		'oauth_callback' => '{complete_path}oauth/oauth_callback',
 		
 	/**
@@ -74,14 +74,12 @@ class OAuth extends OpauthStrategy{
 		$params = array(
 			'oauth_callback' => $this->strategy['oauth_callback']
 		);
-		print_r($this->tmhOAuth->url($this->strategy['request_token_path'], ''));
-		exit();
-		$results =  $this->_request('POST', $this->tmhOAuth->url($this->strategy['request_token_path'], ''), $params);
+
+		$results =  $this->_request('POST', $this->strategy['request_token_url'], $params);
 		
 		if ($results !== false && !empty($results['oauth_token']) && !empty($results['oauth_token_secret'])){
 			session_start();
-			$_SESSION['oauth_token'] = $results['oauth_token'];
-			$_SESSION['oauth_token'] = $results['oauth_token'];
+			$_SESSION['_opauth_oauth'] = $results;
 			
 			$this->_access_token($results['oauth_token']);
 		}
@@ -92,11 +90,16 @@ class OAuth extends OpauthStrategy{
  * Receives oauth_verifier, requests for access_token and redirect to callback
  */
 	public function oauth_callback(){
-		if (!empty($_REQUEST['oauth_verifier'])){
-			$params = array(
-				
-			);
-		}
+		session_start();
+		$this->auth = array(
+			'provider' => 'oauth',
+			'uid' => null,
+			'credentials' => array_merge($_SESSION['_opauth_oauth'], $_REQUEST)
+		);
+		
+		unset($_SESSION['_oauth_oauth']);
+		
+		$this->callback();
 	}
 	
 	private function _access_token($oauth_token){
@@ -104,7 +107,7 @@ class OAuth extends OpauthStrategy{
 			'oauth_token' => $oauth_token
 		);
 		
-		$this->redirect($this->tmhOAuth->url($this->strategy['access_token_path'], '').'?'.http_build_query($params));
+		$this->redirect($this->strategy['access_token_url'].'?'.http_build_query($params));
 	}
 	
 /**

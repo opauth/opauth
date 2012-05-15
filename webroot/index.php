@@ -14,8 +14,8 @@ define('OPAUTH_ROOT', dirname(OPAUTH_WEBROOT).'/');
 define('OPAUTH_LIB', OPAUTH_ROOT.'lib/Opauth/');
 
 /**
- * Load config
- */
+* Load config
+*/
 if (!file_exists(OPAUTH_WEBROOT.'opauth.conf.php')){
 	trigger_error('Config file missing at '.OPAUTH_WEBROOT.'opauth.conf.php', E_USER_ERROR);
 	exit();

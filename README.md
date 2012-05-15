@@ -15,6 +15,12 @@ Opauth works well with other PHP frameworks, such as [CakePHP](https://github.co
 
 Opauth as a framework provides API that allows authentication providers to develop strategies that work in a predictable manner.
 
+Available strategies
+--------------------
+- [Facebook](https://github.com/uzyn/opauth-facebook)
+- [Twitter](https://github.com/uzyn/opauth-twitter)
+- [OAuth](https://github.com/uzyn/opauth-oauth)
+
 
 License
 ---------

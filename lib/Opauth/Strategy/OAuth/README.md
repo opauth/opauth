@@ -13,13 +13,13 @@ Required parameters:
 
 ```php
 <?php
-	'OAuth' => array(
+'OAuth' => array(
 	'consumer_key' => 'YOUR CONSUMER KEY',
 	'consumer_secret' => 'YOUR CONSUMER SECRET',
 
 	'request_token_url' => 'https://api.twitter.com/oauth/request_token',
 	'access_token_url' => 'https://api.twitter.com/oauth/authenticate'
-	)
+)
 ```
 
 See OAuth.php for optional parameters.

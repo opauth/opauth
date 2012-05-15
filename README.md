@@ -17,8 +17,14 @@ Opauth as a framework provides API that allows authentication providers to devel
 
 Available strategies
 --------------------
+
+Provider-specific:
+
 - [Facebook](https://github.com/uzyn/opauth-facebook)
 - [Twitter](https://github.com/uzyn/opauth-twitter)
+
+Generic:
+
 - [OAuth](https://github.com/uzyn/opauth-oauth)
 
 

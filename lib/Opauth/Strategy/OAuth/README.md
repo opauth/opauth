@@ -1,21 +1,42 @@
 Opauth OAuth
 =============
-[Opauth][1] strategy implementing OAuth, using [tmhOAuth](https://github.com/themattharris/tmhOAuth).
+A generic [Opauth][1] strategy implementing OAuth 1.0A, using [tmhOAuth](https://github.com/themattharris/tmhOAuth).
 
-Getting Started, or not
------------------------
-Not quite a fully functional Opauth strategy yet.
+Getting started
+---------------
+This is a generic OAuth strategy intended as a helper for developers of Opauth strategies, especially those that are based on OAuth.
 
-It is currently mainly used to provide OAuth support for other Opauth strategies, eg. Twitter.
+Strategy configuration
+----------------------
+
+Required parameters:
+
+```php
+<?php
+	'OAuth' => array(
+	'consumer_key' => 'YOUR CONSUMER KEY',
+	'consumer_secret' => 'YOUR CONSUMER SECRET',
+
+	'request_token_url' => 'https://api.twitter.com/oauth/request_token',
+	'access_token_url' => 'https://api.twitter.com/oauth/authenticate'
+	)
+```
+
+See OAuth.php for optional parameters.
 
 Dependencies
 ------------
-tmhOAuth requires hash_hmac and cURL.
+tmhOAuth requires hash_hmac and cURL.  
 hash_hmac is available on PHP 5 >= 5.1.2.
+
+Reference
+---------
+ - [OAuth Core 1.0](http://oauth.net/core/1.0/)
+ - [Twitter AUthentication & Authorization](https://dev.twitter.com/docs/auth)
 
 License
 ---------
-Opauth-OAuth is MIT Licensed
+Opauth OAuth is MIT Licensed
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 tmhOAuth is [Apache 2 licensed](https://github.com/themattharris/tmhOAuth/blob/master/LICENSE).

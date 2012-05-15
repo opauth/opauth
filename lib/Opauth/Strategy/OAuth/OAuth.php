@@ -19,9 +19,8 @@ class OAuth extends OpauthStrategy{
 		'method' => 'POST', 		// The HTTP method being used. e.g. POST, GET, HEAD etc 
 		'oauth_callback' => '{complete_path}oauth/oauth_callback',
 		
-	/**
-	 *  From tmhOAuth
-	 */
+		// From tmhOAuth
+		// Refer to Vendor/tmhOAuth/tmhOAuth.php for details on these
 		'user_token'					=> '',
 		'user_secret'					=> '',
 		'use_ssl'						=> true,
@@ -31,26 +30,15 @@ class OAuth extends OpauthStrategy{
 		'force_timestamp'				=> false,
 		'timestamp'						=> false, // used for checking signatures. leave as false for auto
 		'oauth_version'					=> '1.0',
-
-		// you probably don't want to change any of these curl values
 		'curl_connecttimeout'			=> 30,
 		'curl_timeout'					=> 10,
-		// for security you may want to set this to TRUE. If you do you need
-		// to install the servers certificate in your local certificate store.
 		'curl_ssl_verifypeer'			=> false,
 		'curl_followlocation'			=> false, // whether to follow redirects or not
-		// support for proxy servers
 		'curl_proxy'					=> false, // really you don't want to use this if you are using streaming
 		'curl_proxyuserpwd'				=> false, // format username:password for proxy, if required
-
-		// streaming API
 		'is_streaming'					=> false,
 		'streaming_eol'					=> "\r\n",
 		'streaming_metrics_interval'	=> 60,
-
-		// header or querystring. You should always use header
-		// this is just to help me debug other developers
-		// implementations
 		'as_header'				  		=> true,
 	);
 	
@@ -63,7 +51,6 @@ class OAuth extends OpauthStrategy{
 		parent::__construct($Opauth, $strategy);
 		
 		require dirname(__FILE__).'/Vendor/tmhOAuth/tmhOAuth.php';
-
 		$this->tmhOAuth = new tmhOAuth($this->strategy);
 	}
 	

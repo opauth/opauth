@@ -12,7 +12,7 @@ Opauth provides a standardized way to interface with 3rd-party authentication pr
 Opauth is a PHP library. It can be used as a standalone authentication interface (sending HTTP traffic to it), or as a plugin (instantiation of Opauth). 
 Opauth works well with other PHP frameworks, such as [CakePHP](https://github.com/uzyn/cakephp-opauth), [Yii](https://github.com/kahwee/yii-opauth), etc.
 
-Opauth as a framework provides API that allows authentication providers to develop strategies that work in predictable manners. 
+Opauth as a framework provides API that allows authentication providers to develop strategies that work in a predictable manner.
 
 
 License

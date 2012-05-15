@@ -70,7 +70,6 @@ class OAuth extends OpauthStrategy{
 			
 			$this->_access_token($results['oauth_token']);
 		}
-		
 	}
 
 /**

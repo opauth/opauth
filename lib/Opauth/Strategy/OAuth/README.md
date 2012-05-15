@@ -10,13 +10,8 @@ It is currently mainly used to provide OAuth support for other Opauth strategies
 
 Dependencies
 ------------
-
-### For tmhOAuth:
->The library has been tested with PHP 5.3+ and relies on CURL and hash_hmac. The vast majority of hosting providers include >these libraries and run with PHP 5.1+.
->
->The code makes use of hash_hmac, which was introduced in PHP 5.1.2. If your version of PHP is lower than this you should ask >your hosting provider for an update.
-
-https://github.com/themattharris/tmhOAuth/blob/master/README.md
+tmhOAuth requires hash_hmac and cURL.
+hash_hmac is available on PHP 5 >= 5.1.2.
 
 License
 ---------

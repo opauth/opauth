@@ -9,18 +9,17 @@
 /**
  * Define paths
  */
-define('OPAUTH_WEBROOT', dirname(__FILE__).'/');
-define('OPAUTH_ROOT', dirname(OPAUTH_WEBROOT).'/');
-define('OPAUTH_LIB', OPAUTH_ROOT.'lib/Opauth/');
+define('OPAUTH_EXAMPLE', dirname(__FILE__).'/');
+define('OPAUTH_LIB', dirname(OPAUTH_EXAMPLE).'/lib/Opauth/');
 
 /**
 * Load config
 */
-if (!file_exists(OPAUTH_WEBROOT.'opauth.conf.php')){
-	trigger_error('Config file missing at '.OPAUTH_WEBROOT.'opauth.conf.php', E_USER_ERROR);
+if (!file_exists(OPAUTH_EXAMPLE.'opauth.conf.php')){
+	trigger_error('Config file missing at '.OPAUTH_EXAMPLE.'opauth.conf.php', E_USER_ERROR);
 	exit();
 }
-require OPAUTH_WEBROOT.'opauth.conf.php';
+require OPAUTH_EXAMPLE.'opauth.conf.php';
 
 /**
  * Instantiate Opauth with the loaded config

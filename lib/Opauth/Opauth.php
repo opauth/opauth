@@ -82,13 +82,14 @@ class Opauth{
 				$this->callback();
 			}
 			elseif (array_key_exists($this->env['params']['strategy'], $this->strategyMap)){
-				$name = $this->strategyMap[$this->env['params']['strategy']];
+				$name = $this->strategyMap[$this->env['params']['strategy']]['name'];
+				$class = $this->strategyMap[$this->env['params']['strategy']]['class'];
 				$strategy = $this->env['Strategy'][$name];
-
-				require $this->env['lib_dir'].'OpauthStrategy.php';
-				require $this->env['strategy_dir'].$name.'/'.$name.'.php';
 				
-				$this->Strategy = new $name($this, $strategy);
+				require $this->env['lib_dir'].'OpauthStrategy.php';
+				require $this->env['strategy_dir'].$class.'/'.$class.'.php';
+
+				$this->Strategy = new $class($this, $strategy);
 				$this->Strategy->callAction($this->env['params']['action']);
 			}
 			else{
@@ -123,10 +124,19 @@ class Opauth{
 					$key = $strategy;
 					$strategy = array();
 				}
-
+				
+				$strategyClass = $key;
+				if (array_key_exists('opauth_strategy', $strategy)) $strategyClass = $strategy['opauth_strategy'];
+				else $strategy['opauth_strategy'] = $strategyClass;
+				
+				$strategy['opauth_name'] = $key;
+				
 				// Define a URL-friendly name
 				if (empty($strategy['opauth_url_name'])) $strategy['opauth_url_name'] = strtolower($key);
-				$this->strategyMap[$strategy['opauth_url_name']] = $key;
+				$this->strategyMap[$strategy['opauth_url_name']] = array(
+					'name' => $key,
+					'class' => $strategyClass
+				);
 				
 				$this->env['Strategy'][$key] = $strategy;
 			}

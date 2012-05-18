@@ -85,19 +85,41 @@ class OpauthStrategy{
 			'signature' => $this->sign($timestamp)
 		);
 		
-		$transport = $this->Opauth->env['Callback.transport'];
+		$this->shipToCallback($params);
+	}
+	
+/**
+ * Error callback
+ */
+	protected function error(){
+		
+	}
+	
+/**
+ * Send $data to Callback.uri using specified transport method
+ * 
+ * @param array $data Data to be sent
+ * @param string $transport Callback method, either 'get', 'post' or 'session'
+ *        'session': Default. Works best unless Callback.uri is on a different domain than Opauth
+ *        'post': Works cross-domain, but relies on availability of client-side JavaScript.
+ *        'get': Works cross-domain, but may be limited or corrupted by browser URL length limit 
+ *               (eg. IE8/IE9 has 2083-char limit)
+ * 
+ */
+	private function shipToCallback($data, $transport = null){
+		if (empty($transponrt)) $transport = $this->Opauth->env['Callback.transport'];
 		
 		switch($transport){
 			case 'get':
-				$this->redirect($this->Opauth->env['Callback.uri'].'?'.http_build_query($params));
+				$this->redirect($this->Opauth->env['Callback.uri'].'?'.http_build_query($data));
 				break;
 			case 'post':
-				$this->clientPost($this->Opauth->env['Callback.uri'], $params);
+				$this->clientPost($this->Opauth->env['Callback.uri'], $data);
 				break;
 			case 'session':
 			default:			
 				session_start();
-				$_SESSION['opauth'] = $params;
+				$_SESSION['opauth'] = $data;
 				$this->redirect($this->Opauth->env['Callback.uri']);
 		}
 	}

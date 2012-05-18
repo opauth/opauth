@@ -153,54 +153,6 @@ class Opauth{
 
 		return $value;
 	}
-
-	
-	/**
-	 * Callback: prints out $auth values, and acts as a guide on Opauth security
-	 * Application should redirect callback URL to application-side.
-	 */
-	public function callback(){
-		echo "<strong>Note: </strong>Application should set callback URL to application-side for further specific authentication process.\n<br>";
-		
-		$response = null;
-		switch($this->env['Callback.transport']){
-			case 'session':
-				session_start();
-				$response = $_SESSION['opauth'];
-				unset($_SESSION['opauth']);
-				break;
-			case 'post':
-				$response = $_POST;
-				break;
-			case 'get':
-				$response = $_GET;
-				break;
-			default:
-				echo '<strong style="color: red;">Error: </strong>Unsupported Callback.transport.'."<br>\n";
-				break;
-		}
-				
-		/**
-		 * Validation
-		 */
-		if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])){
-			echo '<strong style="color: red;">Invalid auth response: </strong>Missing key auth response components.'."<br>\n";
-		}
-		elseif (!$this->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason)){
-			echo '<strong style="color: red;">Invalid auth response: </strong>'.$reason.".<br>\n";
-		}
-		else{
-			echo '<strong style="color: green;">OK: </strong>Auth response is validated.'."<br>\n";
-		}
-		
-		
-		/**
-		 * Auth response dump
-		 */
-		echo "<pre>";
-		print_r($response);
-		echo "</pre>";
-	}
 	
 	/**
 	 * Validate $auth response
@@ -236,6 +188,62 @@ class Opauth{
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Callback: prints out $auth values, and acts as a guide on Opauth security
+	 * Application should redirect callback URL to application-side.
+	 * Refer to example/callback.php on how to handle auth callback.
+	 */
+	public function callback(){
+		echo "<strong>Note: </strong>Application should set callback URL to application-side for further specific authentication process.\n<br>";
+		
+		$response = null;
+		switch($this->env['Callback.transport']){
+			case 'session':
+				session_start();
+				$response = $_SESSION['opauth'];
+				unset($_SESSION['opauth']);
+				break;
+			case 'post':
+				$response = $_POST;
+				break;
+			case 'get':
+				$response = $_GET;
+				break;
+			default:
+				echo '<strong style="color: red;">Error: </strong>Unsupported Callback.transport.'."<br>\n";
+				break;
+		}
+		
+		/**
+		 * Check if it's an error callback
+		 */
+		if (array_key_exists('error', $response)){
+			echo '<strong style="color: red;">Authentication error: </strong> Opauth returns error auth response.'."<br>\n";
+		}
+
+		/**
+		 * No it isn't. Proceed with auth validation
+		 */
+		else{
+			if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])){
+				echo '<strong style="color: red;">Invalid auth response: </strong>Missing key auth response components.'."<br>\n";
+			}
+			elseif (!$this->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason)){
+				echo '<strong style="color: red;">Invalid auth response: </strong>'.$reason.".<br>\n";
+			}
+			else{
+				echo '<strong style="color: green;">OK: </strong>Auth response is validated.'."<br>\n";
+			}
+		}		
+		
+		/**
+		 * Auth response dump
+		 */
+		echo "<pre>";
+		print_r($response);
+		echo "</pre>";
 	}
 	
 	

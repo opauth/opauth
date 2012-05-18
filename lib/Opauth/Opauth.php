@@ -147,13 +147,16 @@ class Opauth{
 	}
 	
 	/**
-	 * Replace defined env values enclused in {} with actual values
+	 * Replace defined env values enclused in {} with values from $dictionary
+	 * $dictionary is defaulted to $this->env
 	 */
-	public function envReplace($value){
+	public function envReplace($value, $dictionary = null){
+		if (is_null($dictionary)) $dictionary = $this->env;
+		
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
 			foreach ($matches[1] as $key){
-				if (array_key_exists($key, $this->env)){
-					$value = str_replace('{'.$key.'}', $this->env[$key], $value);
+				if (array_key_exists($key, $dictionary)){
+					$value = str_replace('{'.$key.'}', $dictionary[$key], $value);
 				}
 			}
 

@@ -1,8 +1,9 @@
 <?php
 /**
- * Opauth webroot catchall
- * - Only required if you are sending traffic directly to Opauth's webroot
- * - If you instantiate Opauth directly from your app or PHP framework, this will not be run.
+ * Opauth example
+ * 
+ * This is an example on how to instantiate Opauth
+ * For this example, Opauth config is loaded from a separate file: opauth.conf.php
  * 
  */
 

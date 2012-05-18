@@ -125,8 +125,8 @@ class Opauth{
 				}
 
 				// Define a URL-friendly name
-				if (empty($strategy['_opauth_url_name'])) $strategy['_opauth_url_name'] = strtolower($key);
-				$this->strategyMap[$strategy['_opauth_url_name']] = $key;
+				if (empty($strategy['opauth_url_name'])) $strategy['opauth_url_name'] = strtolower($key);
+				$this->strategyMap[$strategy['opauth_url_name']] = $key;
 				
 				$this->env['Strategy'][$key] = $strategy;
 			}

@@ -48,7 +48,7 @@ class OpauthStrategy{
 		$this->strategy = $strategy;
 		
 		// Include some useful values from Opauth's env
-		$this->strategy['_opauth_callback_url'] = $this->Opauth->env['host'].$this->Opauth->env['callback_url'];
+		$this->strategy['opauth_callback_url'] = $this->Opauth->env['host'].$this->Opauth->env['callback_url'];
 		
 		if ($this->name === null){
 			$this->name = (isset($name) ? $name : get_class($this));

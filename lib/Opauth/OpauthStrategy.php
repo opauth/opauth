@@ -19,9 +19,14 @@ class OpauthStrategy{
 	public $defaults;
 	
 /**
- * Auth array, containing results after successful authentication
+ * Auth response array, containing results after successful authentication
  */
 	public $auth;
+/**
+ * Error array, containing error messages from failed authentication
+ * 
+ */
+	public $error;
 	
 /**
  * Name of strategy
@@ -91,8 +96,15 @@ class OpauthStrategy{
 /**
  * Error callback
  */
-	protected function error(){
+	protected function errorCallback(){
+		$timestamp = date('c');
 		
+		$params = array(
+			'error' => $this->recursiveGetObjectVars($this->error),
+			'timestamp' => $timestamp
+		);
+		
+		$this->shipToCallback($params);
 	}
 	
 /**

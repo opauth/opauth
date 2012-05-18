@@ -72,7 +72,6 @@ class Opauth{
  * Parses request URI and perform defined authentication actions based based on it.
  */
 	public function run(){
-		/* Run */
 		$this->_parseUri();
 		
 		if (!empty($this->env['params']['strategy'])){

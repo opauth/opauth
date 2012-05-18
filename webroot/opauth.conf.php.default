@@ -21,6 +21,11 @@ $config = array(
 	'path' => '/',
 
 /**
+ * Callback URI: redirected to after authentication, successful or otherwise
+ */
+	'Callback.uri' => '{path}callback.php',
+	
+/**
  * A random string used for signing of $auth response.
  */
 	'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',

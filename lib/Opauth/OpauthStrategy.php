@@ -22,11 +22,6 @@ class OpauthStrategy{
  * Auth response array, containing results after successful authentication
  */
 	public $auth;
-/**
- * Error array, containing error messages from failed authentication
- * 
- */
-	public $error;
 	
 /**
  * Name of strategy
@@ -95,12 +90,21 @@ class OpauthStrategy{
 	
 /**
  * Error callback
+ * 
+ * @param array $error Data on error to be sent back along with the callback
+ *   $error = array(
+ *     'provider'	// Provider name
+ *     'code'		// Error code, can be int (HTTP status) or string (eg. access_denied)
+ *     'message'	// User-friendly error message
+ *     'raw'		// Actual detail on the error, as returned by the provider
+ *   )
+ * 
  */
-	protected function errorCallback(){
+	protected function errorCallback($error){
 		$timestamp = date('c');
 		
 		$params = array(
-			'error' => $this->recursiveGetObjectVars($this->error),
+			'error' => $this->recursiveGetObjectVars($error),
 			'timestamp' => $timestamp
 		);
 		

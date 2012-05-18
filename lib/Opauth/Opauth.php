@@ -22,8 +22,8 @@ class Opauth{
  */
 	public $strategyMap;
 	
-	public function __construct($config = array()){
-		
+	public function __construct($config = array(), $run = true){
+
 	/**
 	 * Configurable settings
 	 */
@@ -63,9 +63,18 @@ class Opauth{
 		}
 		
 		$this->_loadStrategies();
-		$this->_parseUri();
-
+		
+		if ($run) $this->_run();
+	}
+	
+/**
+ * Run Opauth:
+ * Parses request URI and perform defined authentication actions based based on it.
+ */
+	private function _run(){
 		/* Run */
+		$this->_parseUri();
+		
 		if (!empty($this->env['params']['strategy'])){
 			if (strtolower($this->env['params']['strategy']) == 'callback'){
 				$this->callback();

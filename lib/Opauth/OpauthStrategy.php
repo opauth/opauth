@@ -96,6 +96,8 @@ class OpauthStrategy{
 	/**
 	 * Error callback
 	 * 
+	 * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
+	 * 
 	 * @param array $error Data on error to be sent back along with the callback
 	 *   $error = array(
 	 *     'provider'	// Provider name

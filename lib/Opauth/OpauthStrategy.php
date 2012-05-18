@@ -189,36 +189,6 @@ class OpauthStrategy{
 		
 		else return $this->strategy[$key];
 	}
-		
-	/**
-	 * Redirect to $url with HTTP header
-	 */
-	protected function redirect($url, $exit = true){
-		header("Location: $url");
-		if ($exit) exit();
-	}
-	
-	/**
-	 * Simple HTTP request with file_get_contents
-	 * Provides basic HTTP calls.
-	 * 
-	 * @param $url Full URL to load
-	 * @param $options array Stream context options (http://php.net/stream-context-create)
-	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
-	 * 
-	 * @return string Content of destination, without headers
-	 */
-	protected function httpRequest($url, $options = null, &$responseHeaders = null){
-		$context = null;
-		if (!empty($options) && is_array($options)){
-			$context = stream_context_create($options);
-		}
-		
-		$content = @file_get_contents($url, false, $context);
-		$responseHeaders = implode("\r\n", $http_response_header);
-		
-		return $content;
-	}
 	
 	/**
 	 * Security: Sign $auth before redirecting to Callback.uri
@@ -234,6 +204,14 @@ class OpauthStrategy{
 		
 		return $hash;
 	}
+	
+		
+	/**
+	 * *****************************************************
+	 * Utilities
+	 * A collection of static functions for strategy's use
+	 * *****************************************************
+	 */
 	
 	/**
 	 * Static hashing funciton
@@ -251,9 +229,65 @@ class OpauthStrategy{
 		for ($i = 0; $i < $iteration; ++$i) $input = base_convert(sha1($input.$salt.$timestamp), 16, 36);
 		return $input;	
 	}
+	
+	/**
+	 * Redirect to $url with HTTP header
+	 */
+	protected static function redirect($url, $exit = true){
+		header("Location: $url");
+		if ($exit) exit();
+	}
 
 	/**
+	 * Generates a simple HTML form with $params initialized and post results via JavaScript
+	 * 
+	 * @param $url string URL to be POSTed
+	 * @param $params array Data to be POSTed
+	 */
+	protected static function clientPost($url, $params = array()){
+		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
+		
+		if (!empty($params) && is_array($params)){
+			$flat = self::flattenArray($params);
+			foreach ($flat as $key => $value){
+				$html .= '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+			}
+		}
+		
+		$html .= '</form>';
+		$html .= '<script type="text/javascript">function postit(){ document.auth.submit(); }</script>';
+		$html .= '</body></html>';
+		echo $html;
+	}
+	
+	/**
+	 * Simple HTTP request with file_get_contents
+	 * Provides basic HTTP calls.
+	 * 
+	 * @param $url string Full URL to load
+	 * @param $options array Stream context options (http://php.net/stream-context-create)
+	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * 
+	 * @return string Content of destination, without headers
+	 */
+	protected static function httpRequest($url, $options = null, &$responseHeaders = null){
+		$context = null;
+		if (!empty($options) && is_array($options)){
+			$context = stream_context_create($options);
+		}
+		
+		$content = @file_get_contents($url, false, $context);
+		$responseHeaders = implode("\r\n", $http_response_header);
+		
+		return $content;
+	}
+	
+	/**
 	* Recursively converts object into array
+	* Basically get_object_vars, but recursive.
+	* 
+	* @param $obj Object
+	* @return Array of object properties
 	*/
 	protected static function recursiveGetObjectVars($obj){
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
@@ -267,6 +301,12 @@ class OpauthStrategy{
 
 	/**
 	 * Recursively converts multidimensional array into POST-friendly single dimensional array
+	 * 
+	 * @param $array array Array to be flatten
+	 * @param $prefix string String to be prefixed to flatenned variable name
+	 * @param $results array Existing array of flattened inputs to be merged upon
+	 * 
+	 * @return array A single dimensional array with POST-friendly name
 	 */
 	protected static function flattenArray($array, $prefix = null, $results = array()){
 		//if (is_null($prefix)) $prefix = 'array';
@@ -283,24 +323,5 @@ class OpauthStrategy{
 		}
 		
 		return $results;
-	}
-
-	/**
-	 * Generates a simple HTML form with $params initialized and post results via JavaScript
-	 */
-	protected static function clientPost($url, $params = array()){
-		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
-		
-		if (!empty($params) && is_array($params)){
-			$flat = self::flattenArray($params);
-			foreach ($flat as $key => $value){
-				$html .= '<input type="hidden" name="'.$key.'" value="'.$value.'">';
-			}
-		}
-		
-		$html .= '</form>';
-		$html .= '<script type="text/javascript">function postit(){ document.auth.submit(); }</script>';
-		$html .= '</body></html>';
-		echo $html;
 	}
 }

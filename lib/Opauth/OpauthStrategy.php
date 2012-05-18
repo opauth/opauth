@@ -59,11 +59,28 @@ class OpauthStrategy{
 				$this->expects($key);
 			}
 		}
-		
+
 		if (is_array($this->defaults)){
 			foreach ($this->defaults as $key => $value){
-				$this->optional($key, $this->Opauth->envReplace($value));
+				$this->optional($key, $value);
 			}
+		}
+		
+		
+		/**
+		 * Handle {} replacements
+		 */
+		$dictionary = array_merge($this->Opauth->env, $strategy);
+		
+		// Aliases
+		$dictionary['strategy_name'] = $strategy['opauth_name'];
+		$dictionary['strategy_class'] = $strategy['opauth_strategy'];
+		$dictionary['strategy_url_name'] = $strategy['opauth_url_name'];
+		$dictionary['path_to_strategy'] = $this->Opauth->env['path'].$strategy['opauth_url_name'].'/';
+		$dictionary['complete_url_to_strategy'] = $this->Opauth->env['host'].$dictionary['path_to_strategy'];
+		
+		foreach ($this->strategy as $key=>$value){
+			$this->strategy[$key] = $this->Opauth->envReplace($value, $dictionary);
 		}
 	}
 	
@@ -83,6 +100,8 @@ class OpauthStrategy{
 		
 		// Object doesn't translate very well when going through HTTP
 		$this->auth = $this->recursiveGetObjectVars($this->auth);
+		
+		$this->auth['provider'] = $this->strategy['opauth_name'];
 		
 		$params = array(
 			'auth' => $this->auth, 

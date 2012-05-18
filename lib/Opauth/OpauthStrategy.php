@@ -129,8 +129,11 @@ class OpauthStrategy{
 	protected function errorCallback($error){
 		$timestamp = date('c');
 		
+		$error = $this->recursiveGetObjectVars($error);
+		$error['provider'] = $this->strategy['opauth_name'];
+		
 		$params = array(
-			'error' => $this->recursiveGetObjectVars($error),
+			'error' => $error,
 			'timestamp' => $timestamp
 		);
 		

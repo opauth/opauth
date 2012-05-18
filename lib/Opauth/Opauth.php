@@ -51,7 +51,7 @@ class Opauth{
 		 * Used mainly as accessors
 		 */
 		$this->env = array_merge(array(
-			'uri' => $_SERVER['REQUEST_URI'],
+			'request_uri' => $_SERVER['REQUEST_URI'],
 			'complete_path' => $this->config['host'].$this->config['path'],
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'
@@ -101,7 +101,7 @@ class Opauth{
 	 * Parses Request URI
 	 */
 	private function parseUri(){
-		$this->env['request'] = substr($this->env['uri'], strlen($this->env['path']) - 1);
+		$this->env['request'] = substr($this->env['request_uri'], strlen($this->env['path']) - 1);
 		
 		if (preg_match_all('/\/([A-Za-z0-9-_]+)/', $this->env['request'], $matches)){
 			foreach ($matches[1] as $match){

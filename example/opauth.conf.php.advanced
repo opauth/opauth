@@ -21,7 +21,7 @@ $config = array(
 	//'debug' => true,
 	
 /**
- * Callback URI: redirected to after authentication, successful or otherwise
+ * Callback URL: redirected to after authentication, successful or otherwise
  */
 	'callback_url' => '{path}callback.php',
 

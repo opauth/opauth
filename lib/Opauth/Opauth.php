@@ -64,14 +64,14 @@ class Opauth{
 		
 		$this->_loadStrategies();
 		
-		if ($run) $this->_run();
+		if ($run) $this->run();
 	}
 	
 /**
  * Run Opauth:
  * Parses request URI and perform defined authentication actions based based on it.
  */
-	private function _run(){
+	public function run(){
 		/* Run */
 		$this->_parseUri();
 		
@@ -211,8 +211,6 @@ class Opauth{
  * @param string $signature = $_REQUEST['signature']
  * @param $reason Sets reason for failure if validation fails
  * @return boolean
- * 
- * TODO: Accepts validate calls via POST/GET
  */
 	public function validate($input = null, $timestamp = null, $signature = null, &$reason = null){
 		$functionCall = true;

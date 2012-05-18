@@ -48,7 +48,7 @@ class OpauthStrategy{
 		$this->strategy = $strategy;
 		
 		// Include some useful values from Opauth's env
-		$this->strategy['_opauth_callback_url'] = $this->Opauth->env['host'].$this->Opauth->env['Callback.uri'];
+		$this->strategy['_opauth_callback_url'] = $this->Opauth->env['host'].$this->Opauth->env['callback_url'];
 		
 		if ($this->name === null){
 			$this->name = (isset($name) ? $name : get_class($this));
@@ -75,8 +75,8 @@ class OpauthStrategy{
 	}
 	
 	/**
-	 * Packs $auth nicely and send to Callback.uri, ships $auth either via GET, POST or session.
-	 * Set shipping transport via Callback.transport config, default being session.
+	 * Packs $auth nicely and send to callback_url, ships $auth either via GET, POST or session.
+	 * Set shipping transport via callback_transport config, default being session.
 	 */
 	public function callback(){
 		$timestamp = date('c');
@@ -119,31 +119,31 @@ class OpauthStrategy{
 	}
 	
 	/**
-	 * Send $data to Callback.uri using specified transport method
+	 * Send $data to callback_url using specified transport method
 	 * 
 	 * @param array $data Data to be sent
 	 * @param string $transport Callback method, either 'get', 'post' or 'session'
-	 *        'session': Default. Works best unless Callback.uri is on a different domain than Opauth
+	 *        'session': Default. Works best unless callback_url is on a different domain than Opauth
 	 *        'post': Works cross-domain, but relies on availability of client-side JavaScript.
 	 *        'get': Works cross-domain, but may be limited or corrupted by browser URL length limit 
 	 *               (eg. IE8/IE9 has 2083-char limit)
 	 * 
 	 */
 	private function shipToCallback($data, $transport = null){
-		if (empty($transponrt)) $transport = $this->Opauth->env['Callback.transport'];
+		if (empty($transponrt)) $transport = $this->Opauth->env['callback_transport'];
 		
 		switch($transport){
 			case 'get':
-				$this->redirect($this->Opauth->env['Callback.uri'].'?'.http_build_query($data));
+				$this->redirect($this->Opauth->env['callback_url'].'?'.http_build_query($data));
 				break;
 			case 'post':
-				$this->clientPost($this->Opauth->env['Callback.uri'], $data);
+				$this->clientPost($this->Opauth->env['callback_url'], $data);
 				break;
 			case 'session':
 			default:			
 				session_start();
 				$_SESSION['opauth'] = $data;
-				$this->redirect($this->Opauth->env['Callback.uri']);
+				$this->redirect($this->Opauth->env['callback_url']);
 		}
 	}
 	
@@ -193,7 +193,7 @@ class OpauthStrategy{
 	}
 	
 	/**
-	 * Security: Sign $auth before redirecting to Callback.uri
+	 * Security: Sign $auth before redirecting to callback_url
 	 * 
 	 * @param $timestamp ISO 8601 formatted date
 	 * @return string Resulting signature
@@ -202,7 +202,7 @@ class OpauthStrategy{
 		if (is_null($timestamp)) $timestamp = date('c');
 		
 		$input = sha1(print_r($this->auth, true));
-		$hash = $this->hash($input, $timestamp, $this->Opauth->env['Security.iteration'], $this->Opauth->env['Security.salt']);
+		$hash = $this->hash($input, $timestamp, $this->Opauth->env['security_iteration'], $this->Opauth->env['security_salt']);
 		
 		return $hash;
 	}

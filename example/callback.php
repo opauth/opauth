@@ -40,7 +40,7 @@ $Opauth = new Opauth( $config, false );
 */
 $response = null;
 
-switch($Opauth->env['Callback.transport']){	
+switch($Opauth->env['callback_transport']){	
 	case 'session':
 		session_start();
 		$response = $_SESSION['opauth'];
@@ -53,7 +53,7 @@ switch($Opauth->env['Callback.transport']){
 		$response = $_GET;
 		break;
 	default:
-		echo '<strong style="color: red;">Error: </strong>Unsupported Callback.transport.'."<br>\n";
+		echo '<strong style="color: red;">Error: </strong>Unsupported callback_transport.'."<br>\n";
 		break;
 }
 

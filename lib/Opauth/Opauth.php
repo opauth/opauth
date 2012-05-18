@@ -33,16 +33,16 @@ class Opauth{
 		$this->config = array_merge(array(
 			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
 			'path' => '/',
-			'Callback.uri' => '{path}callback',
-			'Callback.transport' => 'session',
+			'callback_url' => '{path}callback',
+			'callback_transport' => 'session',
 			'debug' => false,
 			
 			/**
 		 	* Security settings
 		 	*/
-			'Security.salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
-			'Security.iteration' => 300,
-			'Security.timeout' => '2 minutes'
+			'security_salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
+			'security_iteration' => 300,
+			'security_timeout' => '2 minutes'
 			
 		), $config);
 		
@@ -61,8 +61,8 @@ class Opauth{
 			$this->env[$key] = $this->envReplace($value);
 		}
 	
-		if ($this->env['Security.salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
-			trigger_error('Please change the value of \'Security.salt\' to a salt value specific to your application', E_USER_NOTICE);
+		if ($this->env['security_salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
+			trigger_error('Please change the value of \'security_salt\' to a salt value specific to your application', E_USER_NOTICE);
 		}
 		
 		$this->loadStrategies();
@@ -173,13 +173,13 @@ class Opauth{
 		}
 		
 		$timestamp_int = strtotime($timestamp);
-		if ($timestamp_int < strtotime('-'.$this->env['Security.timeout']) || $timestamp_int > time()){
+		if ($timestamp_int < strtotime('-'.$this->env['security_timeout']) || $timestamp_int > time()){
 			$reason = "Auth response expired";
 			return false;
 		}
 		
 		require $this->env['lib_dir'].'OpauthStrategy.php';
-		$hash = OpauthStrategy::hash($input, $timestamp, $this->env['Security.iteration'], $this->env['Security.salt']);
+		$hash = OpauthStrategy::hash($input, $timestamp, $this->env['security_iteration'], $this->env['security_salt']);
 		
 		if (strcasecmp($hash, $signature) !== 0){
 			$reason = "Signature does not validate";
@@ -198,7 +198,7 @@ class Opauth{
 		echo "<strong>Note: </strong>Application should set callback URL to application-side for further specific authentication process.\n<br>";
 		
 		$response = null;
-		switch($this->env['Callback.transport']){
+		switch($this->env['callback_transport']){
 			case 'session':
 				session_start();
 				$response = $_SESSION['opauth'];
@@ -211,7 +211,7 @@ class Opauth{
 				$response = $_GET;
 				break;
 			default:
-				echo '<strong style="color: red;">Error: </strong>Unsupported Callback.transport.'."<br>\n";
+				echo '<strong style="color: red;">Error: </strong>Unsupported callback_transport.'."<br>\n";
 				break;
 		}
 		

@@ -10,6 +10,4 @@ Getting started
 
 PHP frameworks
 --------------
-Opauth works well with other PHP frameworks too.  
-
-Refer to [Opauth on PHP frameworks](https://github.com/uzyn/opauth/wiki/Opauth-on-PHP-frameworks) for existing Opauth on other frameworks.
+Opauth works well with [other PHP frameworks](https://github.com/uzyn/opauth/wiki/Opauth-on-PHP-frameworks) too.

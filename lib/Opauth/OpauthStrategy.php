@@ -195,19 +195,24 @@ class OpauthStrategy{
 	
 /**
  * Simple HTTP request with file_get_contents
- * - Reluctant to use cURL at the moment for not wanting to add an additional dependency unless necessary
+ * Provides basic HTTP calls.
  * 
  * @param $url Full URL to load
- * @param $options array with context of file_get_contents
+ * @param $options array Stream context options (http://php.net/stream-context-create)
+ * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+ * 
  * @return string Content of destination, without headers
  */
-	protected function httpRequest($url, $options = null){
+	protected function httpRequest($url, $options = null, &$responseHeaders = null){
 		$context = null;
 		if (!empty($options) && is_array($options)){
 			$context = stream_context_create($options);
 		}
 		
-		return file_get_contents($url, false, $context);
+		$content = @file_get_contents($url, false, $context);
+		$responseHeaders = implode("\r\n", $http_response_header);
+		
+		return $content;
 	}
 	
 /**

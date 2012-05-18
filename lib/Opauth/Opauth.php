@@ -10,9 +10,8 @@
 class Opauth{
 	/**
 	 * User configuraable settings
-	 * 
-	 * - Do not refer to this anywhere in logic, except in __construct() of Opauth
-	 * - TODO: Documentation on config
+	 * Refer to example/opauth.conf.php.default or example/opauth.conf.php.advanced for sample
+	 * More info: https://github.com/uzyn/opauth/wiki/Opauth-configuration
 	 */
 	public $config;	
 	
@@ -66,7 +65,7 @@ class Opauth{
 			trigger_error('Please change the value of \'Security.salt\' to a salt value specific to your application', E_USER_NOTICE);
 		}
 		
-		$this->_loadStrategies();
+		$this->loadStrategies();
 		
 		if ($run) $this->run();
 	}
@@ -76,7 +75,7 @@ class Opauth{
 	 * Parses request URI and perform defined authentication actions based based on it.
 	 */
 	public function run(){
-		$this->_parseUri();
+		$this->parseUri();
 		
 		if (!empty($this->env['params']['strategy'])){
 			if (strtolower($this->env['params']['strategy']) == 'callback'){
@@ -101,7 +100,7 @@ class Opauth{
 	/**
 	 * Parses Request URI
 	 */
-	protected function _parseUri(){
+	private function parseUri(){
 		$this->env['request'] = substr($this->env['uri'], strlen($this->env['path']) - 1);
 		
 		if (preg_match_all('/\/([A-Za-z0-9-_]+)/', $this->env['request'], $matches)){
@@ -117,7 +116,7 @@ class Opauth{
 	/**
 	 * Load strategies from user-input $config
 	 */	
-	protected function _loadStrategies(){
+	private function loadStrategies(){
 		if (isset($this->env['Strategy']) && is_array($this->env['Strategy']) && count($this->env['Strategy']) > 0){
 			foreach ($this->env['Strategy'] as $key => $strategy){
 				if (!is_array($strategy)){
@@ -162,7 +161,7 @@ class Opauth{
 	 * @param string $timestamp = $_REQUEST['timestamp'])
 	 * @param string $signature = $_REQUEST['signature']
 	 * @param $reason Sets reason for failure if validation fails
-	 * @return boolean
+	 * @return boolean true: valid; false: not valid.
 	 */
 	public function validate($input = null, $timestamp = null, $signature = null, &$reason = null){
 		$functionCall = true;
@@ -249,7 +248,9 @@ class Opauth{
 	
 	/**
 	 * Prints out variable with <pre> tags
-	 * - If debug is false, no printing
+	 * Silence if Opauth is not in debug mode
+	 * 
+	 * @param $var mixed Object or variable to be printed
 	 */	
 	public function debug($var){
 		if ($this->env['debug'] !== false){

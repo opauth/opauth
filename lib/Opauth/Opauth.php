@@ -1,12 +1,14 @@
 <?php
 /**
  * Opauth
+ * Multi-provider authentication framework for PHP
  *
  * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
  * @link 			http://opauth.org
  * @package			Opauth
  * @license			MIT License
  */
+
 class Opauth{
 	/**
 	 * User configuraable settings
@@ -25,6 +27,13 @@ class Opauth{
 	 */
 	public $strategyMap;
 	
+	/**
+	 * Constructor
+	 * Loads user configuration and strategies.
+	 * 
+	 * @param $config array User configuration
+	 * @param $run boolean Whether Opauth should auto run after initialization.
+	 */
 	public function __construct($config = array(), $run = true){
 
 		/**
@@ -148,7 +157,10 @@ class Opauth{
 	
 	/**
 	 * Replace defined env values enclused in {} with values from $dictionary
-	 * $dictionary is defaulted to $this->env
+	 * 
+	 * @param $value string Input string
+	 * @param $dictionary array Dictionary to lookup values from, defaulted to $this->env
+	 * @return string String substitued with value from dictionary, if applicable
 	 */
 	public function envReplace($value, $dictionary = null){
 		if (is_null($dictionary)) $dictionary = $this->env;

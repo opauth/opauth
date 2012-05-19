@@ -9,6 +9,12 @@
  * @license			MIT License
  */
 
+/**
+ * Opauth
+ * Multi-provider authentication framework for PHP
+ * 
+ * @package			Opauth
+ */
 class Opauth{
 	/**
 	 * User configuraable settings

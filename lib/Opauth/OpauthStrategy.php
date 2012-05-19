@@ -43,6 +43,12 @@ class OpauthStrategy{
 	 */
 	protected $strategy;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param $Opauth object Pointer to Opauth instance
+	 * @param $strategy array Strategy-specific configuration
+	 */
 	public function __construct(&$Opauth, $strategy){
 		$this->Opauth = $Opauth;
 		$this->strategy = $strategy;
@@ -172,8 +178,8 @@ class OpauthStrategy{
 	/**
 	 * Call an action from a defined strategy
 	 *
-	 * @param string $action Action name to call
-	 * @param string $defaultAction If an action is not defined in a strategy, calls $defaultAction
+	 * @param $action string Action name to call
+	 * @param $defaultAction string If an action is not defined in a strategy, calls $defaultAction
 	 */
 	public function callAction($action, $defaultAction = 'request'){
 		if (method_exists($this, $action)) return $this->{$action}();
@@ -183,6 +189,8 @@ class OpauthStrategy{
 	/**
 	 * Ensures that a compulsory value is set, throws an error if it's not set
 	 * 
+	 * @param $key string Expected configuration key
+	 * @param $not string If value is set as $not, trigger E_USER_ERROR
 	 * @return mixed The loaded value
 	 */
 	protected function expects($key, $not = null){
@@ -203,6 +211,8 @@ class OpauthStrategy{
 	/**
 	 * Loads a default value into $strategy if the associated key is not found
 	 * 
+	 * @param $key string Configuration key to be loaded
+	 * @param $default string Default value for the configuration key if none is set by the user
 	 * @return mixed The loaded value
 	 */
 	protected function optional($key, $default = null){
@@ -255,7 +265,10 @@ class OpauthStrategy{
 	}
 	
 	/**
-	 * Redirect to $url with HTTP header
+	 * Redirect to $url with HTTP header (Location: )
+	 * 
+	 * @param $url string URL to redirect user to
+	 * @param $exit boolean Whether to call exit() right after redirection
 	 */
 	protected static function redirect($url, $exit = true){
 		header("Location: $url");

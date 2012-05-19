@@ -41,7 +41,8 @@ class Opauth{
 	 * @param $run boolean Whether Opauth should auto run after initialization.
 	 */
 	public function __construct($config = array(), $run = true){
-
+		require $this->env['lib_dir'].'OpauthStrategy.php';
+		
 		/**
 		 * Configurable settings
 		 */
@@ -73,7 +74,7 @@ class Opauth{
 		), $this->config);
 		
 		foreach ($this->env as $key => $value){
-			$this->env[$key] = $this->envReplace($value, $this->env);
+			$this->env[$key] = OpauthStrategy::envReplace($value, $this->env);
 		}
 	
 		if ($this->env['security_salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
@@ -100,9 +101,6 @@ class Opauth{
 				$name = $this->strategyMap[$this->env['params']['strategy']]['name'];
 				$class = $this->strategyMap[$this->env['params']['strategy']]['class'];
 				$strategy = $this->env['Strategy'][$name];
-				
-				require $this->env['lib_dir'].'OpauthStrategy.php';
-				require $this->env['strategy_dir'].$class.'/'.$class.'.php';
 
 				// Strip out critical parameters
 				$safeEnv = $this->env;
@@ -110,8 +108,8 @@ class Opauth{
 				unset($safeEnv['security_salt']);
 				unset($safeEnv['security_iteration']);
 				unset($safeEnv['security_timeout']);
-
-				//$this->Strategy = new $class($this, $strategy);
+				
+				require $this->env['strategy_dir'].$class.'/'.$class.'.php';
 				$this->Strategy = new $class($strategy, $safeEnv);
 				$this->Strategy->callAction($this->env['params']['action']);
 			}
@@ -168,26 +166,7 @@ class Opauth{
 			trigger_error('No Opauth strategies defined', E_USER_ERROR);
 		}
 	}
-	
-	/**
-	 * Replace defined env values enclused in {} with values from $dictionary
-	 * 
-	 * @param $value string Input string
-	 * @param $dictionary array Dictionary to lookup values from
-	 * @return string String substitued with value from dictionary, if applicable
-	 */
-	public static function envReplace($value, $dictionary){
-		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
-			foreach ($matches[1] as $key){
-				if (array_key_exists($key, $dictionary)){
-					$value = str_replace('{'.$key.'}', $dictionary[$key], $value);
-				}
-			}
-			return $value;
-		}
-		return $value;
-	}
-	
+		
 	/**
 	 * Validate $auth response
 	 * Accepts either function call or HTTP-based call

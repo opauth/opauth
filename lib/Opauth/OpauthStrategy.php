@@ -38,11 +38,6 @@ class OpauthStrategy{
 	 * Name of strategy
 	 */
 	public $name = null;
-	
-	/**
-	 * Pointer to Opauth instance
-	 */
-	protected $Opauth;
 
 	/**
 	 * Configurations and settings unique to a particular strategy
@@ -50,17 +45,22 @@ class OpauthStrategy{
 	protected $strategy;
 	
 	/**
+	 * Safe env values from Opauth, with critical parameters stripped out
+	 */
+	protected $env;
+	
+	/**
 	 * Constructor
 	 * 
-	 * @param $Opauth object Pointer to Opauth instance
 	 * @param $strategy array Strategy-specific configuration
+	 * @param $env array Safe env values from Opauth, with critical parameters stripped out
 	 */
-	public function __construct(&$Opauth, $strategy){
-		$this->Opauth = $Opauth;
+	public function __construct($strategy, $env){
 		$this->strategy = $strategy;
+		$this->env = $env;
 		
 		// Include some useful values from Opauth's env
-		$this->strategy['opauth_callback_url'] = $this->Opauth->env['host'].$this->Opauth->env['callback_url'];
+		$this->strategy['opauth_callback_url'] = $this->env['host'].$this->env['callback_url'];
 		
 		if ($this->name === null){
 			$this->name = (isset($name) ? $name : get_class($this));
@@ -82,17 +82,17 @@ class OpauthStrategy{
 		/**
 		 * Handle {} replacements
 		 */
-		$dictionary = array_merge($this->Opauth->env, $strategy);
+		$dictionary = array_merge($this->env, $strategy);
 		
 		// Aliases
 		$dictionary['strategy_name'] = $strategy['opauth_name'];
 		$dictionary['strategy_class'] = $strategy['opauth_strategy'];
 		$dictionary['strategy_url_name'] = $strategy['opauth_url_name'];
-		$dictionary['path_to_strategy'] = $this->Opauth->env['path'].$strategy['opauth_url_name'].'/';
-		$dictionary['complete_url_to_strategy'] = $this->Opauth->env['host'].$dictionary['path_to_strategy'];
+		$dictionary['path_to_strategy'] = $this->env['path'].$strategy['opauth_url_name'].'/';
+		$dictionary['complete_url_to_strategy'] = $this->env['host'].$dictionary['path_to_strategy'];
 		
 		foreach ($this->strategy as $key=>$value){
-			$this->strategy[$key] = $this->Opauth->envReplace($value, $dictionary);
+			$this->strategy[$key] = $this->envReplace($value, $dictionary);
 		}
 	}
 	
@@ -164,20 +164,20 @@ class OpauthStrategy{
 	 * 
 	 */
 	private function shipToCallback($data, $transport = null){
-		if (empty($transponrt)) $transport = $this->Opauth->env['callback_transport'];
+		if (empty($transponrt)) $transport = $this->env['callback_transport'];
 		
 		switch($transport){
 			case 'get':
-				$this->redirect($this->Opauth->env['callback_url'].'?'.http_build_query($data));
+				$this->redirect($this->env['callback_url'].'?'.http_build_query($data));
 				break;
 			case 'post':
-				$this->clientPost($this->Opauth->env['callback_url'], $data);
+				$this->clientPost($this->env['callback_url'], $data);
 				break;
 			case 'session':
 			default:			
 				session_start();
 				$_SESSION['opauth'] = $data;
-				$this->redirect($this->Opauth->env['callback_url']);
+				$this->redirect($this->env['callback_url']);
 		}
 	}
 	
@@ -240,7 +240,7 @@ class OpauthStrategy{
 		if (is_null($timestamp)) $timestamp = date('c');
 		
 		$input = sha1(print_r($this->auth, true));
-		$hash = $this->hash($input, $timestamp, $this->Opauth->env['security_iteration'], $this->Opauth->env['security_salt']);
+		$hash = $this->hash($input, $timestamp, $this->env['security_iteration'], $this->env['security_salt']);
 		
 		return $hash;
 	}
@@ -276,7 +276,7 @@ class OpauthStrategy{
 	 * @param $url string URL to redirect user to
 	 * @param $exit boolean Whether to call exit() right after redirection
 	 */
-	protected static function redirect($url, $exit = true){
+	public static function redirect($url, $exit = true){
 		header("Location: $url");
 		if ($exit) exit();
 	}
@@ -287,7 +287,7 @@ class OpauthStrategy{
 	 * @param $url string URL to be POSTed
 	 * @param $params array Data to be POSTed
 	 */
-	protected static function clientPost($url, $params = array()){
+	public static function clientPost($url, $params = array()){
 		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
 		
 		if (!empty($params) && is_array($params)){
@@ -313,7 +313,7 @@ class OpauthStrategy{
 	 * 
 	 * @return string Content of destination, without headers
 	 */
-	protected static function httpRequest($url, $options = null, &$responseHeaders = null){
+	public static function httpRequest($url, $options = null, &$responseHeaders = null){
 		$context = null;
 		if (!empty($options) && is_array($options)){
 			$context = stream_context_create($options);
@@ -332,7 +332,7 @@ class OpauthStrategy{
 	* @param $obj Object
 	* @return Array of object properties
 	*/
-	protected static function recursiveGetObjectVars($obj){
+	public static function recursiveGetObjectVars($obj){
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
 		foreach ($_arr as $key => $val){
 			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
@@ -351,7 +351,7 @@ class OpauthStrategy{
 	 * 
 	 * @return array A single dimensional array with POST-friendly name
 	 */
-	protected static function flattenArray($array, $prefix = null, $results = array()){
+	public static function flattenArray($array, $prefix = null, $results = array()){
 		//if (is_null($prefix)) $prefix = 'array';
 
 		foreach ($array as $key => $val){
@@ -367,4 +367,24 @@ class OpauthStrategy{
 		
 		return $results;
 	}
+	
+	/**
+	 * Replace defined env values enclused in {} with values from $dictionary
+	 * 
+	 * @param $value string Input string
+	 * @param $dictionary array Dictionary to lookup values from
+	 * @return string String substitued with value from dictionary, if applicable
+	 */
+	public static function envReplace($value, $dictionary){
+		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
+			foreach ($matches[1] as $key){
+				if (array_key_exists($key, $dictionary)){
+					$value = str_replace('{'.$key.'}', $dictionary[$key], $value);
+				}
+			}
+			return $value;
+		}
+		return $value;
+	}
+	
 }

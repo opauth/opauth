@@ -73,7 +73,7 @@ class Opauth{
 		), $this->config);
 		
 		foreach ($this->env as $key => $value){
-			$this->env[$key] = $this->envReplace($value);
+			$this->env[$key] = $this->envReplace($value, $this->env);
 		}
 	
 		if ($this->env['security_salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
@@ -165,22 +165,19 @@ class Opauth{
 	 * Replace defined env values enclused in {} with values from $dictionary
 	 * 
 	 * @param $value string Input string
-	 * @param $dictionary array Dictionary to lookup values from, defaulted to $this->env
+	 * @param $dictionary array Dictionary to lookup values from
 	 * @return string String substitued with value from dictionary, if applicable
 	 */
-	public function envReplace($value, $dictionary = null){
 		if (is_null($dictionary)) $dictionary = $this->env;
-		
+	public static function envReplace($value, $dictionary){
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
 			foreach ($matches[1] as $key){
 				if (array_key_exists($key, $dictionary)){
 					$value = str_replace('{'.$key.'}', $dictionary[$key], $value);
 				}
 			}
-
 			return $value;
 		}
-
 		return $value;
 	}
 	

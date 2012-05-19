@@ -104,7 +104,15 @@ class Opauth{
 				require $this->env['lib_dir'].'OpauthStrategy.php';
 				require $this->env['strategy_dir'].$class.'/'.$class.'.php';
 
-				$this->Strategy = new $class($this, $strategy);
+				// Strip out critical parameters
+				$safeEnv = $this->env;
+				unset($safeEnv['Strategy']);
+				unset($safeEnv['security_salt']);
+				unset($safeEnv['security_iteration']);
+				unset($safeEnv['security_timeout']);
+
+				//$this->Strategy = new $class($this, $strategy);
+				$this->Strategy = new $class($strategy, $safeEnv);
 				$this->Strategy->callAction($this->env['params']['action']);
 			}
 			else{
@@ -168,7 +176,6 @@ class Opauth{
 	 * @param $dictionary array Dictionary to lookup values from
 	 * @return string String substitued with value from dictionary, if applicable
 	 */
-		if (is_null($dictionary)) $dictionary = $this->env;
 	public static function envReplace($value, $dictionary){
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)){
 			foreach ($matches[1] as $key){

@@ -105,9 +105,6 @@ class Opauth{
 				// Strip out critical parameters
 				$safeEnv = $this->env;
 				unset($safeEnv['Strategy']);
-				unset($safeEnv['security_salt']);
-				unset($safeEnv['security_iteration']);
-				unset($safeEnv['security_timeout']);
 				
 				require $this->env['strategy_dir'].$class.'/'.$class.'.php';
 				$this->Strategy = new $class($strategy, $safeEnv);
@@ -192,7 +189,6 @@ class Opauth{
 			return false;
 		}
 		
-		require $this->env['lib_dir'].'OpauthStrategy.php';
 		$hash = OpauthStrategy::hash($input, $timestamp, $this->env['security_iteration'], $this->env['security_salt']);
 		
 		if (strcasecmp($hash, $signature) !== 0){

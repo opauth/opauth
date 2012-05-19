@@ -336,6 +336,10 @@ class OpauthStrategy{
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
 		foreach ($_arr as $key => $val){
 			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
+			
+			// Transform boolean into 1 or 0 to make it safe across all Opauth HTTP transports
+			if (is_bool($val)) $val = ($val) ? 1 : 0;
+			
 			$arr[$key] = $val;
 		}
 		

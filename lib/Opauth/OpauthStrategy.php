@@ -282,16 +282,16 @@ class OpauthStrategy{
 	}
 
 	/**
-	 * Generates a simple HTML form with $params initialized and post results via JavaScript
+	 * Generates a simple HTML form with $data initialized and post results via JavaScript
 	 * 
 	 * @param $url string URL to be POSTed
-	 * @param $params array Data to be POSTed
+	 * @param $data array Data to be POSTed
 	 */
-	public static function clientPost($url, $params = array()){
+	public static function clientPost($url, $data = array()){
 		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
 		
-		if (!empty($params) && is_array($params)){
-			$flat = self::flattenArray($params);
+		if (!empty($data) && is_array($data)){
+			$flat = self::flattenArray($data);
 			foreach ($flat as $key => $value){
 				$html .= '<input type="hidden" name="'.$key.'" value="'.$value.'">';
 			}
@@ -301,28 +301,6 @@ class OpauthStrategy{
 		$html .= '<script type="text/javascript">function postit(){ document.auth.submit(); }</script>';
 		$html .= '</body></html>';
 		echo $html;
-	}
-	
-	/**
-	 * Simple HTTP request with file_get_contents
-	 * Provides basic HTTP calls.
-	 * 
-	 * @param $url string Full URL to load
-	 * @param $options array Stream context options (http://php.net/stream-context-create)
-	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
-	 * 
-	 * @return string Content of destination, without headers
-	 */
-	public static function httpRequest($url, $options = null, &$responseHeaders = null){
-		$context = null;
-		if (!empty($options) && is_array($options)){
-			$context = stream_context_create($options);
-		}
-		
-		$content = @file_get_contents($url, false, $context);
-		$responseHeaders = implode("\r\n", $http_response_header);
-		
-		return $content;
 	}
 	
 	/**

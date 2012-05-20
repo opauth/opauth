@@ -52,8 +52,8 @@ class OpauthStrategy{
 	/**
 	 * Constructor
 	 * 
-	 * @param $strategy array Strategy-specific configuration
-	 * @param $env array Safe env values from Opauth, with critical parameters stripped out
+	 * @param array $strategy Strategy-specific configuration
+	 * @param array $env Safe env values from Opauth, with critical parameters stripped out
 	 */
 	public function __construct($strategy, $env){
 		$this->strategy = $strategy;
@@ -138,7 +138,7 @@ class OpauthStrategy{
 	 *   )
 	 * 
 	 */
-	protected function errorCallback($error){
+	public function errorCallback($error){
 		$timestamp = date('c');
 		
 		$error = $this->recursiveGetObjectVars($error);
@@ -184,8 +184,8 @@ class OpauthStrategy{
 	/**
 	 * Call an action from a defined strategy
 	 *
-	 * @param $action string Action name to call
-	 * @param $defaultAction string If an action is not defined in a strategy, calls $defaultAction
+	 * @param string $action Action name to call
+	 * @param string $defaultAction If an action is not defined in a strategy, calls $defaultAction
 	 */
 	public function callAction($action, $defaultAction = 'request'){
 		if (method_exists($this, $action)) return $this->{$action}();
@@ -195,8 +195,8 @@ class OpauthStrategy{
 	/**
 	 * Ensures that a compulsory value is set, throws an error if it's not set
 	 * 
-	 * @param $key string Expected configuration key
-	 * @param $not string If value is set as $not, trigger E_USER_ERROR
+	 * @param string $key Expected configuration key
+	 * @param string $not If value is set as $not, trigger E_USER_ERROR
 	 * @return mixed The loaded value
 	 */
 	protected function expects($key, $not = null){
@@ -217,8 +217,8 @@ class OpauthStrategy{
 	/**
 	 * Loads a default value into $strategy if the associated key is not found
 	 * 
-	 * @param $key string Configuration key to be loaded
-	 * @param $default string Default value for the configuration key if none is set by the user
+	 * @param string $key Configuration key to be loaded
+	 * @param string $default Default value for the configuration key if none is set by the user
 	 * @return mixed The loaded value
 	 */
 	protected function optional($key, $default = null){
@@ -233,7 +233,7 @@ class OpauthStrategy{
 	/**
 	 * Security: Sign $auth before redirecting to callback_url
 	 * 
-	 * @param $timestamp ISO 8601 formatted date
+	 * @param string $timestamp ISO 8601 formatted date
 	 * @return string Resulting signature
 	 */
 	protected function sign($timestamp = null){
@@ -273,8 +273,8 @@ class OpauthStrategy{
 	/**
 	 * Redirect to $url with HTTP header (Location: )
 	 * 
-	 * @param $url string URL to redirect user to
-	 * @param $exit boolean Whether to call exit() right after redirection
+	 * @param string $url URL to redirect user to
+	 * @param boolean $exit Whether to call exit() right after redirection
 	 */
 	public static function redirect($url, $exit = true){
 		header("Location: $url");
@@ -284,8 +284,8 @@ class OpauthStrategy{
 	/**
 	 * Generates a simple HTML form with $data initialized and post results via JavaScript
 	 * 
-	 * @param $url string URL to be POSTed
-	 * @param $data array Data to be POSTed
+	 * @param string $url URL to be POSTed
+	 * @param array $data Data to be POSTed
 	 */
 	public static function clientPost($url, $data = array()){
 		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
@@ -306,10 +306,10 @@ class OpauthStrategy{
 	/**
 	 * Basic server-side HTTP GET request via self::httpRequest(), wrapper of file_get_contents
 	 * 
-	 * @param $url string Destination URL
-	 * @param $data array Data to be submitted via GET
-	 * @param $options array Additional stream context options, if any
-	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @param string $url Destination URL
+	 * @param array $data Data to be submitted via GET
+	 * @param array $options Additional stream context options, if any
+	 * @param string $responseHeaders Response headers after HTTP call. Useful for error debugging.
 	 * @return string Content resulted from request, without headers
 	 */
 	public static function serverGet($url, $data, $options = null, &$responseHeaders = null){
@@ -319,10 +319,10 @@ class OpauthStrategy{
 	/**
 	 * Basic server-side HTTP POST request via self::httpRequest(), wrapper of file_get_contents
 	 * 
-	 * @param $url string Destination URL
-	 * @param $data array Data to be POSTed
-	 * @param $options array Additional stream context options, if any
-	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @param string $url Destination URL
+	 * @param array $data Data to be POSTed
+	 * @param array $options Additional stream context options, if any
+	 * @param string $responseHeaders Response headers after HTTP call. Useful for error debugging.
 	 * @return string Content resulted from request, without headers
 	 */
 	public static function serverPost($url, $data, $options = array(), &$responseHeaders = null){
@@ -351,9 +351,9 @@ class OpauthStrategy{
 	 *     having to set cURL as being a requirement.
 	 * Strategy is to provide own HTTP transport handler if requiring more advanced support.
 	 * 
-	 * @param $url string Full URL to load
-	 * @param $options array Stream context options (http://php.net/stream-context-create)
-	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @param string $url Full URL to load
+	 * @param array $options Stream context options (http://php.net/stream-context-create)
+	 * @param string $responseHeaders Response headers after HTTP call. Useful for error debugging.
 	 * @return string Content resulted from request, without headers
 	 */
 	public static function httpRequest($url, $options = null, &$responseHeaders = null){
@@ -372,8 +372,8 @@ class OpauthStrategy{
 	* Recursively converts object into array
 	* Basically get_object_vars, but recursive.
 	* 
-	* @param $obj Object
-	* @return Array of object properties
+	* @param mixed $obj Object
+	* @return array Array of object properties
 	*/
 	public static function recursiveGetObjectVars($obj){
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
@@ -392,9 +392,9 @@ class OpauthStrategy{
 	/**
 	 * Recursively converts multidimensional array into POST-friendly single dimensional array
 	 * 
-	 * @param $array array Array to be flatten
-	 * @param $prefix string String to be prefixed to flatenned variable name
-	 * @param $results array Existing array of flattened inputs to be merged upon
+	 * @param array $array Array to be flatten
+	 * @param string $prefix String to be prefixed to flatenned variable name
+	 * @param array $results Existing array of flattened inputs to be merged upon
 	 * 
 	 * @return array A single dimensional array with POST-friendly name
 	 */
@@ -418,8 +418,8 @@ class OpauthStrategy{
 	/**
 	 * Replace defined env values enclused in {} with values from $dictionary
 	 * 
-	 * @param $value string Input string
-	 * @param $dictionary array Dictionary to lookup values from
+	 * @param string $value Input string
+	 * @param array $dictionary Dictionary to lookup values from
 	 * @return string String substitued with value from dictionary, if applicable
 	 */
 	public static function envReplace($value, $dictionary){

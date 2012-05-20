@@ -37,8 +37,8 @@ class Opauth{
 	 * Constructor
 	 * Loads user configuration and strategies.
 	 * 
-	 * @param $config array User configuration
-	 * @param $run boolean Whether Opauth should auto run after initialization.
+	 * @param array $config User configuration
+	 * @param boolean $run Whether Opauth should auto run after initialization.
 	 */
 	public function __construct($config = array(), $run = true){
 		require $this->env['lib_dir'].'OpauthStrategy.php';
@@ -171,7 +171,7 @@ class Opauth{
 	 * @param string $input = sha1(print_r($auth, true))
 	 * @param string $timestamp = $_REQUEST['timestamp'])
 	 * @param string $signature = $_REQUEST['signature']
-	 * @param $reason Sets reason for failure if validation fails
+	 * @param string $reason Sets reason for failure if validation fails
 	 * @return boolean true: valid; false: not valid.
 	 */
 	public function validate($input = null, $timestamp = null, $signature = null, &$reason = null){
@@ -260,7 +260,7 @@ class Opauth{
 	 * Prints out variable with <pre> tags
 	 * Silence if Opauth is not in debug mode
 	 * 
-	 * @param $var mixed Object or variable to be printed
+	 * @param mixed $var Object or variable to be printed
 	 */	
 	public function debug($var){
 		if ($this->env['debug'] !== false){

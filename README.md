@@ -37,6 +37,7 @@ Available strategies
 Provider-specific:
 
 - [Facebook](https://github.com/uzyn/opauth-facebook)
+- [Google](https://github.com/uzyn/opauth-google)
 - [Twitter](https://github.com/uzyn/opauth-twitter)
 
 Generic:

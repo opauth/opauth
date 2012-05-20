@@ -304,8 +304,47 @@ class OpauthStrategy{
 	}
 	
 	/**
+	 * Basic server-side HTTP GET request via self::httpRequest(), wrapper of file_get_contents
+	 * 
+	 * @param $url string Destination URL
+	 * @param $data array Data to be submitted via GET
+	 * @param $options array Additional stream context options, if any
+	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @return string Content resulted from request, without headers
+	 */
+	public static function serverGet($url, $data, $options = null, &$responseHeaders = null){
+		return self::httpRequest($url.'?'.http_build_query($data), $options, $responseHeaders);
+	}
+
+	/**
+	 * Basic server-side HTTP POST request via self::httpRequest(), wrapper of file_get_contents
+	 * 
+	 * @param $url string Destination URL
+	 * @param $data array Data to be POSTed
+	 * @param $options array Additional stream context options, if any
+	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @return string Content resulted from request, without headers
+	 */
+	public static function serverPost($url, $data, $options = array(), &$responseHeaders = null){
+		if (!is_array($options)) $options = array();
+
+		$query = http_build_query($data);
+
+		$stream = array('http' => array(
+			'method' => 'POST',
+			'header' => "Content-type: application/x-www-form-urlencoded",
+			'content' => $query
+		));
+
+		$stream = array_merge($options, $stream);
+
+		return self::httpRequest($url, $stream, $responseHeaders);	
+	}
+	
+	/**
 	 * Simple server-side HTTP request with file_get_contents
 	 * Provides basic HTTP calls.
+	 * See serverGet() and serverPost() for wrapper functions of httpRequest()
 	 * 
 	 * Notes:
 	 * Reluctant to use any more advanced transport like cURL for the time being to not 
@@ -327,31 +366,6 @@ class OpauthStrategy{
 		$responseHeaders = implode("\r\n", $http_response_header);
 
 		return $content;
-	}
-
-	/**
-	 * Basic server-side HTTP POST request via self::httpRequest(), wrapper of file_get_contents
-	 * 
-	 * @param $url string URL to be POSTed
-	 * @param $data array Data to be POSTed
-	 * @param $options array Additional stream context options, if any
-	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
-	 * @return string Content resulted from request, without headers
-	 */
-	public static function serverPost($url, $data, $options = array(), &$responseHeaders = null){
-		if (!is_array($options)) $options = array();
-
-		$query = http_build_query($data);
-
-		$stream = array('http' => array(
-			'method' => 'POST',
-			'header' => "Content-type: application/x-www-form-urlencoded",
-			'content' => $query
-		));
-
-		$stream = array_merge($options, $stream);
-
-		return self::httpRequest($url, $stream, $responseHeaders);	
 	}
 	
 	/**

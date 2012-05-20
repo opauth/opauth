@@ -110,7 +110,7 @@ class OpauthStrategy{
 	public function callback(){
 		$timestamp = date('c');
 		
-		// Object doesn't translate very well when going through HTTP
+		// To standardize the way of accessing data, objects are translated to arrays
 		$this->auth = $this->recursiveGetObjectVars($this->auth);
 		
 		$this->auth['provider'] = $this->strategy['opauth_name'];
@@ -168,10 +168,10 @@ class OpauthStrategy{
 		
 		switch($transport){
 			case 'get':
-				$this->redirect($this->env['callback_url'].'?'.http_build_query($data));
+				$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(serialize($data)))));
 				break;
 			case 'post':
-				$this->clientPost($this->env['callback_url'], $data);
+				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
 				break;
 			case 'session':
 			default:			

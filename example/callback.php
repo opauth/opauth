@@ -47,10 +47,10 @@ switch($Opauth->env['callback_transport']){
 		unset($_SESSION['opauth']);
 		break;
 	case 'post':
-		$response = $_POST;
+		$response = unserialize(base64_decode( $_POST['opauth'] ));
 		break;
 	case 'get':
-		$response = $_GET;
+		$response = unserialize(base64_decode( $_GET['opauth'] ));
 		break;
 	default:
 		echo '<strong style="color: red;">Error: </strong>Unsupported callback_transport.'."<br>\n";

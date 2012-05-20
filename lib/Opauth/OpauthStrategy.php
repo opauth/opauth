@@ -304,6 +304,57 @@ class OpauthStrategy{
 	}
 	
 	/**
+	 * Simple server-side HTTP request with file_get_contents
+	 * Provides basic HTTP calls.
+	 * 
+	 * Notes:
+	 * Reluctant to use any more advanced transport like cURL for the time being to not 
+	 *     having to set cURL as being a requirement.
+	 * Strategy is to provide own HTTP transport handler if requiring more advanced support.
+	 * 
+	 * @param $url string Full URL to load
+	 * @param $options array Stream context options (http://php.net/stream-context-create)
+	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @return string Content resulted from request, without headers
+	 */
+	public static function httpRequest($url, $options = null, &$responseHeaders = null){
+		$context = null;
+		if (!empty($options) && is_array($options)){
+			$context = stream_context_create($options);
+		}
+
+		$content = @file_get_contents($url, false, $context);
+		$responseHeaders = implode("\r\n", $http_response_header);
+
+		return $content;
+	}
+
+	/**
+	 * Basic server-side HTTP POST request via self::httpRequest(), wrapper of file_get_contents
+	 * 
+	 * @param $url string URL to be POSTed
+	 * @param $data array Data to be POSTed
+	 * @param $options array Additional stream context options, if any
+	 * @param $responseHeaders string Response headers after HTTP call. Useful for error debugging.
+	 * @return string Content resulted from request, without headers
+	 */
+	public static function serverPost($url, $data, $options = array(), &$responseHeaders = null){
+		if (!is_array($options)) $options = array();
+
+		$query = http_build_query($data);
+
+		$stream = array('http' => array(
+			'method' => 'POST',
+			'header' => "Content-type: application/x-www-form-urlencoded",
+			'content' => $query
+		));
+
+		$stream = array_merge($options, $stream);
+
+		return self::httpRequest($url, $stream, $responseHeaders);	
+	}
+	
+	/**
 	* Recursively converts object into array
 	* Basically get_object_vars, but recursive.
 	* 

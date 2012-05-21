@@ -31,7 +31,7 @@ require OPAUTH_EXAMPLE.'opauth.conf.php';
 /**
  * Instantiate Opauth with the loaded config but not run automatically
  */
-require OPAUTH_LIB.'opauth.php';
+require OPAUTH_LIB.'Opauth.php';
 $Opauth = new Opauth( $config, false );
 
 	

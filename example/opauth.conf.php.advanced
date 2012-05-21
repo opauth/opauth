@@ -48,7 +48,12 @@ $config = array(
  * Time limit for valid $auth response, starting from $auth response generation to validation.
  */
 	//'security_timeout' => '2 minutes',
-	
+
+/**
+ * Directory where Opauth strategies reside
+ */
+	//'strategy_dir' => '{lib_dir}Strategy/',
+		
 /**
  * Strategy
  * Refer to individual strategy's documentation on configuration requirements.

@@ -3,7 +3,7 @@
 	"description": "Multi-provider authentication framework for PHP",
 	"version": "0.1.0",	
 	"type": "library",
-	"homepage": "http://opauth.org/",
+	"homepage": "http://opauth.org",
 	"license": "MIT",
 	"authors": [
 		{

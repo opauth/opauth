@@ -1,13 +1,12 @@
 Opauth
 =======
-__This project is still under heavy development. DO NOT USE.__  
-Initial stable release is scheduled for late May 2012.
-
 Opauth is a multi-provider authentication framework for PHP, inspired by [OmniAuth for Ruby](https://github.com/intridea/omniauth).
+
+Opauth enables PHP applications to do *user authentication* with ease.
 
 What is Opauth?
 ---------------
-Opauth provides a standardized method for PHP applications to interface with 3rd-party authentication providers. 
+Opauth provides a standardized method for PHP applications to interface with authentication providers. 
 
 Opauth as a framework provides a set of API that allows developers to [create strategies](https://github.com/uzyn/opauth/wiki/Strategy-Contribution-Guide) that work in a predictable manner across PHP frameworks and applications.
 
@@ -24,7 +23,7 @@ Quick start
    `cp example/opauth.conf.php.default example/opauth.conf.php`  
    and make the necessary changes.
 
-3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).  
+3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).
    We recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook)
 
 4. Send user to `http://path_to_opauth/facebook` to authenticate.
@@ -33,6 +32,7 @@ Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more technical det
 
 Available strategies
 --------------------
+A strategy is a set of instructions that interfaces with respective authentication providers and relays it back to Opauth.
 
 Provider-specific:
 
@@ -40,9 +40,10 @@ Provider-specific:
 - [Google](https://github.com/uzyn/opauth-google)
 - [Twitter](https://github.com/uzyn/opauth-twitter)
 
-Generic:
+Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
 
-- [OAuth](https://github.com/uzyn/opauth-oauth)
+Opauth is a relatively new framework, having only released its v0.1.0 in late May 2012.<br> We need your help in expanding the list of available strategies. Refer to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy. Do notify us if you have developed an Opauth strategy and would like it to be listed.
+
 
 Issues & questions
 -------------------
@@ -51,6 +52,7 @@ Issues & questions
 - Email me: chua@uzyn.com  
 - IRC: **#opauth** on [Freenode](http://webchat.freenode.net/?channels=opauth&uio=d4)
 
+<p>Used Opauth in your project? Let us know!</p>
 
 License
 ---------

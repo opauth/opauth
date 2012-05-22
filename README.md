@@ -4,6 +4,8 @@ Opauth is a multi-provider authentication framework for PHP, inspired by [OmniAu
 
 Opauth enables PHP applications to do *user authentication* with ease.
 
+Try out Opauth for yourself at http://opauth.org
+
 What is Opauth?
 ---------------
 Opauth provides a standardized method for PHP applications to interface with authentication providers. 

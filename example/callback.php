@@ -16,22 +16,22 @@
 /**
  * Define paths
  */
-define('OPAUTH_EXAMPLE', dirname(__FILE__).'/');
-define('OPAUTH_LIB', dirname(OPAUTH_EXAMPLE).'/lib/Opauth/');
+define('CONF_FILE', dirname(__FILE__).'/'.'opauth.conf.php');
+define('OPAUTH_LIB_DIR', dirname(dirname(__FILE__)).'/lib/Opauth/');
 
 /**
 * Load config
 */
-if (!file_exists(OPAUTH_EXAMPLE.'opauth.conf.php')){
-	trigger_error('Config file missing at '.OPAUTH_EXAMPLE.'opauth.conf.php', E_USER_ERROR);
+if (!file_exists(CONF_FILE)){
+	trigger_error('Config file missing at '.CONF_FILE, E_USER_ERROR);
 	exit();
 }
-require OPAUTH_EXAMPLE.'opauth.conf.php';
+require CONF_FILE;
 
 /**
  * Instantiate Opauth with the loaded config but not run automatically
  */
-require OPAUTH_LIB.'Opauth.php';
+require OPAUTH_LIB_DIR.'Opauth.php';
 $Opauth = new Opauth( $config, false );
 
 	

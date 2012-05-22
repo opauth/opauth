@@ -1,0 +1,23 @@
+{
+	"name": "uzyn/opauth",
+	"description": "Multi-provider authentication framework for PHP",
+	"version": "0.1.0",	
+	"type": "library",
+	"homepage": "http://opauth.org/",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "U-Zyn Chua",
+			"email": "chua@uzyn.com"
+		}
+	],
+	"require": {
+		"php": ">=5.2.0"
+	},
+	"autoload": {
+		"psr-0": { 
+			"Opauth": "lib/",
+			"": "lib/"
+		}
+	}
+}

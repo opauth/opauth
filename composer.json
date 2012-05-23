@@ -1,5 +1,5 @@
 {
-	"name": "uzyn/opauth",
+	"name": "opauth/opauth",
 	"description": "Multi-provider authentication framework for PHP",
 	"type": "library",
 	"keywords": ["authentication","auth","oauth","openid","omniauth","facebook","google","twitter"],

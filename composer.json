@@ -16,9 +16,9 @@
 		"php": ">=5.2.0"
 	},
 	"suggest": {
-		"uzyn/opauth-facebook": "Allows Facebook authentication",
-		"uzyn/opauth-google": "Allows Google authentication",
-		"uzyn/opauth-twitter": "Allows Twitter authentication"
+		"opauth/facebook": "Allows Facebook authentication",
+		"opauth/google": "Allows Google authentication",
+		"opauth/twitter": "Allows Twitter authentication"
 	},
 	"autoload": {
 		"psr-0": { 

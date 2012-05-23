@@ -61,10 +61,10 @@ Changelog
 ###v0.2.0 (23 May 2012)
 - Opauth is now Composer compatible and listed on [Packagist](http://packagist.org/packages/opauth/opauth)
     - Opauth now supports autoloaders
-    - If a strategy is not autoloaded, Opauth searches for it at `strategy_dir` defined in config.
-- Class name for strategy Foo should be FooStrategy instead of Foo.
-    - This is to reduce the likelihood of duplicate classnames due to Opauth not requiring the use of namespace.
-    - 0.1.0-type class name, ie. Foo, is still loaded, but deprecated.
+    - If a strategy is not autoloaded, Opauth falls back and searches for it at `strategy_dir` defined in config.
+- Class name for strategy Foo should now be FooStrategy instead of Foo.
+    - This is to reduce the likelihood of class name collision due to Opauth not requiring the use of namespace.
+    - v0.1.0-type class name, ie. Foo, still works, but is now deprecated.
 
 ###v0.1.0 (22 May 2012)
 Initial release

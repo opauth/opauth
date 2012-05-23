@@ -1,7 +1,6 @@
 {
 	"name": "uzyn/opauth",
 	"description": "Multi-provider authentication framework for PHP",
-	"version": "0.1.0",	
 	"type": "library",
 	"keywords": ["authentication","auth","oauth","openid","omniauth","facebook","google","twitter"],
 	"homepage": "http://opauth.org",

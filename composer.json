@@ -16,8 +16,8 @@
 	},
 	"autoload": {
 		"psr-0": { 
-			"Opauth": "lib/",
-			"": "lib/"
+			"Opauth": "lib/Opauth/",
+			"": "lib/Opauth/"
 		}
 	}
 }

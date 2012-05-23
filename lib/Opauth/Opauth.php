@@ -41,8 +41,6 @@ class Opauth{
 	 * @param boolean $run Whether Opauth should auto run after initialization.
 	 */
 	public function __construct($config = array(), $run = true){
-		require $this->env['lib_dir'].'OpauthStrategy.php';
-		
 		/**
 		 * Configurable settings
 		 */
@@ -72,6 +70,10 @@ class Opauth{
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'
 		), $this->config);
+		
+		if (!class_exists('OpauthStrategy')){
+			require $this->env['lib_dir'].'OpauthStrategy.php';
+		}
 		
 		foreach ($this->env as $key => $value){
 			$this->env[$key] = OpauthStrategy::envReplace($value, $this->env);

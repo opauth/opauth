@@ -3,16 +3,23 @@
 	"description": "Multi-provider authentication framework for PHP",
 	"version": "0.1.0",	
 	"type": "library",
+	"keywords": ["authentication","auth","oauth","openid","omniauth","facebook","google","twitter"],
 	"homepage": "http://opauth.org",
 	"license": "MIT",
 	"authors": [
 		{
 			"name": "U-Zyn Chua",
-			"email": "chua@uzyn.com"
+			"email": "chua@uzyn.com",
+			"homepage": "http://uzyn.com"
 		}
 	],
 	"require": {
 		"php": ">=5.2.0"
+	},
+	"suggest": {
+		"uzyn/opauth-facebook": "Allows Facebook authentication",
+		"uzyn/opauth-google": "Allows Google authentication",
+		"uzyn/opauth-twitter": "Allows Twitter authentication"
 	},
 	"autoload": {
 		"psr-0": { 

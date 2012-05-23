@@ -106,8 +106,8 @@ class Opauth{
 				$safeEnv = $this->env;
 				unset($safeEnv['Strategy']);
 				
-				require $this->env['strategy_dir'].$class.'/'.$class.'.php';
-				$this->Strategy = new $class($strategy, $safeEnv);
+				$actualClass = $this->requireStrategy($class);
+				$this->Strategy = new $actualClass($strategy, $safeEnv);
 				$this->Strategy->callAction($this->env['params']['action']);
 			}
 			else{
@@ -258,6 +258,33 @@ class Opauth{
 		echo "</pre>";
 	}
 	
+	/**
+	 * Loads a strategy, firstly check if the strategy's class already exists, especially for users of Composer;
+	 * If it isn't, attempts to load it from $this->env['strategy_dir']
+	 * 
+	 * @param string $strategy Name of a strategy
+	 * @return string Class name of the strategy, usually StrategyStrategy
+	 */
+	private function requireStrategy($strategy){
+		if (!class_exists($strategy.'Strategy')){
+			if (file_exists($this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php')){
+				require $this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php';
+				return $strategy.'Strategy';
+			}
+			
+			// Deprecated support for strategies without Strategy postfix as class name or filename
+			elseif (file_exists($this->env['strategy_dir'].$strategy.'/'.$strategy.'.php')){
+				require $this->env['strategy_dir'].$strategy.'/'.$strategy.'.php';
+				return $strategy;
+			}
+			
+			else{
+				trigger_error('Strategy class file ('.$this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php'.') is missing', E_USER_ERROR);
+				exit();
+			}
+		}
+		return $strategy.'Strategy';
+	}
 	
 	/**
 	 * Prints out variable with <pre> tags

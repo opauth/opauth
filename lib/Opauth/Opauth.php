@@ -261,7 +261,8 @@ class Opauth{
 	}
 	
 	/**
-	 * Loads a strategy, firstly check if the strategy's class already exists, especially for users of Composer;
+	 * Loads a strategy, firstly check if the
+	 *  strategy's class already exists, especially for users of Composer;
 	 * If it isn't, attempts to load it from $this->env['strategy_dir']
 	 * 
 	 * @param string $strategy Name of a strategy
@@ -279,6 +280,18 @@ class Opauth{
 				require $this->env['strategy_dir'].$strategy.'/'.$strategy.'.php';
 				return $strategy;
 			}
+			
+			// For direct cloning of Git repositories without specifying a dir name, eg. opauth-facebook
+			elseif (file_exists($this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'Strategy.php')){
+				require $this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'Strategy.php';
+				return $strategy.'Strategy';
+			}
+			
+			elseif (file_exists($this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'.php')){
+				require $this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'.php';
+				return $strategy;
+			}
+			
 			
 			else{
 				trigger_error('Strategy class file ('.$this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php'.') is missing', E_USER_ERROR);

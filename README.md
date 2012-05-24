@@ -35,7 +35,7 @@ Guide on how to run the bundled example.
 
 4. Send user to `http://path_to_opauth/facebook` to authenticate.
 
-Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details.
+Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details, especially on how to use Opauth with your own PHP application.
 
 Available strategies
 --------------------

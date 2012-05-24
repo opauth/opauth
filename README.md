@@ -18,6 +18,8 @@ If your PHP framework of choice is not yet listed, you can still use Opauth like
 
 Quick start
 -----------
+Guide on how to run the bundled example.
+
 1. Set `DocumentRoot` of your web server to `example/`.  
    (Opauth can be instantiated in your own PHP app, but we will leave that out of this quick start guide)
 
@@ -28,9 +30,12 @@ Quick start
 3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).
    We recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook)
 
+   Place the strategy files in `lib/Opauth/Strategy/`.  
+   For example, for Opauth-Facebook, place the downloaded files at `lib/Opauth/Strategy/Facebook/`.
+
 4. Send user to `http://path_to_opauth/facebook` to authenticate.
 
-Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more technical details.
+Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details.
 
 Available strategies
 --------------------

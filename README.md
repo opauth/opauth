@@ -50,6 +50,7 @@ Opauth is a relatively new framework, having only released its v0.1.0 in late Ma
 Issues & questions
 -------------------
 - Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  
+- Discussion group: [Google Groups](https://groups.google.com/group/opauth)
 - Twitter: [@uzyn](http://twitter.com/uzyn)  
 - Email me: chua@uzyn.com  
 - IRC: **#opauth** on [Freenode](http://webchat.freenode.net/?channels=opauth&uio=d4)

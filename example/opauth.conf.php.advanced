@@ -9,9 +9,10 @@
 $config = array(
 /**
  * Path where Opauth is accessed.
- *  - Begins and ends with /
- *  - eg. if Opauth is reached via http://example.org/auth/, path is '/auth/'
- *  - if Opauth is reached via http://auth.example.org/, path is '/'
+ * 
+ * Begins and ends with /
+ * eg. if Opauth is reached via http://example.org/auth/, path is '/auth/'
+ * if Opauth is reached via http://auth.example.org/, path is '/'
  */
 	'path' => '/',
 
@@ -27,9 +28,11 @@ $config = array(
 
 /**
  * Callback transport, for sending of $auth response
- * - 'session': Default. Works best unless callback_url is on a different domain than Opauth
- * - 'post': Works cross-domain, but relies on availability of client-side JavaScript.
- * - 'get': Works cross-domain, but may be limited or corrupted by browser URL length limit (eg. IE8/IE9 has 2083-char limit)
+ * 
+ * 'session': Default. Works best unless callback_url is on a different domain than Opauth
+ * 'post'   : Works cross-domain, but relies on availability of client-side JavaScript.
+ * 'get'    : Works cross-domain, but may be limited or corrupted by browser URL length limit 
+ *            (eg. IE8/IE9 has 2083-char limit)
  */
 	//'callback_transport' => 'session',
 

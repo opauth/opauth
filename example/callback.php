@@ -36,7 +36,7 @@ $Opauth = new Opauth( $config, false );
 
 	
 /**
-* Fetch auth, based on transport configuration for callback
+* Fetch auth response, based on transport configuration for callback
 */
 $response = null;
 
@@ -65,7 +65,10 @@ if (array_key_exists('error', $response)){
 }
 
 /**
- * No it isn't. Proceed with auth validation
+ * Auth response validation
+ * 
+ * To validate that the auth response received is unaltered, especially auth response that 
+ * is sent through GET or POST.
  */
 else{
 	if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])){

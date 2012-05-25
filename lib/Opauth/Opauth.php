@@ -117,7 +117,8 @@ class Opauth{
 			}
 		}
 		else{
-			trigger_error('No strategy is specified. Try going to '.$this->env['complete_path'].'STRATEGY', E_USER_NOTICE);
+			$sampleStrategy = array_pop($this->env['Strategy']);
+			trigger_error('No strategy is requested. Try going to '.$this->env['complete_path'].$sampleStrategy['opauth_url_name'].' to authenticate with '.$sampleStrategy['opauth_name'], E_USER_NOTICE);
 		}
 	}
 	

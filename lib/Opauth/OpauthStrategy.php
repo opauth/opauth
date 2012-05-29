@@ -60,7 +60,7 @@ class OpauthStrategy{
 		$this->env = $env;
 		
 		// Include some useful values from Opauth's env
-		$this->strategy['opauth_callback_url'] = $this->env['host'].$this->env['callback_url'];
+		$this->strategy['strategy_callback_url'] = $this->env['host'].$this->env['callback_url'];
 		
 		if ($this->name === null){
 			$this->name = (isset($name) ? $name : get_class($this));
@@ -77,20 +77,15 @@ class OpauthStrategy{
 				$this->optional($key, $value);
 			}
 		}
-		
-		
+
 		/**
-		 * Handle {} replacements
+		 * Additional helpful values
 		 */
-		$dictionary = array_merge($this->env, $strategy);
+		$this->strategy['path_to_strategy'] = $this->env['path'].$this->strategy['strategy_url_name'].'/';
+		$this->strategy['complete_url_to_strategy'] = $this->env['host'].$this->strategy['path_to_strategy'];
 		
-		// Aliases
-		$dictionary['strategy_name'] = $strategy['opauth_name'];
-		$dictionary['strategy_class'] = $strategy['opauth_strategy'];
-		$dictionary['strategy_url_name'] = $strategy['opauth_url_name'];
-		$dictionary['path_to_strategy'] = $this->env['path'].$strategy['opauth_url_name'].'/';
-		$dictionary['complete_url_to_strategy'] = $this->env['host'].$dictionary['path_to_strategy'];
-		
+
+		$dictionary = array_merge($this->env, $this->strategy);
 		foreach ($this->strategy as $key=>$value){
 			$this->strategy[$key] = $this->envReplace($value, $dictionary);
 		}
@@ -113,7 +108,7 @@ class OpauthStrategy{
 		// To standardize the way of accessing data, objects are translated to arrays
 		$this->auth = $this->recursiveGetObjectVars($this->auth);
 		
-		$this->auth['provider'] = $this->strategy['opauth_name'];
+		$this->auth['provider'] = $this->strategy['strategy_name'];
 		
 		$params = array(
 			'auth' => $this->auth, 
@@ -142,7 +137,7 @@ class OpauthStrategy{
 		$timestamp = date('c');
 		
 		$error = $this->recursiveGetObjectVars($error);
-		$error['provider'] = $this->strategy['opauth_name'];
+		$error['provider'] = $this->strategy['strategy_name'];
 		
 		$params = array(
 			'error' => $error,

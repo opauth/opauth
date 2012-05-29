@@ -118,7 +118,7 @@ class Opauth{
 		}
 		else{
 			$sampleStrategy = array_pop($this->env['Strategy']);
-			trigger_error('No strategy is requested. Try going to '.$this->env['complete_path'].$sampleStrategy['opauth_url_name'].' to authenticate with '.$sampleStrategy['opauth_name'], E_USER_NOTICE);
+			trigger_error('No strategy is requested. Try going to '.$this->env['complete_path'].$sampleStrategy['strategy_url_name'].' to authenticate with '.$sampleStrategy['strategy_name'], E_USER_NOTICE);
 		}
 	}
 	
@@ -150,14 +150,14 @@ class Opauth{
 				}
 				
 				$strategyClass = $key;
-				if (array_key_exists('opauth_strategy', $strategy)) $strategyClass = $strategy['opauth_strategy'];
-				else $strategy['opauth_strategy'] = $strategyClass;
+				if (array_key_exists('strategy_class', $strategy)) $strategyClass = $strategy['strategy_class'];
+				else $strategy['strategy_class'] = $strategyClass;
 				
-				$strategy['opauth_name'] = $key;
+				$strategy['strategy_name'] = $key;
 				
 				// Define a URL-friendly name
-				if (empty($strategy['opauth_url_name'])) $strategy['opauth_url_name'] = strtolower($key);
-				$this->strategyMap[$strategy['opauth_url_name']] = array(
+				if (empty($strategy['strategy_url_name'])) $strategy['strategy_url_name'] = strtolower($key);
+				$this->strategyMap[$strategy['strategy_url_name']] = array(
 					'name' => $key,
 					'class' => $strategyClass
 				);

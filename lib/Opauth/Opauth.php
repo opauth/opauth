@@ -110,6 +110,10 @@ class Opauth{
 				
 				$actualClass = $this->requireStrategy($class);
 				$this->Strategy = new $actualClass($strategy, $safeEnv);
+				
+				if (empty($this->env['params']['action'])){
+					$this->env['params']['action'] = 'request';
+				}
 				$this->Strategy->callAction($this->env['params']['action']);
 			}
 			else{

@@ -49,6 +49,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		));
 		$this->assertEquals($Opauth->env['security_salt'], 'another salt');
 		$this->assertEquals($Opauth->env['security_iteration'], 3456);
+		$this->assertTrue(is_int($Opauth->env['security_iteration']));
 		$this->assertEquals($Opauth->env['security_timeout'], '5 seconds');
 	}
 	
@@ -59,6 +60,35 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'security_salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 		));
+	}
+	
+	public function testLoadStrategies(){
+		$Opauth = self::instantiateOpauthForTesting(array(
+			'Strategy' => array(
+				'ProviderA' => array(
+					'hello' => 'world',
+					'integer_value' => 123,
+					'more_arrays' => array(
+						'key1' => 'v1',
+						'key2' => 2
+					)
+				)
+			)
+		));
+		$this->assertArrayHasKey('ProviderA', $Opauth->env['Strategy']);
+		$this->assertEquals(count($Opauth->env['Strategy']), 1);
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['hello'], 'world');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['integer_value'], 123);
+		$this->assertTrue(is_int($Opauth->env['Strategy']['ProviderA']['integer_value']));
+		$this->assertTrue(is_array($Opauth->env['Strategy']['ProviderA']['more_arrays']));
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['more_arrays']['key1'], 'v1');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['more_arrays']['key2'], 2);
+		$this->assertTrue(is_int($Opauth->env['Strategy']['ProviderA']['more_arrays']['key2']));
+		
+		// Values set by Opauth
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_class'], 'ProviderA');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_name'], 'ProviderA');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_url_name'], 'providera');
 	}
 	
 	public function testDebugWithDebugOn(){

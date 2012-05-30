@@ -86,6 +86,11 @@ Issues & questions
 
 Changelog
 ---------
+###v0.3.0 (30 May 2012)
+- Some unit testing
+- More consistent naming of Strategy's internal properties
+- Smarter loading of strategy, able to make a few guesses on where the class file might be at.
+
 ###v0.2.0 (23 May 2012)
 - Opauth is now Composer compatible and listed on [Packagist](http://packagist.org/packages/opauth/opauth)
     - Opauth now supports autoloaders
@@ -95,7 +100,7 @@ Changelog
     - v0.1.0-type class name, ie. Foo, still works, but is now deprecated.
 
 ###v0.1.0 (22 May 2012)
-Initial release
+- Initial release
 
 License
 ---------

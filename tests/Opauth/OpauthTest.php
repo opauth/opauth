@@ -36,11 +36,29 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'host' => 'http://test2.example.com',
-			'path' => '/auth/'
+			'path' => '/auth/',
 		));
 		$this->assertEquals($Opauth->env['host'], 'http://test2.example.com');
 		$this->assertEquals($Opauth->env['complete_path'], 'http://test2.example.com/auth/');
 		$this->assertEquals($Opauth->env['callback_url'], '/auth/callback');
+		
+		$Opauth = self::instantiateOpauthForTesting(array(
+			'security_salt' => 'another salt',
+			'security_iteration' => 3456,
+			'security_timeout' => '5 seconds'
+		));
+		$this->assertEquals($Opauth->env['security_salt'], 'another salt');
+		$this->assertEquals($Opauth->env['security_iteration'], 3456);
+		$this->assertEquals($Opauth->env['security_timeout'], '5 seconds');
+	}
+	
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Notice
+	 */
+	public function testConstructorDefaultSecuritySalt(){
+		$Opauth = self::instantiateOpauthForTesting(array(
+			'security_salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
+		));
 	}
 	
 	public function testDebugWithDebugOn(){

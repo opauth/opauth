@@ -8,7 +8,7 @@
  * @license			MIT License
  */
 
-require '../../lib/Opauth/Opauth.php';
+require './lib/Opauth/Opauth.php';
 
 /**
  * OpauthTest class

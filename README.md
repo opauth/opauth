@@ -57,6 +57,23 @@ Requirements
 -------------
 PHP 5 (>= 5.2)
 
+Contribute
+----------
+Opauth needs your contributions, especially the following:
+
+- More strategies  
+  Refer to [wiki](https://github.com/uzyn/opauth/wiki) for contribution guide and inform us when your work is ready.
+
+- Plugins for more PHP frameworks and CMSes  
+  eg. CodeIgniter, Symfony, WordPress, Drupal, etc.
+
+- Guides & tutorials  
+  On how to implement Opauth on CakePHP app, etc.
+
+- Unit testing  
+  Coverage is only average at the moment.
+
+
 Issues & questions
 -------------------
 - Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  

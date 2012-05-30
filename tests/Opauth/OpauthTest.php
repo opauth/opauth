@@ -63,18 +63,18 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testLoadStrategies(){
-		$Opauth = self::instantiateOpauthForTesting(array(
-			'Strategy' => array(
-				'ProviderA' => array(
-					'hello' => 'world',
-					'integer_value' => 123,
-					'more_arrays' => array(
-						'key1' => 'v1',
-						'key2' => 2
-					)
+		$config = array('Strategy' => array(
+			'ProviderA' => array(
+				'hello' => 'world',
+				'integer_value' => 123,
+				'more_arrays' => array(
+					'key1' => 'v1',
+					'key2' => 2
 				)
 			)
 		));
+		
+		$Opauth = self::instantiateOpauthForTesting($config);
 		$this->assertArrayHasKey('ProviderA', $Opauth->env['Strategy']);
 		$this->assertEquals(count($Opauth->env['Strategy']), 1);
 		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['hello'], 'world');
@@ -89,6 +89,36 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_class'], 'ProviderA');
 		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_name'], 'ProviderA');
 		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_url_name'], 'providera');
+		
+		// Explicitly set internal values
+		$config['Strategy']['ProviderA']['strategy_class'] = 'AnotherClass';
+		$config['Strategy']['ProviderA']['strategy_name'] = 'DifferentName';
+		$config['Strategy']['ProviderA']['strategy_url_name'] = 'Hello';
+		$Opauth = self::instantiateOpauthForTesting($config);
+		
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_class'], 'AnotherClass');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_name'], 'ProviderA');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_url_name'], 'Hello');
+	}
+	
+	public function testLoadStrategiesAsString(){
+		$Opauth = self::instantiateOpauthForTesting(array(
+			'Strategy' => array('ProviderAsString')
+		));
+		
+		$this->assertEquals($Opauth->env['Strategy']['ProviderAsString']['strategy_class'], 'ProviderAsString');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderAsString']['strategy_name'], 'ProviderAsString');
+		$this->assertEquals($Opauth->env['Strategy']['ProviderAsString']['strategy_url_name'], 'providerasstring');
+		$this->assertEquals(count($Opauth->env['Strategy']['ProviderAsString']), 3);
+	}
+	
+	/**
+	 * @expectedException PHPUnit_Framework_Error
+	 */
+	public function testLoadStrategiesError(){
+		$config = self::configForTest();
+		unset($config['Strategy']);
+		$Opauth = new Opauth($config, false);
 	}
 	
 	public function testDebugWithDebugOn(){

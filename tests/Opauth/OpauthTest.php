@@ -21,7 +21,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$_SERVER['REQUEST_URI'] = '/';
 	}
 	
-	public function testConstructorWithoutAutoRun(){
+	public function testConstructor(){
 		$Opauth = self::instantiateOpauthForTesting();
 		$this->assertEquals($Opauth->env['host'], 'http://test.example.org');
 		$this->assertEquals($Opauth->env['path'], '/');
@@ -35,9 +35,12 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($Opauth->env['security_timeout'], '2 minutes');
 		
 		$Opauth = self::instantiateOpauthForTesting(array(
-			'host' => 'http://test2.example.com'
+			'host' => 'http://test2.example.com',
+			'path' => '/auth/'
 		));
 		$this->assertEquals($Opauth->env['host'], 'http://test2.example.com');
+		$this->assertEquals($Opauth->env['complete_path'], 'http://test2.example.com/auth/');
+		$this->assertEquals($Opauth->env['callback_url'], '/auth/callback');
 	}
 	
 	public function testDebugWithDebugOn(){

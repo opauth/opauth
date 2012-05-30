@@ -22,17 +22,17 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testDebugWithDebugOn(){
-		$Opauth = new Opauth(self::configForTest(array(
+		$Opauth = self::instantiateOpauthForTesting(array(
 			'debug' => true
-		)), false);
+		));
 		$this->expectOutputString('<pre>Debug message</pre>');		
 		$Opauth->debug('Debug message');
 	}
 	
 	public function testDebugWithDebugOff(){
-		$Opauth = new Opauth(self::configForTest(array(
+		$Opauth = self::instantiateOpauthForTesting(array(
 			'debug' => false
-		)), false);
+		));
 		$this->expectOutputString('');
 		$Opauth->debug('Debug message');
 	}
@@ -55,6 +55,19 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 				'Test' => array()
 			)
 		), $config);
+	}
+	
+	/**
+	 * Instantiate Opauth with test config suitable for testing
+	 * 
+	 * @param array $config Config changes to be merged with the default
+	 * @param boolean $autoRun Should Opauth be run right after instantiation, defaulted to false
+	 * @return object Opauth instance
+	 */
+	protected static function instantiateOpauthForTesting($config = array(), $autoRun = false){
+		$Opauth = new Opauth(self::configForTest($config), $autoRun);
+		
+		return $Opauth;
 	}
 	
 }

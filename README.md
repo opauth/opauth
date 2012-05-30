@@ -53,6 +53,9 @@ Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
 
 Opauth is a relatively new framework, having only released its v0.1.0 in late May 2012.<br> We need your help in expanding the list of available strategies. Refer to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy. Do notify us if you have developed an Opauth strategy and would like it to be listed.
 
+Requirements
+-------------
+PHP 5 (>= 5.2)
 
 Issues & questions
 -------------------

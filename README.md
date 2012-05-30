@@ -6,6 +6,8 @@ Opauth enables PHP applications to do *user authentication* with ease.
 
 Try out Opauth for yourself at http://opauth.org
 
+[![Build Status](https://secure.travis-ci.org/uzyn/opauth.png?branch=master)](http://travis-ci.org/uzyn/opauth)
+
 What is Opauth?
 ---------------
 Opauth provides a standardized method for PHP applications to interface with authentication providers. 

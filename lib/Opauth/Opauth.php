@@ -3,10 +3,10 @@
  * Opauth
  * Multi-provider authentication framework for PHP
  *
- * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
- * @link 			http://opauth.org
- * @package			Opauth
- * @license			MIT License
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @package      Opauth
+ * @license      MIT License
  */
 
 /**

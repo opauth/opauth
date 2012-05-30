@@ -3,10 +3,10 @@
  * Opauth Strategy
  * Individual strategies are to be extended from this class
  *
- * @copyright		Copyright © 2012 U-Zyn Chua (http://uzyn.com)
- * @link 			http://opauth.org
- * @package			Opauth.Strategy
- * @license			MIT License
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @package      Opauth.Strategy
+ * @license      MIT License
  */
 
 /**

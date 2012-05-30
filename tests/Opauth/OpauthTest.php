@@ -135,7 +135,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	public function testValidate(){
-		$initResponse = array(
+		$response = array(
 			'auth' => array(
 				'provider' => 'Sample',
 				'uid' => 1564894354651654,
@@ -163,7 +163,6 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 			'signature' => null
 		);
 		
-		$response = $initResponse;
 		$config = array(
 			'security_salt' => 'k9QVRc7R3woOOVyJgOFBv2Rp9bxQsGtRbaOraP7ePXuyzh0GkrNckKjI4MV1KOy',
 			'security_iteration' => 919,
@@ -175,8 +174,45 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		
 		$Opauth = self::instantiateOpauthForTesting($config);
 		$this->assertTrue($Opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason));
+		$this->assertNull($reason);
 		
-		return $initResponse;
+		return $response;
+	}
+	
+	/**
+	 * @depends testValidate
+	 */
+	public function testValidateTimeout(array $response){
+		$config = array(
+			'security_salt' => 'k9QVRc7R3woOOVyJgOFBv2Rp9bxQsGtRbaOraP7ePXuyzh0GkrNckKjI4MV1KOy',
+			'security_iteration' => 919,
+			'security_timeout' => '1 minute'
+		);
+		
+		$response['timestamp'] = date('c', time() - 90);
+		$response['signature'] = OpauthStrategy::hash(sha1(print_r($response['auth'], true)), $response['timestamp'], $config['security_iteration'], $config['security_salt']);
+		
+		$Opauth = self::instantiateOpauthForTesting($config);
+		$this->assertFalse($Opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason));
+		$this->assertEquals($reason, 'Auth response expired');
+	}
+	
+	/**
+	 * @depends testValidate
+	 */
+	public function testValidateInvalidSignature(array $response){
+		$config = array(
+			'security_salt' => 'k9QVRc7R3woOOVyJgOFBv2Rp9bxQsGtRbaOraP7ePXuyzh0GkrNckKjI4MV1KOy',
+			'security_iteration' => 919,
+			'security_timeout' => '1 minute'
+		);
+		
+		$response['timestamp'] = date('c');
+		$response['signature'] = 'invalidsignature';
+		
+		$Opauth = self::instantiateOpauthForTesting($config);
+		$this->assertFalse($Opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason));
+		$this->assertEquals($reason, 'Signature does not validate');
 	}
 	
 	public function testLoadStrategies(){

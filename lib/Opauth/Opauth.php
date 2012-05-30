@@ -275,32 +275,34 @@ class Opauth{
 	 */
 	private function requireStrategy($strategy){
 		if (!class_exists($strategy.'Strategy')){
-			if (file_exists($this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php')){
-				require $this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php';
-				return $strategy.'Strategy';
+			// Include dir where Git repository for strategy is cloned directly without 
+			// specifying a dir name, eg. opauth-facebook
+			$directories = array(
+				$this->env['strategy_dir'].$strategy.'/',
+				$this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/',
+				$this->env['strategy_dir'].strtolower($strategy).'/',
+				$this->env['strategy_dir'].'Opauth-'.$strategy.'/'
+			);
+			
+			// Include deprecated support for strategies without Strategy postfix as class name or filename
+			$classNames = array(
+				$strategy.'Strategy',
+				$strategy
+			);
+			
+			$found = false;
+			foreach ($directories as $dir){
+				foreach ($classNames as $name){
+					if (file_exists($dir.$name.'.php')){
+						$found = true;
+						require $dir.$name.'.php';
+						return $name;
+					}
+				}
 			}
 			
-			// Deprecated support for strategies without Strategy postfix as class name or filename
-			elseif (file_exists($this->env['strategy_dir'].$strategy.'/'.$strategy.'.php')){
-				require $this->env['strategy_dir'].$strategy.'/'.$strategy.'.php';
-				return $strategy;
-			}
-			
-			// For direct cloning of Git repositories without specifying a dir name, eg. opauth-facebook
-			elseif (file_exists($this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'Strategy.php')){
-				require $this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'Strategy.php';
-				return $strategy.'Strategy';
-			}
-			
-			elseif (file_exists($this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'.php')){
-				require $this->env['strategy_dir'].'opauth-'.strtolower($strategy).'/'.$strategy.'.php';
-				return $strategy;
-			}
-			
-			
-			else{
+			if (!$found){
 				trigger_error('Strategy class file ('.$this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php'.') is missing', E_USER_ERROR);
-				exit();
 			}
 		}
 		return $strategy.'Strategy';

@@ -134,6 +134,51 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting($config, true);
 	}
 	
+	public function testValidate(){
+		$initResponse = array(
+			'auth' => array(
+				'provider' => 'Sample',
+				'uid' => 1564894354651654,
+				'info' => array(
+					'name' => 'John Doe',
+					'email' => 'john@doe.com',
+					'nickname' => 'john',
+					'first_name' => 'John',
+					'last_name' => 'Doe',
+					'location' => 'Singapore, Singapore',
+					'description' => 'I am the default human',
+					'image' => 'http://example.org/sample.jpg',
+					'phone' => '+65 9000 1000 (ext: 80)',
+					'urls' => array(
+						'website' => 'http://john.doe.com'
+					)
+				),
+				'credentials' => array(
+					'token' => 'g2L]G3^p1yS%83R|N3)Wt;??(L{E%Ff3Y[BfG9gSmw#EM]z~Jl`A~5AMoM({Y{_',
+					'secret' => 'Wl3dwG15nUxmZ0UbRLwyP6IRyeYvvPUtUaxLxI6N07TQPgJ4lIVACQ9Ia1efT89'
+				),
+				'raw' => null
+			),
+			'timestamp' => null,
+			'signature' => null
+		);
+		
+		$response = $initResponse;
+		$config = array(
+			'security_salt' => 'k9QVRc7R3woOOVyJgOFBv2Rp9bxQsGtRbaOraP7ePXuyzh0GkrNckKjI4MV1KOy',
+			'security_iteration' => 919,
+			'security_timeout' => '1 minute'
+		);
+		
+		$response['timestamp'] = date('c');
+		$response['signature'] = OpauthStrategy::hash(sha1(print_r($response['auth'], true)), $response['timestamp'], $config['security_iteration'], $config['security_salt']);
+		
+		$Opauth = self::instantiateOpauthForTesting($config);
+		$this->assertTrue($Opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason));
+		
+		return $initResponse;
+	}
+	
 	public function testLoadStrategies(){
 		$config = array('Strategy' => array(
 			'ProviderA' => array(

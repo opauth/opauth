@@ -62,6 +62,78 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		));
 	}
 	
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Notice
+	 */
+	public function testConstructorAutoRunWithoutStrategies(){
+		$Opauth = self::instantiateOpauthForTesting(array(), true);
+	}
+	
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Notice
+	 */
+	public function testRunWithoutRequest(){
+		$Opauth = self::instantiateOpauthForTesting(array(), true);
+	}
+	
+	public function testRun(){
+		$config = array(
+			'path' => '/authenticate/'
+		);
+
+		$_SERVER['REQUEST_URI'] = '/authenticate/sample';
+		
+		$this->expectOutputString('request() called');
+		$Opauth = self::instantiateOpauthForTesting($config, true);
+	}
+	
+	public function testRunNonExistingRequest(){
+		$config = array(
+			'path' => '/'
+		);
+
+		$_SERVER['REQUEST_URI'] = '/sample/non_existing';
+		
+		$this->expectOutputString('request() called');
+		$Opauth = self::instantiateOpauthForTesting($config, true);
+	}
+	
+	public function testRunSpecificRequest(){
+		$config = array(
+			'path' => '/'
+		);
+
+		$_SERVER['REQUEST_URI'] = '/sample/arbritary';
+		
+		$this->expectOutputString('arbritary() called');
+		$Opauth = self::instantiateOpauthForTesting($config, true);
+	}
+	
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Notice
+	 */
+	public function testRunNonExistingStrategy(){
+		$config = array(
+			'path' => '/'
+		);
+
+		$_SERVER['REQUEST_URI'] = '/non-existing-strategy/request';
+		$Opauth = self::instantiateOpauthForTesting($config, true);
+	}
+	
+	public function testRunExplicitRequestAsConfig(){
+		$config = array(
+			'path' => '/',
+			'request_uri' => '/sample'
+		);
+		
+		// This should be ignored
+		$_SERVER['REQUEST_URI'] = '/non-existing-strategy/request';
+		
+		$this->expectOutputString('request() called');
+		$Opauth = self::instantiateOpauthForTesting($config, true);
+	}
+	
 	public function testLoadStrategies(){
 		$config = array('Strategy' => array(
 			'ProviderA' => array(
@@ -125,7 +197,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'debug' => true
 		));
-		$this->expectOutputString('<pre>Debug message</pre>');		
+		$this->expectOutputString('<pre>Debug message</pre>');
 		$Opauth->debug('Debug message');
 	}
 	
@@ -148,11 +220,14 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		return array_merge(array(
 			'host' => 'http://test.example.org',
 			'path' => '/',
-			
 			'security_salt' => 'testing-salt',
+			'strategy_dir' => dirname(__FILE__).'/Strategy/',
 			
 			'Strategy' => array(
-				'Test' => array()
+				'Sample' => array(
+					'sample_id' => 'test_id',
+					'sample_secret' => 'test_secret'
+				)
 			)
 		), $config);
 	}

@@ -18,6 +18,7 @@ Opauth is designed works well with other PHP applications & frameworks. It is cu
 
 - [vanilla (plain) PHP applications](https://github.com/uzyn/opauth/tree/master/example) *(of course)*
 - [CakePHP](https://github.com/uzyn/cakephp-opauth) (maintained by [uzyn](https://github.com/uzyn))
+- [CodeIgniter](https://github.com/destinomultimedia/ci_opauth) (maintained by [destinomultimedia](https://github.com/destinomultimedia))
 - [CodeIgniter](https://github.com/mcatm/Opauth-Plugin-for-Codeigniter) (maintained by [mcatm](https://github.com/mcatm))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
 - and more to come.  

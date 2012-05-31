@@ -14,7 +14,7 @@ Opauth provides a standardized method for PHP applications to interface with aut
 
 Opauth as a framework provides a set of API that allows developers to [create strategies](https://github.com/uzyn/opauth/wiki/Strategy-Contribution-Guide) that work in a predictable manner across PHP frameworks and applications.
 
-Opauth is designed works well with other PHP applications & frameworks. It is currently supported on:
+Opauth works well with other PHP applications & frameworks. It is currently supported on:
 
 - [vanilla (plain) PHP applications](https://github.com/uzyn/opauth/tree/master/example) *(of course)*
 - [CakePHP](https://github.com/uzyn/cakephp-opauth) (maintained by [uzyn](https://github.com/uzyn))

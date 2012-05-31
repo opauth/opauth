@@ -20,9 +20,8 @@ Opauth is designed works well with other PHP applications & frameworks. It is cu
 - [CakePHP](https://github.com/uzyn/cakephp-opauth) (maintained by [uzyn](https://github.com/uzyn))
 - [CodeIgniter](https://github.com/mcatm/Opauth-Plugin-for-Codeigniter) (maintained by [mcatm](https://github.com/mcatm))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
-- and more to come.
-
-If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).
+- and more to come.  
+  If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).
 
 Quick start
 -----------

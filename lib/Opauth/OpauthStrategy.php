@@ -284,7 +284,7 @@ class OpauthStrategy{
 	 * @param boolean $exit Whether to call exit() right after redirection
 	 */
 	public static function clientGet($url, $data = array(), $exit = true){
-		self::redirect($url.'?'.http_build_query($data), $exit);
+		self::redirect($url.'?'.http_build_query($data, '', '&'), $exit);
 	}
 
 	/**

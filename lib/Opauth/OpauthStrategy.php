@@ -275,6 +275,17 @@ class OpauthStrategy{
 		header("Location: $url");
 		if ($exit) exit();
 	}
+	
+	/**
+	 * Client-side GET: This function builds the full HTTP URL with parameters and redirects via Location header.
+	 * 
+	 * @param string $url Destination URL
+	 * @param array $data Data
+	 * @param boolean $exit Whether to call exit() right after redirection
+	 */
+	public static function clientGet($url, $data = array(), $exit = true){
+		self::redirect($url.'?'.http_build_query($data), $exit);
+	}
 
 	/**
 	 * Generates a simple HTML form with $data initialized and post results via JavaScript

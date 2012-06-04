@@ -163,7 +163,7 @@ class OpauthStrategy{
 		
 		switch($transport){
 			case 'get':
-				$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(serialize($data)))));
+				$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(serialize($data))), '', '&'));
 				break;
 			case 'post':
 				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
@@ -308,7 +308,7 @@ class OpauthStrategy{
 	 * @return string Content resulted from request, without headers
 	 */
 	public static function serverGet($url, $data, $options = null, &$responseHeaders = null){
-		return self::httpRequest($url.'?'.http_build_query($data), $options, $responseHeaders);
+		return self::httpRequest($url.'?'.http_build_query($data, '', '&'), $options, $responseHeaders);
 	}
 
 	/**
@@ -323,7 +323,7 @@ class OpauthStrategy{
 	public static function serverPost($url, $data, $options = array(), &$responseHeaders = null){
 		if (!is_array($options)) $options = array();
 
-		$query = http_build_query($data);
+		$query = http_build_query($data, '', '&');
 
 		$stream = array('http' => array(
 			'method' => 'POST',

@@ -159,7 +159,7 @@ class OpauthStrategy{
 	 * 
 	 */
 	private function shipToCallback($data, $transport = null){
-		if (empty($transponrt)) $transport = $this->env['callback_transport'];
+		if (empty($transport)) $transport = $this->env['callback_transport'];
 		
 		switch($transport){
 			case 'get':

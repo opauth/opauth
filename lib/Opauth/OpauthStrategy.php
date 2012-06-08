@@ -382,7 +382,9 @@ class OpauthStrategy{
 	* @return array Array of object properties
 	*/
 	public static function recursiveGetObjectVars($obj){
+		$arr = array();
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
+		
 		foreach ($_arr as $key => $val){
 			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
 			

@@ -48,4 +48,18 @@ class OpauthStrategyTest extends PHPUnit_Framework_TestCase{
 		$this->assertFalse($diffSalt2 == $diffSalt);
 	}
 	
+	/**
+	 * @runInSeparateProcess
+	 */
+	public function testRedirect(){
+		$randomUrl = 'http://random.test?r='.rand();
+		
+		$headers_list = xdebug_get_headers();
+		$this->assertNotContains($randomUrl, $headers_list);
+		
+		OpauthStrategy::redirect($randomUrl, false);
+		$headers_list = xdebug_get_headers();
+		$this->assertContains("Location: $randomUrl", $headers_list);
+	}
+	
 }

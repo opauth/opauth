@@ -252,7 +252,7 @@ class OpauthStrategy{
 	 * Static hashing funciton
 	 * 
 	 * @param string $input Input string
-	 * @param string $timestamp ISO 8601 formatted date * 
+	 * @param string $timestamp ISO 8601 formatted date
 	 * @param int $iteration Number of hash interations
 	 * @param string $salt
 	 * @return string Resulting hash

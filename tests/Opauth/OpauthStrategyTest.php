@@ -55,11 +55,36 @@ class OpauthStrategyTest extends PHPUnit_Framework_TestCase{
 		$randomUrl = 'http://random.test?r='.rand();
 		
 		$headers_list = xdebug_get_headers();
-		$this->assertNotContains($randomUrl, $headers_list);
+		$this->assertNotContains("Location: $randomUrl", $headers_list);
 		
 		OpauthStrategy::redirect($randomUrl, false);
 		$headers_list = xdebug_get_headers();
 		$this->assertContains("Location: $randomUrl", $headers_list);
+	}
+	
+	/**
+	 * @runInSeparateProcess
+	 */
+	public function testClientGet(){
+		$url = 'http://example.test.org';
+		$data = array(
+			'abc' => 'def',
+			'hello' => array(
+				'world',
+				'mars' => 'attack'
+			),
+			'more""funny ' => 'element$"'
+		);
+		$fullUrl = $url.'?'.http_build_query($data, '', '&');
+		
+		$headers_list = xdebug_get_headers();
+		$this->assertNotContains("Location: $url", $headers_list);
+		$this->assertNotContains("Location: $fullUrl", $headers_list);
+		
+		OpauthStrategy::clientGet($url, $data, false);
+		$headers_list = xdebug_get_headers();
+		$this->assertNotContains("Location: $url", $headers_list);
+		$this->assertContains("Location: $fullUrl", $headers_list);
 	}
 	
 }

@@ -72,6 +72,11 @@ Provider-specific:
 	<td>muhdazrain</td>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
 	<td>uzyn</td>

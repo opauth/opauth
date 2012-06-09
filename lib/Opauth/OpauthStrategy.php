@@ -240,6 +240,35 @@ class OpauthStrategy{
 		return $hash;
 	}
 	
+	/**
+	 * Maps user profile to auth response
+	 * 
+	 * @param array $profile User profile obtained from provider
+	 * @param string $profile_path Path to a $profile property. Use dot(.) to separate levels.
+	 *        eg. Path to $profile['a']['b']['c'] would be 'a.b.c'
+	 * @param string $auth_path Path to $this->auth that is to be set.
+	 */
+	protected function mapProfile($profile, $profile_path, $auth_path){
+		$from = explode('.', $profile_path);
+		
+		$base = $profile;
+		foreach ($from as $element){
+			if (is_array($base) && array_key_exists($element, $base)) $base = $base[$element];
+			else return false;
+		}
+		$value = $base;
+		
+		$to = explode('.', $auth_path);
+		
+		$auth = &$this->auth;
+		foreach ($to as $element){
+			$auth = &$auth[$element];
+		}
+		$auth = $value;
+		return true;
+		
+	}
+	
 		
 	/**
 	 * *****************************************************

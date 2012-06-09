@@ -126,6 +126,9 @@ Issues & questions
 
 Changelog
 ---------
+###v0.4.0 (10 June 2012)
+- `mapProfile()` and `clientGet()` for OpauthStrategy class.
+
 ###v0.3.0 (30 May 2012)
 - Some unit testing
 - More consistent naming of Strategy's internal properties

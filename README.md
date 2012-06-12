@@ -77,6 +77,11 @@ Provider-specific:
 	<td>uzyn</td>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi">&nbsp;&nbsp;
+		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
+	<td>ritou</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
 	<td>uzyn</td>

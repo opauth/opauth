@@ -17,7 +17,7 @@
  * Define paths
  */
 define('CONF_FILE', dirname(__FILE__).'/'.'opauth.conf.php');
-define('OPAUTH_LIB_DIR', dirname(dirname(__FILE__)).'/lib/Opauth/');
+define('OPAUTH_LIB_DIR', dirname(__FILE__).'/lib/Opauth/');
 
 /**
 * Load config

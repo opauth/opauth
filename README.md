@@ -8,37 +8,24 @@ Try out Opauth for yourself at http://opauth.org
 
 [![Build Status](https://secure.travis-ci.org/uzyn/opauth.png?branch=master)](http://travis-ci.org/uzyn/opauth)
 
-What is Opauth?
----------------
-Opauth provides a standardized method for PHP applications to interface with authentication providers. 
+About this bundled package
+===========================
+This package is bundled with Opauth core and the following strategies to help users getting started quickly:
+- [Facebook strategy](http://github.com/uzyn/opauth-facebook)
+- [Google strategy](http://github.com/uzyn/opauth-google)
+- [Twitter strategy](http://github.com/uzyn/opauth-twitter)
 
-Opauth as a framework provides a set of API that allows developers to [create strategies](https://github.com/uzyn/opauth/wiki/Strategy-Contribution-Guide) that work in a predictable manner across PHP frameworks and applications.
+Once you are familiar with how Opauth works, check out [list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for more Opauth-supported stragies.
 
-Opauth works well with other PHP applications & frameworks. It is currently supported on:
-
-- [vanilla (plain) PHP applications](https://github.com/uzyn/opauth/tree/master/example) *(of course)*
-- [CakePHP](https://github.com/uzyn/cakephp-opauth) (maintained by [uzyn](https://github.com/uzyn))
-- [CodeIgniter](https://github.com/destinomultimedia/ci_opauth) (maintained by [destinomultimedia](https://github.com/destinomultimedia))
-- [CodeIgniter](https://github.com/mcatm/Opauth-Plugin-for-Codeigniter) (maintained by [mcatm](https://github.com/mcatm))
-- [FuelPHP](https://github.com/andreoav/fuel-opauth) (maintained by [andreoav](https://github.com/andreoav/))
-- [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
-- and more to come.  
-
-If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).
 
 Quick start
 -----------
-Guide on how to run the bundled example.
+Guide on how to run this bundled example.
 
-1. Set `DocumentRoot` of your web server to `example/`.  
-   (Opauth can be instantiated in your own PHP app, but we will leave that out of this quick start guide)
+1. Set `DocumentRoot` of your web server to this directory so that this file is accessible at `http://localhost/README.md`.  
+   _(Make sure your web server is set to allow `mod_rewrite`)_
 
-2. Configure Opauth.
-
-   First, make a copy of opauth config's file by copying or renaming  
-   `opauth.conf.php.default` to `opauth.conf.php`.
-
-   Open up `opauth.conf.php` and make the necessary changes.
+2. Open `opauth.conf.php` and make the necessary changes.
 
 3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).  
    Place the strategy files in `lib/Opauth/Strategy/`.  

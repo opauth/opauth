@@ -22,6 +22,8 @@ $config = array(
 	
 /**
  * A random string used for signing of $auth response.
+ * 
+ * NOTE: PLEASE CHANGE THIS INTO SOME OTHER RANDOM STRING
  */
 	'security_salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 		
@@ -43,5 +45,20 @@ $config = array(
 	'Strategy' => array(
 		// Define strategies and their respective configs here
 		
+		'Facebook' => array(
+			'app_id' => 'YOUR APP ID',
+			'app_secret' => 'YOUR APP SECRET'
+		),
+		
+		'Google' => array(
+			'client_id' => 'YOUR CLIENT ID',
+			'client_secret' => 'YOUR CLIENT SECRET'
+		),
+		
+		'Twitter' => array(
+			'key' => 'YOUR CONSUMER KEY',
+			'secret' => 'YOUR CONSUMER SECRET'
+		),
+				
 	),
 );

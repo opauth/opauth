@@ -6,7 +6,7 @@ The files in this directory imeplements the steps required to [use Opauth](https
 
 Getting started
 ----------------
-1. Set `DocumentRoot` of your web server to this directory, so that this file is accessed at `http://localhost/README.md` and **not** `http://localhost/example/README.md`.
+1. Set `DocumentRoot` of your web server to this directory, so that this file is accessible at `http://localhost/README.md` and **not** `http://localhost/example/README.md`.
 
 2. Configure Opauth.
    

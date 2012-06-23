@@ -1,3 +1,9 @@
 [submodule "lib/Opauth/Strategy/Facebook"]
 	path = lib/Opauth/Strategy/Facebook
 	url = git://github.com/uzyn/opauth-facebook.git
+[submodule "lib/Opauth/Strategy/Twitter"]
+	path = lib/Opauth/Strategy/Twitter
+	url = git://github.com/uzyn/opauth-twitter.git
+[submodule "lib/Opauth/Strategy/Google"]
+	path = lib/Opauth/Strategy/Google
+	url = git://github.com/uzyn/opauth-google.git

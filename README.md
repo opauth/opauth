@@ -23,7 +23,8 @@ Opauth works well with other PHP applications & frameworks. It is currently supp
 - [FuelPHP](https://github.com/andreoav/fuel-opauth) (maintained by [andreoav](https://github.com/andreoav/))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
 - and more to come.  
-  If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).
+
+If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).
 
 Quick start
 -----------
@@ -32,17 +33,38 @@ Guide on how to run the bundled example.
 1. Set `DocumentRoot` of your web server to `example/`.  
    (Opauth can be instantiated in your own PHP app, but we will leave that out of this quick start guide)
 
-2. Configure Opauth  
-   `cp example/opauth.conf.php.default example/opauth.conf.php`  
-   and make the necessary changes.
+2. Configure Opauth.
 
-3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).
-   We recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook)
+   First, make a copy of opauth config's file by copying or renaming  
+   `opauth.conf.php.default` to `opauth.conf.php`.
 
+   Open up `opauth.conf.php` and make the necessary changes.
+
+3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).  
    Place the strategy files in `lib/Opauth/Strategy/`.  
-   For example, for Opauth-Facebook, place the downloaded files at `lib/Opauth/Strategy/Facebook/`.
 
-4. Send user to `http://path_to_opauth/facebook` to authenticate.
+   For this example, we recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook):
+
+   i. [Download the strategy files](https://github.com/uzyn/opauth-facebook/zipball/master) and place them at `lib/Opauth/Strategy/Facebook/`.
+
+   ii. Follow the steps at [Opauth-Facebook's README](https://github.com/uzyn/opauth-facebook/blob/master/README.md) to set up your Faceobok app.
+
+   iii. Add the following at `opauth.conf.php` under `Strategy` as such:  
+
+```php
+<?php
+'Strategy' => array(  
+    // Define strategies here.
+
+    'Facebook' => array(
+        'app_id' => 'YOUR APP ID',
+        'app_secret' => 'YOUR APP SECRET'
+    ),
+);
+```
+
+Finally, send user to `http://localhost/facebook` to authenticate.
+
 
 Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details, especially on how to use Opauth with your own PHP application.
 

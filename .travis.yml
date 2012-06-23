@@ -3,3 +3,7 @@ php:
   - 5.2
   - 5.3
   - 5.4
+
+branches:
+  except:
+    - bundled

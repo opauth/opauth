@@ -133,7 +133,7 @@ Opauth needs your contributions, especially the following:
   Refer to [wiki](https://github.com/uzyn/opauth/wiki) for contribution guide and inform us when your work is ready.
 
 - Plugins for more PHP frameworks and CMSes  
-  eg. CodeIgniter, Symfony, WordPress, Drupal, etc.
+  eg. Symfony, Laravel, WordPress, Drupal, etc.
 
 - Guides & tutorials  
   On how to implement Opauth on CakePHP app, etc.
@@ -144,8 +144,9 @@ Opauth needs your contributions, especially the following:
 
 Issues & questions
 -------------------
+- Discussion group: [Google Groups](https://groups.google.com/group/opauth)  
+  _This is the primary channel for support, especially for user questions._
 - Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  
-- Discussion group: [Google Groups](https://groups.google.com/group/opauth)
 - Twitter: [@uzyn](http://twitter.com/uzyn)  
 - Email me: chua@uzyn.com  
 - IRC: **#opauth** on [Freenode](http://webchat.freenode.net/?channels=opauth&uio=d4)

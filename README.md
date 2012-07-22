@@ -145,7 +145,7 @@ Opauth needs your contributions, especially the following:
 Issues & questions
 -------------------
 - Discussion group: [Google Groups](https://groups.google.com/group/opauth)  
-  _This is the primary channel for support, especially for user questions._
+  _Primary channel for support, especially usage questions._
 - Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  
 - Twitter: [@uzyn](http://twitter.com/uzyn)  
 - Email me: chua@uzyn.com  
@@ -155,15 +155,21 @@ Issues & questions
 
 Changelog
 ---------
-###v0.4.0 (10 June 2012)
+
+####v0.4.1 _(22 July 2012)_
+- Not starting session if session is already started. _(thanks @Claymm)_
+- Fixed incorrect error message. _(thanks @Claymm)_
+- Removed `@` for `file_get_contents`. _(thanks @Takehiro-Adachi)_
+
+####v0.4.0 _(10 June 2012)_
 - `mapProfile()` and `clientGet()` for OpauthStrategy class.
 
-###v0.3.0 (30 May 2012)
+####v0.3.0 _(30 May 2012)_
 - Some unit testing
 - More consistent naming of Strategy's internal properties
 - Smarter loading of strategy, able to make a few guesses on where the class file might be at.
 
-###v0.2.0 (23 May 2012)
+####v0.2.0 _(23 May 2012)_
 - Opauth is now Composer compatible and listed on [Packagist](http://packagist.org/packages/opauth/opauth)
     - Opauth now supports autoloaders
     - If a strategy is not autoloaded, Opauth falls back and searches for it at `strategy_dir` defined in config.
@@ -171,7 +177,7 @@ Changelog
     - This is to reduce the likelihood of class name collision due to Opauth not requiring the use of namespace.
     - v0.1.0-type class name, ie. Foo, still works, but is now deprecated.
 
-###v0.1.0 (22 May 2012)
+####v0.1.0 _(22 May 2012)_
 - Initial release
 
 License
@@ -179,7 +185,7 @@ License
 The MIT License  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
-Footnote
+Consultation
 ---------
-U-Zyn Chua is a Principal Consultant at [gladlyCode](http://gladlycode.com), a premier PHP web development firm.  
-If you need consultation in web technologies and services, feel free to [talk to us](mailto:we@gladlycode.com).
+U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.sg).  
+Looking for PHP web development solutions or consultation? [Drop me a mail](mailto:chua@uzyn.com).

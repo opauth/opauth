@@ -31,10 +31,80 @@ Guide on how to run this bundled example.
 Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details, especially on how to use Opauth with your own PHP application.
 
 
+Provider-specific:
+
+<table>
+<tr>
+	<th>Strategy</th>
+	<th>Maintained by</th>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-facebook">Facebook</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://google.com" alt="Google">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-google">Google</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram">&nbsp;&nbsp;
+		<a href="https://github.com/muhdazrain/opauth-instagram">Instagram</a></td>
+	<td>muhdazrain</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-linkedin">LinkedIn</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi">&nbsp;&nbsp;
+		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
+	<td>ritou</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
+	<td>uzyn</td>
+</tr>
+
+</table>
+
+Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
+
+See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.  Also, refer to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.
+
+Requirements
+-------------
+PHP 5 (>= 5.2)
+
+Contribute
+----------
+Opauth needs your contributions, especially the following:
+
+- More strategies  
+  Refer to [wiki](https://github.com/uzyn/opauth/wiki) for contribution guide and inform us when your work is ready.
+
+- Plugins for more PHP frameworks and CMSes  
+  eg. Symfony, Laravel, WordPress, Drupal, etc.
+
+- Guides & tutorials  
+  On how to implement Opauth on CakePHP app, etc.
+
+- Unit testing  
+  Coverage is only average at the moment.
+
+
 Issues & questions
 -------------------
 - Discussion group: [Google Groups](https://groups.google.com/group/opauth)  
-  Feel free to post your questions to the discussion group. This is the primary channel for support.
+  _This is the primary channel for support, especially for user questions._
 - Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  
 - Twitter: [@uzyn](http://twitter.com/uzyn)  
 - Email me: chua@uzyn.com  

@@ -169,8 +169,10 @@ class OpauthStrategy{
 				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
 				break;
 			case 'session':
-			default:			
-				session_start();
+			default:
+				if (!isset($_SESSION)){
+					session_start();
+				}
 				$_SESSION['opauth'] = $data;
 				$this->redirect($this->env['callback_url']);
 		}

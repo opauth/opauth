@@ -104,7 +104,7 @@ Opauth needs your contributions, especially the following:
 Issues & questions
 -------------------
 - Discussion group: [Google Groups](https://groups.google.com/group/opauth)  
-  _This is the primary channel for support, especially for user questions._
+  _Primary channel for support, especially usage questions._
 - Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  
 - Twitter: [@uzyn](http://twitter.com/uzyn)  
 - Email me: chua@uzyn.com  
@@ -117,7 +117,7 @@ License
 The MIT License  
 Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
-Footnote
+Consultation
 ---------
-U-Zyn Chua is a Principal Consultant at [gladlyCode](http://gladlycode.com), a premier PHP web development firm.  
-If you need consultation in web technologies and services, feel free to [talk to us](mailto:we@gladlycode.com).
+U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.sg).  
+Looking for PHP web development solutions or consultation? [Drop me a mail](mailto:chua@uzyn.com).

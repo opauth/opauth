@@ -90,6 +90,16 @@ Provider-specific:
 	<td>uzyn</td>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-github">GitHub</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram">&nbsp;&nbsp;
 		<a href="https://github.com/muhdazrain/opauth-instagram">Instagram</a></td>
 	<td>muhdazrain</td>
@@ -107,11 +117,6 @@ Provider-specific:
 <tr>
 	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
-	<td>uzyn</td>
-</tr>
-<tr>
-	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
 	<td>uzyn</td>
 </tr>
 

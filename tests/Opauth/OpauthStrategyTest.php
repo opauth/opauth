@@ -67,7 +67,6 @@ class OpauthStrategyTest extends OpauthTest{
 		$Opauth->run();
 	}
 	
-	
 	/**
 	 * @runInSeparateProcess
 	 */
@@ -105,6 +104,26 @@ class OpauthStrategyTest extends OpauthTest{
 		$headers_list = xdebug_get_headers();
 		$this->assertNotContains("Location: $url", $headers_list);
 		$this->assertContains("Location: $fullUrl", $headers_list);
+	}
+	
+	/**
+	 * Instantiate OpauthStrategy with test config suitable for testing
+	 * 
+	 * @param array $config Config changes to be merged with the default
+	 * @param boolean $autoRun Should Opauth be run right after instantiation, defaulted to false
+	 * @return object Opauth instance
+	 */
+	protected static function instantiateSampleStrategyForTesting($config = array(), $autoRun = false){
+		$Opauth = new Opauth(self::configForTest($config), $autoRun);
+		
+		// From Opauth.php
+		$strategy = $Opauth->env['Strategy']['Sample'];
+		$safeEnv = $Opauth->env;
+		unset($safeEnv['Strategy']);
+		
+		require_once './tests/Opauth//Strategy/Sample/SampleStrategy.php';
+		$OpauthStrategy = new SampleStrategy($strategy, $safeEnv);
+		return $OpauthStrategy;
 	}
 	
 }

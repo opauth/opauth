@@ -2,19 +2,19 @@
 /**
  * OpauthStrategyTest
  *
- * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
- * @link         http://opauth.org
- * @package      Opauth.OpauthStrategyTest
- * @license      MIT License
+ * @copyright	Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link		 http://opauth.org
+ * @package	  Opauth.OpauthStrategyTest
+ * @license	  MIT License
  */
 
 require './lib/Opauth/OpauthStrategy.php';
-//require './tests/Opauth/OpauthTest.php';
+require './tests/Opauth/OpauthTest.php';
 
 /**
  * OpauthTest class
  */
-class OpauthStrategyTest extends PHPUnit_Framework_TestCase{
+class OpauthStrategyTest extends OpauthTest{
 	
 	public function testHash(){
 		$input = 'random string';
@@ -47,6 +47,26 @@ class OpauthStrategyTest extends PHPUnit_Framework_TestCase{
 		$this->assertFalse($diffSalt2 == $control);
 		$this->assertFalse($diffSalt2 == $diffSalt);
 	}
+	
+	
+	/**
+	 * @expectedException PHPUnit_Framework_Error
+	 */
+	public function testExpectsMissingConfig() {
+		$config = OpauthTest::configForTest();
+		
+		unset($config['Strategy']['Sample']['sample_id']);
+		$this->assertFalse(isset($config['Strategy']['Sample']['sample_id']));
+		
+		$config['path'] = '/sample';
+		
+		$Opauth = OpauthTest::instantiateOpauthForTesting($config);
+		$this->assertFalse(isset($Opauth->env['Strategy']['Sample']['sample_id']));
+		$this->assertEquals($Opauth->env['path'], '/sample');
+		
+		$Opauth->run();
+	}
+	
 	
 	/**
 	 * @runInSeparateProcess

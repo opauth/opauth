@@ -2,7 +2,7 @@ Opauth usage example
 ===============
 This example is meant to help users unfamiliar with Opauth to quickly get started.
 
-The files in this directory imeplements the steps required to [use Opauth](https://github.com/uzyn/opauth/wiki#wiki-Using-Opauth).
+The files in this directory implements the steps required to [use Opauth](https://github.com/uzyn/opauth/wiki#wiki-Using-Opauth).
 
 Getting started
 ----------------

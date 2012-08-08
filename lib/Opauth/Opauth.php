@@ -220,11 +220,11 @@ class Opauth{
 		$response = null;
 		switch($this->env['callback_transport']){
 			case 'session':
-                if (!isset($_SESSION)){
-				    session_start();
-			    }
-				$response = $_SESSION['opauth'];
-				unset($_SESSION['opauth']);
+				if (!session_id()){
+					session_start();
+					$response = $_SESSION['opauth'];
+					unset($_SESSION['opauth']);
+				}
 				break;
 			case 'post':
 				$response = unserialize(base64_decode( $_POST['opauth'] ));

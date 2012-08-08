@@ -170,7 +170,7 @@ class OpauthStrategy{
 				break;
 			case 'session':
 			default:
-				if (!isset($_SESSION)){
+				if(!session_id()) {			
 					session_start();
 				}
 				$_SESSION['opauth'] = $data;

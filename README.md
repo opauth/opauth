@@ -110,6 +110,11 @@ Provider-specific:
 	<td>uzyn</td>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-live">(Windows) Live</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi">&nbsp;&nbsp;
 		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
 	<td>ritou</td>

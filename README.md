@@ -95,6 +95,16 @@ Provider-specific:
 	<td>uzyn</td>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr">&nbsp;&nbsp;
+		<a href="https://github.com/pocket7878/opauth-flickr">Flickr</a></td>
+	<td>pocket7878</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://www.foursquare.com" alt="Foursquare" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/pocket7878/opauth-foursquare">Foursquare</a></td>
+	<td>pocket7878</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-github">GitHub</a></td>
 	<td>uzyn</td>

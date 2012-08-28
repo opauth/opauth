@@ -177,7 +177,7 @@ Changelog
 ---------
 
 ####v0.4.2 _(28 August 2012)_
-- Fix session to check for session_id() instead of $_SESSION _(thanks @sirikkoster #20)_
+- Fix session to check for `session_id()` instead of `$_SESSION` _(thanks @sirikkoster #20)_
 
 ####v0.4.1 _(22 July 2012)_
 - Not starting session if session is already started. _(thanks @Claymm)_

@@ -80,22 +80,22 @@ Provider-specific:
 	<th>Maintained by</th>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-facebook">Facebook</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://google.com" alt="Google">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://google.com" alt="Google" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-google">Google</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/pocket7878/opauth-flickr">Flickr</a></td>
 	<td>pocket7878</td>
 </tr>
@@ -105,32 +105,32 @@ Provider-specific:
 	<td>pocket7878</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-github">GitHub</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/muhdazrain/opauth-instagram">Instagram</a></td>
 	<td>muhdazrain</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-linkedin">LinkedIn</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-live">(Windows) Live</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
 	<td>ritou</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
 	<td>uzyn</td>
 </tr>

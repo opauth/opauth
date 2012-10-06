@@ -21,6 +21,7 @@ Opauth works well with other PHP applications & frameworks. It is currently supp
 - [CodeIgniter](https://github.com/destinomultimedia/ci_opauth) (maintained by [destinomultimedia](https://github.com/destinomultimedia))
 - [CodeIgniter](https://github.com/mcatm/Opauth-Plugin-for-Codeigniter) (maintained by [mcatm](https://github.com/mcatm))
 - [FuelPHP](https://github.com/andreoav/fuel-opauth) (maintained by [andreoav](https://github.com/andreoav/))
+- [Silex](https://github.com/icehero/silex-opauth) (maintained by [icehero](https://github.com/icehero/))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
 - and more to come.  
 
@@ -93,6 +94,11 @@ Provider-specific:
 	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
 	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://bitbucket.org" alt="Bitbucket" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/fancyguy/opauth-bitbucket">Bitbucket</a></td>
+	<td>slbmeh</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr" width="16">&nbsp;&nbsp;
@@ -210,5 +216,5 @@ Copyright © 2012 U-Zyn Chua (http://uzyn.com)
 
 Consultation
 ---------
-U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.sg).  
+U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.com).  
 Looking for PHP web development solutions or consultation? [Drop me a mail](mailto:chua@uzyn.com).

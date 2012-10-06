@@ -16,7 +16,7 @@ define('OPAUTH_LIB_DIR', dirname(dirname(__FILE__)).'/lib/Opauth/');
 /**
 * Load config
 */
-if (!file_exists(CONF_FILE)){
+if (!file_exists(CONF_FILE)) {
 	trigger_error('Config file missing at '.CONF_FILE, E_USER_ERROR);
 	exit();
 }

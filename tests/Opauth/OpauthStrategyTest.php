@@ -14,9 +14,9 @@ require './tests/Opauth/OpauthTest.php';
 /**
  * OpauthTest class
  */
-class OpauthStrategyTest extends OpauthTest{
+class OpauthStrategyTest extends OpauthTest {
 	
-	public function testHash(){
+	public function testHash() {
 		$input = 'random string';
 		$timestamp = date('c');
 		$iteration = 250;
@@ -70,7 +70,7 @@ class OpauthStrategyTest extends OpauthTest{
 	/**
 	 * @runInSeparateProcess
 	 */
-	public function testRedirect(){
+	public function testRedirect() {
 		$randomUrl = 'http://random.test?r='.rand();
 		
 		$headers_list = xdebug_get_headers();
@@ -84,7 +84,7 @@ class OpauthStrategyTest extends OpauthTest{
 	/**
 	 * @runInSeparateProcess
 	 */
-	public function testClientGet(){
+	public function testClientGet() {
 		$url = 'http://example.test.org';
 		$data = array(
 			'abc' => 'def',
@@ -113,7 +113,7 @@ class OpauthStrategyTest extends OpauthTest{
 	 * @param boolean $autoRun Should Opauth be run right after instantiation, defaulted to false
 	 * @return object Opauth instance
 	 */
-	protected static function instantiateSampleStrategyForTesting($config = array(), $autoRun = false){
+	protected static function instantiateSampleStrategyForTesting($config = array(), $autoRun = false) {
 		$Opauth = new Opauth(self::configForTest($config), $autoRun);
 		
 		// From Opauth.php
@@ -125,5 +125,5 @@ class OpauthStrategyTest extends OpauthTest{
 		$OpauthStrategy = new SampleStrategy($strategy, $safeEnv);
 		return $OpauthStrategy;
 	}
-	
+		
 }

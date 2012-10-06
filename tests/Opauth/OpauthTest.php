@@ -13,15 +13,15 @@ require './lib/Opauth/Opauth.php';
 /**
  * OpauthTest class
  */
-class OpauthTest extends PHPUnit_Framework_TestCase{
+class OpauthTest extends PHPUnit_Framework_TestCase {
 
-	protected function setUp(){
+	protected function setUp() {
 		// To surpress E_USER_NOTICE on missing $_SERVER indexes
 		$_SERVER['HTTP_HOST'] = 'test.example.org';
 		$_SERVER['REQUEST_URI'] = '/';
 	}
 	
-	public function testConstructor(){
+	public function testConstructor() {
 		$Opauth = self::instantiateOpauthForTesting();
 		$this->assertEquals($Opauth->env['host'], 'http://test.example.org');
 		$this->assertEquals($Opauth->env['path'], '/');
@@ -56,7 +56,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @expectedException PHPUnit_Framework_Error_Notice
 	 */
-	public function testConstructorDefaultSecuritySalt(){
+	public function testConstructorDefaultSecuritySalt() {
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'security_salt' => 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m',
 		));
@@ -65,18 +65,18 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @expectedException PHPUnit_Framework_Error_Notice
 	 */
-	public function testConstructorAutoRunWithoutStrategies(){
+	public function testConstructorAutoRunWithoutStrategies() {
 		$Opauth = self::instantiateOpauthForTesting(array(), true);
 	}
 	
 	/**
 	 * @expectedException PHPUnit_Framework_Error_Notice
 	 */
-	public function testRunWithoutRequest(){
+	public function testRunWithoutRequest() {
 		$Opauth = self::instantiateOpauthForTesting(array(), true);
 	}
 	
-	public function testRun(){
+	public function testRun() {
 		$config = array(
 			'path' => '/authenticate/'
 		);
@@ -87,7 +87,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting($config, true);
 	}
 	
-	public function testRunNonExistingRequest(){
+	public function testRunNonExistingRequest() {
 		$config = array(
 			'path' => '/'
 		);
@@ -98,7 +98,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting($config, true);
 	}
 	
-	public function testRunSpecificRequest(){
+	public function testRunSpecificRequest() {
 		$config = array(
 			'path' => '/'
 		);
@@ -112,7 +112,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @expectedException PHPUnit_Framework_Error
 	 */
-	public function testRunNonExistingStrategy(){
+	public function testRunNonExistingStrategy() {
 		$config = array(
 			'path' => '/'
 		);
@@ -121,7 +121,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting($config, true);
 	}
 	
-	public function testRunExplicitRequestAsConfig(){
+	public function testRunExplicitRequestAsConfig() {
 		$config = array(
 			'path' => '/',
 			'request_uri' => '/sample'
@@ -134,7 +134,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth = self::instantiateOpauthForTesting($config, true);
 	}
 	
-	public function testValidate(){
+	public function testValidate() {
 		$response = array(
 			'auth' => array(
 				'provider' => 'Sample',
@@ -182,7 +182,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @depends testValidate
 	 */
-	public function testValidateTimeout(array $response){
+	public function testValidateTimeout(array $response) {
 		$config = array(
 			'security_salt' => 'k9QVRc7R3woOOVyJgOFBv2Rp9bxQsGtRbaOraP7ePXuyzh0GkrNckKjI4MV1KOy',
 			'security_iteration' => 919,
@@ -200,7 +200,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @depends testValidate
 	 */
-	public function testValidateInvalidSignature(array $response){
+	public function testValidateInvalidSignature(array $response) {
 		$config = array(
 			'security_salt' => 'k9QVRc7R3woOOVyJgOFBv2Rp9bxQsGtRbaOraP7ePXuyzh0GkrNckKjI4MV1KOy',
 			'security_iteration' => 919,
@@ -215,7 +215,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($reason, 'Signature does not validate');
 	}
 	
-	public function testLoadStrategies(){
+	public function testLoadStrategies() {
 		$config = array('Strategy' => array(
 			'ProviderA' => array(
 				'hello' => 'world',
@@ -254,7 +254,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($Opauth->env['Strategy']['ProviderA']['strategy_url_name'], 'Hello');
 	}
 	
-	public function testLoadStrategiesAsString(){
+	public function testLoadStrategiesAsString() {
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'Strategy' => array('ProviderAsString')
 		));
@@ -268,13 +268,13 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	/**
 	 * @expectedException PHPUnit_Framework_Error
 	 */
-	public function testLoadStrategiesError(){
+	public function testLoadStrategiesError() {
 		$config = self::configForTest();
 		unset($config['Strategy']);
 		$Opauth = new Opauth($config, false);
 	}
 	
-	public function testDebugWithDebugOn(){
+	public function testDebugWithDebugOn() {
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'debug' => true
 		));
@@ -282,7 +282,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 		$Opauth->debug('Debug message');
 	}
 	
-	public function testDebugWithDebugOff(){
+	public function testDebugWithDebugOff() {
 		$Opauth = self::instantiateOpauthForTesting(array(
 			'debug' => false
 		));
@@ -297,7 +297,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	 * @param array $config Config changes to be merged with the default
 	 * @return array Merged config
 	 */
-	protected static function configForTest($config = array()){
+	protected static function configForTest($config = array()) {
 		return array_merge(array(
 			'host' => 'http://test.example.org',
 			'path' => '/',
@@ -320,7 +320,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase{
 	 * @param boolean $autoRun Should Opauth be run right after instantiation, defaulted to false
 	 * @return object Opauth instance
 	 */
-	protected static function instantiateOpauthForTesting($config = array(), $autoRun = false){
+	protected static function instantiateOpauthForTesting($config = array(), $autoRun = false) {
 		$Opauth = new Opauth(self::configForTest($config), $autoRun);
 		
 		return $Opauth;

@@ -98,7 +98,7 @@ Provider-specific:
 <tr>
 	<td><img src="http://g.etfv.co/http://bitbucket.org" alt="Bitbucket" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/fancyguy/opauth-bitbucket">Bitbucket</a></td>
-	<td>slbmeh</td>
+	<td>fancyguy</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr" width="16">&nbsp;&nbsp;

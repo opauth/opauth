@@ -21,9 +21,8 @@
 		"opauth/twitter": "Allows Twitter authentication"
 	},
 	"autoload": {
-		"psr-0": { 
-			"": "lib/Opauth/",
-			"Opauth": "lib/"
-		}
+		"classmap": [ 
+			"lib/Opauth/"
+		]
 	}
 }

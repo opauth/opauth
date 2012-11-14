@@ -386,8 +386,9 @@ class OpauthStrategy {
 			'content' => $query
 		));
 
-		$stream = array_merge($options, $stream);
-
+        if(isset($options['http'])){
+		    $stream['http'] = array_merge($stream['http'], $options['http']);
+        }
 		return self::httpRequest($url, $stream, $responseHeaders);	
 	}
 	

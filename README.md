@@ -24,6 +24,7 @@ Opauth works well with other PHP applications & frameworks. It is currently supp
 - [PrestaShop] (https://github.com/Onasusweb/PrestaShop-Opauth) (maintained by [Onasusweb] (https://github.com/Onasusweb))
 - [Silex](https://github.com/icehero/silex-opauth) (maintained by [icehero](https://github.com/icehero/))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
+- [Zend Framework 2](https://github.com/lorenzoferrarajr/LfjOpauth) (maintained by [lorenzoferrarajr](https://github.com/lorenzoferrarajr))
 - and more to come.  
 
 If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).

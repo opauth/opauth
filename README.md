@@ -21,6 +21,7 @@ Opauth works well with other PHP applications & frameworks. It is currently supp
 - [CodeIgniter](https://github.com/destinomultimedia/ci_opauth) (maintained by [destinomultimedia](https://github.com/destinomultimedia))
 - [CodeIgniter](https://github.com/mcatm/Opauth-Plugin-for-Codeigniter) (maintained by [mcatm](https://github.com/mcatm))
 - [FuelPHP](https://github.com/andreoav/fuel-opauth) (maintained by [andreoav](https://github.com/andreoav/))
+- [PrestaShop] (https://github.com/Onasusweb/PrestaShop-Opauth) (maintained by [Onasusweb] (https://github.com/Onasusweb))
 - [Silex](https://github.com/icehero/silex-opauth) (maintained by [icehero](https://github.com/icehero/))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
 - and more to come.  
@@ -81,27 +82,27 @@ Provider-specific:
 	<th>Maintained by</th>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook" width="16">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-facebook">Facebook</a></td>
-	<td>uzyn</td>
-</tr>
-<tr>
-	<td><img src="http://g.etfv.co/http://google.com" alt="Google" width="16">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-google">Google</a></td>
-	<td>uzyn</td>
-</tr>
-<tr>
-	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
-	<td>uzyn</td>
-</tr>
-<tr>
 	<td><img src="http://g.etfv.co/http://bitbucket.org" alt="Bitbucket" width="16">&nbsp;&nbsp;
-		<a href="https://github.com/fancyguy/opauth-bitbucket">Bitbucket</a></td>
+		<a href="http://github.com/fancyguy/opauth-bitbucket">Bitbucket</a></td>
 	<td>fancyguy</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://disqus.com" alt="Disqus" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/rasa/opauth-disqus">Disqus</a></td>
+	<td>rasa</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://do.com" alt="Do" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/arbales/opauth-do">Do</a></td>
+	<td>arbales</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-facebook"><strong>Facebook</strong></a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr">&nbsp;&nbsp;
 		<a href="https://github.com/pocket7878/opauth-flickr">Flickr</a></td>
 	<td>pocket7878</td>
 </tr>
@@ -111,45 +112,77 @@ Provider-specific:
 	<td>pocket7878</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-github">GitHub</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://google.com" alt="Google" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-google"><strong>Google</strong></a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram">&nbsp;&nbsp;
 		<a href="https://github.com/muhdazrain/opauth-instagram">Instagram</a></td>
 	<td>muhdazrain</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-linkedin">LinkedIn</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-live">(Windows) Live</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi">&nbsp;&nbsp;
 		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
 	<td>ritou</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID" width="16">&nbsp;&nbsp;
+	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
 		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
 	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://paypal.com" alt="PayPal">&nbsp;&nbsp;
+		<a href="https://github.com/24hours/opauth-paypal">PayPal</a></td>
+	<td>24hours</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://weibo.com" alt="Sina Weibo" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/dgrabla/opauth-sinaweibo">Sina Weibo (新浪微博)</a></td>
+	<td>dgrabla</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-twitter"><strong>Twitter</strong></a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://vk.com" alt="VK" width="16">&nbsp;&nbsp;
+<a href="https://github.com/dgrabla/opauth-vkontakte">VKontakte</a></td>
+	<td>dgrabla</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://developer.yahoo.co.jp" alt="Yahoo! Japan" width="16">&nbsp;&nbsp;
+<a href="https://github.com/ritou/opauth-yahoojp">Yahoo! Japan (YConnect)</a></td>
+	<td>ritou</td>
 </tr>
 
 </table>
 
 Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
 
-See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.  Also, refer to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.
+See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.    
+Refer also to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.
 
 Requirements
 -------------
-PHP 5 (>= 5.2)
+PHP 5 (>= 5.2)  
+with [`allow_url_fopen`](http://php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen) enabled
 
 Contribute
 ----------
@@ -163,9 +196,6 @@ Opauth needs your contributions, especially the following:
 
 - Guides & tutorials  
   On how to implement Opauth on CakePHP app, etc.
-
-- Unit testing  
-  Coverage is only average at the moment.
 
 
 Issues & questions
@@ -181,6 +211,9 @@ Issues & questions
 
 Changelog
 ---------
+
+####v0.4.3 _(10 January 2013)_
+- Fixed a `serverPost()` bug where user-supplied options were not applied correctly. _(thanks @ritou #26)_
 
 ####v0.4.2 _(28 August 2012)_
 - Fix session to check for `session_id()` instead of `$_SESSION` _(thanks @sirikkoster #20)_
@@ -212,7 +245,7 @@ Changelog
 License
 ---------
 The MIT License  
-Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+Copyright © 2012-2013 U-Zyn Chua (http://uzyn.com)
 
 Consultation
 ---------

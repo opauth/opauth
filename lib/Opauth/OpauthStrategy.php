@@ -412,7 +412,15 @@ class OpauthStrategy {
 			$context = stream_context_create($options);
 		}
 
-		$content = file_get_contents($url, false, $context);
+		if (ini_get('allow_url_fopen')) {
+			$content = file_get_contents($url, false, $context);
+		} else {
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_URL, $url);
+			$content = curl_exec($ch);
+			curl_close($ch);
+		}
 		$responseHeaders = implode("\r\n", $http_response_header);
 
 		return $content;

@@ -16,12 +16,13 @@ Opauth as a framework provides a set of API that allows developers to [create st
 
 Opauth works well with other PHP applications & frameworks. It is currently supported on:
 
-- [vanilla (plain) PHP applications](https://github.com/uzyn/opauth/tree/master/example) *(of course)*
+- [vanilla (plain) PHP applications](https://github.com/uzyn/opauth/tree/master/example)
 - [CakePHP](https://github.com/uzyn/cakephp-opauth) (maintained by [uzyn](https://github.com/uzyn))
 - [CodeIgniter](https://github.com/destinomultimedia/ci_opauth) (maintained by [destinomultimedia](https://github.com/destinomultimedia))
 - [CodeIgniter](https://github.com/mcatm/Opauth-Plugin-for-Codeigniter) (maintained by [mcatm](https://github.com/mcatm))
 - [FuelPHP](https://github.com/andreoav/fuel-opauth) (maintained by [andreoav](https://github.com/andreoav/))
-- [PrestaShop] (https://github.com/Onasusweb/PrestaShop-Opauth) (maintained by [Onasusweb] (https://github.com/Onasusweb))
+- [Laravel](https://github.com/FakeHeal/opauth-laravel) (maintained by [FakeHeal](https://github.com/FakeHeal/))
+- [PrestaShop](https://github.com/Onasusweb/PrestaShop-Opauth) (maintained by [Onasusweb](https://github.com/Onasusweb))
 - [Silex](https://github.com/icehero/silex-opauth) (maintained by [icehero](https://github.com/icehero/))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
 - [Zend Framework 2](https://github.com/lorenzoferrarajr/LfjOpauth) (maintained by [lorenzoferrarajr](https://github.com/lorenzoferrarajr))

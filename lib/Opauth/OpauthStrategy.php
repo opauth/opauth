@@ -285,11 +285,11 @@ class OpauthStrategy {
 	 */
 	
 	/**
-	 * Static hashing funciton
+	 * Static hashing function
 	 * 
 	 * @param string $input Input string
 	 * @param string $timestamp ISO 8601 formatted date
-	 * @param int $iteration Number of hash interations
+	 * @param int $iteration Number of hash iterations
 	 * @param string $salt
 	 * @return string Resulting hash
 	 */
@@ -445,7 +445,7 @@ class OpauthStrategy {
 	 * Recursively converts multidimensional array into POST-friendly single dimensional array
 	 * 
 	 * @param array $array Array to be flatten
-	 * @param string $prefix String to be prefixed to flatenned variable name
+	 * @param string $prefix String to be prefixed to flattened variable name
 	 * @param array $results Existing array of flattened inputs to be merged upon
 	 * 
 	 * @return array A single dimensional array with POST-friendly name
@@ -465,11 +465,11 @@ class OpauthStrategy {
 	}
 	
 	/**
-	 * Replace defined env values enclused in {} with values from $dictionary
+	 * Replace defined env values enclosed in {} with values from $dictionary
 	 * 
 	 * @param string $value Input string
 	 * @param array $dictionary Dictionary to lookup values from
-	 * @return string String substitued with value from dictionary, if applicable
+	 * @return string String substituted with value from dictionary, if applicable
 	 */
 	public static function envReplace($value, $dictionary) {
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)) {

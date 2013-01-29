@@ -17,7 +17,7 @@
  */
 class Opauth {
 	/**
-	 * User configuraable settings
+	 * User configurable settings
 	 * Refer to example/opauth.conf.php.default or example/opauth.conf.php.advanced for sample
 	 * More info: https://github.com/uzyn/opauth/wiki/Opauth-configuration
 	 */

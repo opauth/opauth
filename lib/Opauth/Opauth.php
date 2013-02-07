@@ -148,7 +148,7 @@ class Opauth {
 	/**
 	 * Load strategies from user-input $config
 	 */	
-	private function loadStrategies() {
+	protected function loadStrategies() {
 		if (isset($this->env['Strategy']) && is_array($this->env['Strategy']) && count($this->env['Strategy']) > 0) {
 			foreach ($this->env['Strategy'] as $key => $strategy) {
 				if (!is_array($strategy)) {
@@ -274,7 +274,7 @@ class Opauth {
 	 * @param string $strategy Name of a strategy
 	 * @return string Class name of the strategy, usually StrategyStrategy
 	 */
-	private function requireStrategy($strategy) {
+	protected function requireStrategy($strategy) {
 		if (!class_exists($strategy.'Strategy')) {
 			// Include dir where Git repository for strategy is cloned directly without 
 			// specifying a dir name, eg. opauth-facebook

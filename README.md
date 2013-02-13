@@ -164,6 +164,11 @@ Provider-specific:
 	<td>uzyn</td>
 </tr>
 <tr>
+	<td><img src="http://g.etfv.co/http://vimeo.com" alt="Vimeo" width="16">&nbsp;&nbsp;
+<a href="https://github.com/LubosRemplik/opauth-vimeo">Vimeo</a></td>
+	<td>LubosRemplik</td>
+</tr>
+<tr>
 	<td><img src="http://g.etfv.co/http://vk.com" alt="VK" width="16">&nbsp;&nbsp;
 <a href="https://github.com/dgrabla/opauth-vkontakte">VKontakte</a></td>
 	<td>dgrabla</td>

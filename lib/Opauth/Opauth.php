@@ -9,7 +9,7 @@
  * @license      MIT License
  */
 namespace Opauth;
-
+use Opauth\HttpClient;
 use \Exception;
 
 /**
@@ -83,7 +83,7 @@ class Opauth {
 			return $this->Strategy->request();
 		}
 
-		if ($this->Request->action !== $this->Strategy->callback) {
+		if ($this->Request->action !== 'callback') {
 			throw new Exception('Invalid callback url element: ' . $this->Request->action);
 		}
 		$response = $this->Strategy->callback();

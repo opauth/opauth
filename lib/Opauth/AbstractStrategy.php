@@ -12,6 +12,7 @@ namespace Opauth;
 
 use \Exception;
 use Opauth\Request;
+use Opauth\StrategyInterface;
 
 /**
  * Opauth Strategy
@@ -19,7 +20,7 @@ use Opauth\Request;
  *
  * @package			Opauth.Strategy
  */
-abstract class AbstractStrategy {
+abstract class AbstractStrategy implements StrategyInterface {
 
 	/**
 	 * Compulsory config keys, listed as unassociative arrays
@@ -77,7 +78,6 @@ abstract class AbstractStrategy {
 		/**
 		 * Additional helpful values
 		 */
-
 		foreach ($this->strategy as $key => $value) {
 			$this->strategy[$key] = $this->envReplace($value, $this->strategy);
 		}
@@ -89,7 +89,7 @@ abstract class AbstractStrategy {
 	 * @return string
 	 */
 	protected function callbackUrl() {
-		return $this->Request->providerUrl() . '/' . $this->callback;
+		return $this->Request->providerUrl() . '/callback';
 	}
 
 	/**
@@ -128,24 +128,6 @@ abstract class AbstractStrategy {
 				$params[$paramKey] = $this->strategy[$configKey];
 			}
 		}
-		return $params;
-	}
-
-	/**
-	 * Packs $auth nicely and send to callback_url, ships $auth either via GET, POST or session.
-	 * Set shipping transport via callback_transport config, default being session.
-	 */
-	protected function _callback() {
-
-		// To standardize the way of accessing data, objects are translated to arrays
-		$this->auth = $this->recursiveGetObjectVars($this->auth);
-
-		$this->auth['provider'] = $this->strategy['provider'];
-
-		$params = array(
-			'auth' => $this->auth,
-		);
-
 		return $params;
 	}
 
@@ -206,38 +188,6 @@ abstract class AbstractStrategy {
 		}
 		return $this->strategy[$key];
 	}
-
-	/**
-	 * Maps user profile to auth response
-	 *
-	 * @param array $profile User profile obtained from provider
-	 * @param string $profile_path Path to a $profile property. Use dot(.) to separate levels.
-	 *        eg. Path to $profile['a']['b']['c'] would be 'a.b.c'
-	 * @param string $auth_path Path to $this->auth that is to be set.
-	 */
-	protected function mapProfile($profile, $profile_path, $auth_path){
-		$from = explode('.', $profile_path);
-
-		$base = $profile;
-		foreach ($from as $element) {
-			if (!is_array($base) || array_key_exists($element, $base)) {
-				return false;
-			}
-				$base = $base[$element];
-		}
-		$value = $base;
-
-		$to = explode('.', $auth_path);
-
-		$auth = &$this->auth;
-		foreach ($to as $element){
-			$auth = &$auth[$element];
-		}
-		$auth = $value;
-		return true;
-
-	}
-
 
 	/**
 	 * *****************************************************

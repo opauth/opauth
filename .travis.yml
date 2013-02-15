@@ -6,4 +6,5 @@ php:
 
 branches:
   except:
-    - bundled 
+    - bundled
+    - wip/1.0

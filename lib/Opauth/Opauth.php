@@ -25,7 +25,7 @@ class Opauth {
 	 *
 	 * @var Strategy
 	 */
-	public $Strategy;
+	protected $Strategy;
 
 	/**
 	 * Holds array of strategy settings indexed by strategy_url_name
@@ -52,6 +52,9 @@ class Opauth {
 		$path = null;
 		if (!empty($config['path'])) {
 			$path = $config['path'];
+		}
+		if (!empty($config['http_client_method'])) {
+			HttpClient::$method = $config['http_client_method'];
 		}
 		$this->Request = new Request($path);
 	}
@@ -139,9 +142,15 @@ class Opauth {
 		$this->strategies[$settings['strategy_url_name']] = $settings;
 	}
 
-	public function loadStrategy() {
-		if ($this->Strategy instanceof AbstractStrategy) {
-			return false;
+	/**
+	 * Loads strategy based on url if not manually set
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	protected function loadStrategy() {
+		if (!empty($this->Strategy)) {
+			return null;
 		}
 		if (!$this->strategies) {
 			throw new Exception('No strategies configured');
@@ -151,7 +160,16 @@ class Opauth {
 		}
 		$strategy = $this->strategies[$this->Request->provider];
 		$class = '\Opauth\Provider\\' . $strategy['class_name'] . '\\' . 'Strategy';
-		$this->Strategy = new $class($this->Request, $strategy);
+		$this->setStrategy(new $class($this->Request, $strategy));
+	}
+
+	/**
+	 * Sets Strategy instance
+	 *
+	 * @param \Opauth\StrategyInterface $Strategy
+	 */
+	public function setStrategy(StrategyInterface $Strategy) {
+		$this->Strategy = $Strategy;
 	}
 
 }

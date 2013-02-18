@@ -8,6 +8,7 @@
  * @license      MIT License
  */
 namespace Opauth;
+use \Exception;
 
 /**
  * Opauth Request
@@ -17,12 +18,32 @@ namespace Opauth;
  */
 class Request {
 
+	/**
+	 * Provider url_name
+	 *
+	 * @var string
+	 */
 	public $provider = null;
 
+	/**
+	 * Action, null for request, 'callback' for callback
+	 *
+	 * @var string
+	 */
 	public $action = null;
 
-	public $path = '/auth/';
+	/**
+	 * Opauth url path, relative to host
+	 *
+	 * @var string
+	 */
+	protected $path = '/auth/';
 
+	/**
+	 * Set path if '/auth/' isnt the default path, or if application is in a subdir
+	 *
+	 * @param string $path
+	 */
 	public function __construct($path = null) {
 		if ($path) {
 			$this->path = $path;
@@ -30,7 +51,15 @@ class Request {
 		$this->parseUri();
 	}
 
+	/**
+	 * Get provider url_name and action form the request
+	 *
+	 * @throws Exception
+	 */
 	private function parseUri() {
+		if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
+			throw new Exception('Not an Opauth request, path is not in uri');
+		}
 		$request = substr($_SERVER['REQUEST_URI'], strlen($this->path) - 1);
 
 		preg_match_all('/\/([A-Za-z0-9-_]+)/', $request, $matches);
@@ -42,10 +71,20 @@ class Request {
 		}
 	}
 
+	/**
+	 * getHost
+	 *
+	 * @return string Full host string
+	 */
 	public function getHost() {
 		return (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 	}
 
+	/**
+	 * providerUrl
+	 *
+	 * @return string Full path to provider url_name
+	 */
 	public function providerUrl() {
 		return $this->getHost() . $this->path . $this->provider;
 	}

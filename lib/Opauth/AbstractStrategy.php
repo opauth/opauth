@@ -43,13 +43,6 @@ abstract class AbstractStrategy implements StrategyInterface {
 	protected $strategy;
 
 	/**
-	 * Url parameter to run callback()
-	 *
-	 * @var string
-	 */
-	public $callback = 'callback';
-
-	/**
 	 * Key for $_SESSION data
 	 *
 	 * @var string

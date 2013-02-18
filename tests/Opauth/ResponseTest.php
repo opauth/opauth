@@ -8,7 +8,9 @@
  * @license      MIT License
  */
 namespace Opauth;
-require dirname(dirname(dirname(__FILE__))) . '/lib/Opauth/autoload.php';
+use \PHPUnit_Framework_TestCase;
+
+require_once dirname(dirname(dirname(__FILE__))) . '/lib/Opauth/autoload.php';
 $loader = new ClassLoader('Opauth', dirname(dirname(dirname(__FILE__))) . '/lib');
 $loader->register();
 unset($loader);
@@ -16,12 +18,12 @@ unset($loader);
 /**
  * OpauthTest class
  */
-class ResponseTest extends \PHPUnit_Framework_TestCase{
+class ResponseTest extends PHPUnit_Framework_TestCase {
 
 	protected function setUp(){
 		// To surpress E_USER_NOTICE on missing $_SERVER indexes
 		$_SERVER['HTTP_HOST'] = 'test.example.org';
-		$_SERVER['REQUEST_URI'] = '/';
+		$_SERVER['REQUEST_URI'] = '/auth/';
 	}
 
 	public function testConstruct() {

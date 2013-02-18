@@ -27,14 +27,14 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testConstructor() {
-		$Opauth = new Opauth(array(), false);
+		$Opauth = new Opauth(array());
 		$this->assertEquals('http://test.example.org', $Opauth->Request->getHost());
 
 		$_SERVER['HTTP_HOST'] = 'test2.example.org';
 		$_SERVER['REQUEST_URI'] = '/subdir/auth/sample';
 		$Opauth = new Opauth(array(
 			'path' => '/subdir/auth/',
-		), false);
+		));
 		$this->assertEquals('http://test2.example.org', $Opauth->Request->getHost());
 		$this->assertEquals('http://test2.example.org/subdir/auth/sample', $Opauth->Request->providerUrl());
 	}
@@ -44,7 +44,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	 * @expectedException Exception
 	 */
 	public function testRunWithoutStrategies() {
-		$Opauth = new Opauth(array(), false);
+		$Opauth = new Opauth(array());
 		$Opauth->run();
 	}
 
@@ -62,7 +62,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 				)
 			)
 		);
-		$Opauth = new Opauth($config, false);
+		$Opauth = new Opauth($config);
 		$Opauth->run();
 	}
 
@@ -79,7 +79,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 				)
 			)
 		);
-		$Opauth = new Opauth($config, false);
+		$Opauth = new Opauth($config);
 		$Opauth->run();
 		$this->expectOutputString('request() called');
 	}
@@ -99,7 +99,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 				)
 			)
 		);
-		$Opauth = new Opauth($config, false);
+		$Opauth = new Opauth($config);
 		$result = $Opauth->run();
 	}
 
@@ -113,7 +113,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'sample_secret' => 'fortytwo',
 			'provider' => 'Sample',
 		);
-		$Opauth = new Opauth(array(), false);
+		$Opauth = new Opauth(array());
 		$Strategy = new Strategy(new Request(), $config);
 		$Strategy->testRaw = array('id' => 1, 'username' => 'sampling', 'creds' => 'credential array');
 		$Strategy->testMap = array('uid' => 'id', 'name' => 'username', 'credentials' => 'creds');

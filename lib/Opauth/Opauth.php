@@ -92,6 +92,7 @@ class Opauth {
 		if (!$response instanceof Response) {
 			throw new Exception('Response should be instance of Opauth\Response');
 		}
+		$response->map();
 		if (!$response->isValid()) {
 			throw new Exception('Invalid response, missing required parameters');
 		}

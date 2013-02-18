@@ -34,9 +34,8 @@ class Response implements ArrayAccess {
 
 	/**
 	 *
-	 * @param string $provider
-	 * @param integer $uid
-	 * @param array $raw
+	 * @param string $provider Use $this->strategy['provider'] so aliassed strategies are handled correct
+	 * @param array $raw Raw response data from provider
 	 */
 	public function __construct($provider, $raw) {
 		$this->provider = $provider;
@@ -44,11 +43,12 @@ class Response implements ArrayAccess {
 	}
 
 	/**
-	 *  Checks if required parameters are set
+	 * Checks if required parameters are set
+	 *
 	 * @return boolean
 	 */
 	public function isValid() {
-		$attributes = array('provider', 'uid', 'name');
+		$attributes = array('provider', 'raw', 'uid', 'name', 'credentials');
 		foreach ($attributes as $attribute) {
 			if (empty($this->{$attribute})) {
 				return false;
@@ -62,13 +62,13 @@ class Response implements ArrayAccess {
 	 * Uses paths to data, Use dot(.) to separate levels
 	 * Examples:
 	 * - Path to $response->info['a']['b']['c'] would be 'info.a.b.c'
-	 * - setData('screen_name', 'info.nickname') sets value from $response->raw['screen_name'] to $response->info['nickname']
-	 * - setData('nested.user_id', 'uid') sets value from $response->raw['nested']['userid'] to $response->uid
+	 * - setData('info.nickname', 'screen_name') sets value from $response->raw['screen_name'] to $response->info['nickname']
+	 * - setData('uid', 'nested.user_id') sets value from $response->raw['nested']['userid'] to $response->uid
 	 *
-	 * @param string $rawPath Path to a $raw data. eg 'screen_name' reads from $raw['screen_name']
 	 * @param string $path Path to property. eg 'info.nickname' sets to $info['nickname']
+	 * @param string $rawPath Path to a $raw data. eg 'screen_name' reads from $raw['screen_name']
 	 */
-	public function setData($rawPath, $path) {
+	public function setData($path, $rawPath) {
 		$rawValue = $this->getRaw($rawPath);
 		if (!$rawValue) {
 			return false;
@@ -77,10 +77,12 @@ class Response implements ArrayAccess {
 	}
 
 	/**
+	 * Set data map, array of 'path' => 'rawPath' key/value pairs
+	 * See also setData()
 	 *
 	 * @param array $map
 	 */
-	public function setMap($map) {
+	public function setMap($map = array()) {
 		$this->map = $map;
 	}
 
@@ -93,16 +95,15 @@ class Response implements ArrayAccess {
 	}
 
 	/**
-	 *
-	 * @param array $map
+	 * Sets attribute data based on data mapping
+	 * Use setMap() to set the data mapping
 	 */
-	public function map($map = array()) {
-		if (empty($map)) {
-			$map = $this->getMap();
+	public function map() {
+		$map = $this->getMap();
+		foreach ($map as $path => $rawPath) {
+			$this->setData($path, $rawPath);
 		}
-		foreach ($map as $rawPath => $path) {
-			$this->setData($rawPath, $path);
-		}
+		$this->setMap();
 	}
 
 	/**

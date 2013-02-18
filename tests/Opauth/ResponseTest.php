@@ -35,21 +35,25 @@ class ResponseTest extends \PHPUnit_Framework_TestCase{
 	public function testMap() {
 		$response = $this->buildResponse();
 
-		$response->map(array('some' => 'info.somename'));
+		$response->setMap(array('info.somename' => 'some'));
+		$response->map();
 		$this->assertEquals('raw data', $response->info['somename']);
 
-		$response->map(array('more.nested' => 'info.more'));
+		$response->setMap(array('info.more' => 'more.nested'));
+		$response->map();
 		$this->assertEquals('raw', $response->info['more']);
 
-		$response->map(array('id' => 'uid'));
+		$response->setMap(array('uid' => 'id'));
+		$response->map();
 		$this->assertEquals(1234, $response->uid);
 
 		$response = $this->buildResponse();
-		$response->map(array(
-			'some' => 'info.somename',
-			'more.nested' => 'info.more',
-			'id' => 'uid'
+		$response->setMap(array(
+			'info.somename' => 'some',
+			'info.more' => 'more.nested',
+			'uid' => 'id'
 		));
+		$response->map();
 		$this->assertEquals('raw data', $response->info['somename']);
 		$this->assertEquals('raw', $response->info['more']);
 		$this->assertEquals(1234, $response->uid);
@@ -58,19 +62,19 @@ class ResponseTest extends \PHPUnit_Framework_TestCase{
 	public function testSetData() {
 		$response = $this->buildResponse();
 
-		$response->setData('some', 'info.somename');
+		$response->setData('info.somename', 'some');
 		$this->assertEquals('raw data', $response->info['somename']);
 
-		$response->setData('more.nested', 'info.more');
+		$response->setData('info.more', 'more.nested');
 		$this->assertEquals('raw', $response->info['more']);
 
-		$response->setData('id', 'uid');
+		$response->setData('uid', 'id');
 		$this->assertEquals(1234, $response->uid);
 
-		$response->setData('id', 'nothere');
+		$response->setData('nothere', 'id');
 		$this->assertNull($response['nothere']);
 
-		$response->setData('id', 'nothere');
+		$response->setData('nothere', 'id');
 		$this->assertNull($response->nothere);
 	}
 

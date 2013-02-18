@@ -1,15 +1,13 @@
 <?php
 /**
- * Opauth Strategy
- * Individual strategies are to be extended from this class
+ * Opauth
+ * Multi-provider authentication framework for PHP
  *
  * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org
- * @package      Opauth.Strategy
  * @license      MIT License
  */
 namespace Opauth;
-
 use \Exception;
 use Opauth\Request;
 use Opauth\StrategyInterface;
@@ -18,7 +16,7 @@ use Opauth\StrategyInterface;
  * Opauth Strategy
  * Individual strategies are to be extended from this class
  *
- * @package			Opauth.Strategy
+ * @package			Opauth
  */
 abstract class AbstractStrategy implements StrategyInterface {
 
@@ -51,6 +49,11 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 */
 	public $callback = 'callback';
 
+	/**
+	 * Key for $_SESSION data
+	 *
+	 * @var string
+	 */
 	protected $sessionKey = '_opauth_data';
 
 	/**

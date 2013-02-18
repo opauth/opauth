@@ -1,22 +1,36 @@
 <?php
+/**
+ * Opauth
+ * Multi-provider authentication framework for PHP
+ *
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @license      MIT License
+ */
 namespace Opauth;
-
 use \Exception;
 
+/**
+ * Opauth HttpClient
+ * Very simple httpclient using file_get_contents or curl
+ *
+ * @package      Opauth
+ */
 class HttpClient {
 
+	/**
+	 * Response headers
+	 *
+	 * @var string
+	 */
 	public static $responseHeaders;
 
-	public static $method = 'curl';
-
 	/**
+	 * Method to use, currently supports 'curl' for curl and 'file' for file_get_contents
 	 *
-	 * @param array $data
-	 * @return string Query string
+	 * @var string
 	 */
-	public static function buildQuery($data) {
-		return http_build_query($data, '', '&');
-	}
+	public static $method = 'curl';
 
 	/**
 	 * Client redirect: This function builds the full HTTP URL with parameters and redirects via Location header.
@@ -69,13 +83,11 @@ class HttpClient {
 	}
 
 	/**
-	 * Simple HTTP request with file_get_contents
+	 * Simple HTTP request with file_get_contents or curl, see HttpClient::$method
 	 * Provides basic HTTP calls.
 	 * See get() and post() for wrapper functions of request()
 	 *
 	 * Notes:
-	 * Reluctant to use any more advanced transport like cURL for the time being to not
-	 *     having to set cURL as being a requirement.
 	 * Strategy is to provide own HTTP transport handler if requiring more advanced support.
 	 *
 	 * @param string $url Full URL to load
@@ -90,6 +102,7 @@ class HttpClient {
 	}
 
 	/**
+	 * Makes a request using file_get_contents, set HttpClient::$method = 'file' to use this
 	 *
 	 * @param string $url
 	 * @param array $options
@@ -109,6 +122,7 @@ class HttpClient {
 	}
 
 	/**
+	 * Makes a request using curl, set HttpClient::$method = 'curl' to use this (default)
 	 *
 	 * @param string $url
 	 * @param array $options
@@ -131,6 +145,16 @@ class HttpClient {
 		list($headers, $content) = explode("\r\n\r\n", $content, 2);
 		self::$responseHeaders = $headers;
 		return $content;
+	}
+
+	/**
+	 * Helper method to build the query string
+	 *
+	 * @param array $data
+	 * @return string Query string
+	 */
+	protected static function buildQuery($data) {
+		return http_build_query($data, '', '&');
 	}
 
 }

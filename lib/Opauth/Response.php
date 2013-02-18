@@ -1,7 +1,21 @@
 <?php
+/**
+ * Opauth
+ * Multi-provider authentication framework for PHP
+ *
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @license      MIT License
+ */
 namespace Opauth;
 use \ArrayAccess;
 
+/**
+ * Opauth Response
+ * Individual strategies should return this in their callback() method
+ *
+ * @package      Opauth
+ */
 class Response implements ArrayAccess {
 
 	public $provider;

@@ -1,7 +1,20 @@
 <?php
-
+/**
+ * Opauth
+ * Multi-provider authentication framework for PHP
+ *
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @license      MIT License
+ */
 namespace Opauth;
 
+/**
+ * Opauth Request
+ * Parses current request parameters
+ *
+ * @package      Opauth
+ */
 class Request {
 
 	public $provider = null;

@@ -10,11 +10,6 @@
 namespace Opauth;
 use \PHPUnit_Framework_TestCase;
 
-require_once dirname(dirname(dirname(__FILE__))) . '/lib/Opauth/autoload.php';
-$loader = new ClassLoader('Opauth', dirname(dirname(dirname(__FILE__))) . '/lib');
-$loader->register();
-unset($loader);
-
 /**
  * OpauthTest class
  */

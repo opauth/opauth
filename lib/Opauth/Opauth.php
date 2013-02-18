@@ -39,10 +39,7 @@ class Opauth {
 	 *
 	 * @param array $config User configuration
 	 */
-	public function __construct($config = array(), $autoload = true) {
-		if ($autoload) {
-			$this->autoload();
-		}
+	public function __construct($config = array()) {
 		if (isset($config['Strategy'])) {
 			$this->buildStrategies($config['Strategy']);
 			unset($config['Strategy']);
@@ -56,19 +53,6 @@ class Opauth {
 			HttpClient::$method = $config['http_client_method'];
 		}
 		$this->Request = new Request($path);
-	}
-
-	/**
-	 * Autoloader
-	 *
-	 */
-	protected function autoload() {
-		if (!class_exists('ClassLoader', false)) {
-			require 'autoload.php';
-		}
-		$loader = new ClassLoader('Opauth', dirname(dirname(__FILE__)));
-		$loader->register();
-		unset($loader);
 	}
 
 	/**

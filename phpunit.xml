@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit>
+<phpunit bootstrap="tests/bootstrap.php" colors="true" strict="true">
 	<testsuites>
 		<testsuite name="Opauth Test Suite">
-			<directory>./tests/</directory>
+			<directory>tests/Opauth/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

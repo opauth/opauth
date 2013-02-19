@@ -126,16 +126,16 @@ class Opauth {
 
 		$settings['provider'] = $name;
 
-		if (empty($settings['name'])) {
-			$settings['name'] = $name;
+		if (empty($settings['_name'])) {
+			$settings['_name'] = $name;
 		}
 
 		// Define a URL-friendly name
-		if (empty($settings['url_name'])) {
-			$settings['url_name'] = strtolower($name);
+		if (empty($settings['_url_name'])) {
+			$settings['_url_name'] = strtolower($name);
 		}
 
-		$this->strategies[$settings['url_name']] = $settings;
+		$this->strategies[$settings['_url_name']] = $settings;
 	}
 
 	/**
@@ -156,7 +156,7 @@ class Opauth {
 		}
 
 		$strategy = $this->strategies[$this->Request->urlname];
-		$class = '\Opauth\Strategy\\' . $strategy['name'] . '\\' . 'Strategy';
+		$class = '\Opauth\Strategy\\' . $strategy['_name'] . '\\' . 'Strategy';
 		if (!class_exists($class)) {
 			AutoLoader::register('Opauth\\Strategy', $this->strategyDir);
 		}

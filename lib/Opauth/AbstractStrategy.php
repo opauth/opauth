@@ -50,6 +50,13 @@ abstract class AbstractStrategy implements StrategyInterface {
 	protected $sessionKey = '_opauth_data';
 
 	/**
+	 * Map response from raw data
+	 *
+	 * @var array
+	 */
+	protected $responseMap = array();
+
+	/**
 	 * Constructor
 	 *
 	 * @param Request Request object
@@ -58,6 +65,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	public function __construct(Request $Request, $config = array()) {
 		$this->Request = $Request;
 		$this->strategy = $config;
+		$this->responseMap = $this->addParams(array('responseMap'), $this->responseMap);
 
 		if (is_array($this->expects)) {
 			foreach ($this->expects as $key) {
@@ -120,7 +128,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 			if (is_numeric($configKey)) {
 				$configKey = $paramKey;
 			}
-			if (!empty($this->strategy[$configKey])) {
+			if (isset($this->strategy[$configKey])) {
 				$params[$paramKey] = $this->strategy[$configKey];
 			}
 		}
@@ -152,10 +160,10 @@ abstract class AbstractStrategy implements StrategyInterface {
 	}
 
 	/**
-	 * Ensures that a compulsory value is set, throws an error if it's not set
+	 * Ensures that a compulsory value is set, throws an exception if it's not set
 	 *
 	 * @param string $key Expected configuration key
-	 * @param string $not If value is set as $not, trigger E_USER_ERROR
+	 * @param string $not If value is set as $not, throw exception
 	 * @return mixed The loaded value
 	 */
 	protected function expects($key, $not = null) {

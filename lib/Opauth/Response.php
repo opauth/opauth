@@ -114,7 +114,7 @@ class Response implements ArrayAccess {
 	 */
 	protected function getRaw($path) {
 		if (strpos($path, '.') === false) {
-			return $this->raw[$path];
+			return isset($this->raw[$path]) ? $this->raw[$path] : null;
 		}
 		$keys = explode('.', $path);
 		$value = $this->raw;

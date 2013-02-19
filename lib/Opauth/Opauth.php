@@ -27,11 +27,19 @@ class Opauth {
 	protected $Strategy;
 
 	/**
-	 * Holds array of strategy settings indexed by strategy_url_name
+	 * Holds array of strategy settings indexed by url_name
 	 *
 	 * @var array
 	 */
 	protected $strategies = array();
+
+	/**
+	 * Absolute path to strategy dir with trailing slash
+	 * Not required when using composer installs or having the strategies in lib/Opauth/Provider/ directory
+	 *
+	 * @var string
+	 */
+	protected $strategyDir;
 
 	/**
 	 * Constructor
@@ -43,6 +51,9 @@ class Opauth {
 		if (isset($config['Strategy'])) {
 			$this->buildStrategies($config['Strategy']);
 			unset($config['Strategy']);
+		}
+		if (!empty($config['strategy_dir'])) {
+			$this->strategyDir = $config['strategy_dir'];
 		}
 
 		$path = null;
@@ -114,16 +125,16 @@ class Opauth {
 
 		$settings['provider'] = $name;
 
-		if (empty($settings['class_name'])) {
-			$settings['class_name'] = $name;
+		if (empty($settings['name'])) {
+			$settings['name'] = $name;
 		}
 
 		// Define a URL-friendly name
-		if (empty($settings['strategy_url_name'])) {
-			$settings['strategy_url_name'] = strtolower($name);
+		if (empty($settings['url_name'])) {
+			$settings['url_name'] = strtolower($name);
 		}
 
-		$this->strategies[$settings['strategy_url_name']] = $settings;
+		$this->strategies[$settings['url_name']] = $settings;
 	}
 
 	/**
@@ -142,8 +153,12 @@ class Opauth {
 		if (!array_key_exists($this->Request->provider, $this->strategies)) {
 			throw new Exception('Unsupported or undefined Opauth strategy - ' . $this->Request->provider);
 		}
+
 		$strategy = $this->strategies[$this->Request->provider];
-		$class = '\Opauth\Provider\\' . $strategy['class_name'] . '\\' . 'Strategy';
+		$class = '\Opauth\Provider\\' . $strategy['name'] . '\\' . 'Strategy';
+		if ($this->strategyDir) {
+			require_once $this->strategyDir . $strategy['name'] . DIRECTORY_SEPARATOR . 'Strategy.php';
+		}
 		$this->setStrategy(new $class($this->Request, $strategy));
 	}
 

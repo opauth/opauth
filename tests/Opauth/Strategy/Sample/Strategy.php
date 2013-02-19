@@ -9,7 +9,7 @@
  * @package      Opauth.OpauthTest.SampleStrategy
  * @license      MIT License
  */
-namespace Opauth\Provider\Sample;
+namespace Opauth\Strategy\Sample;
 use Opauth\AbstractStrategy;
 use Opauth\Response;
 

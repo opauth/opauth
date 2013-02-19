@@ -11,9 +11,9 @@
 namespace Opauth;
 use Opauth\Opauth;
 use \PHPUnit_Framework_TestCase;
-use Opauth\Provider\Sample\Strategy;
+use Opauth\Strategy\Sample\Strategy;
 
-require_once dirname(__FILE__) . '/Provider/Sample/Strategy.php';
+require_once dirname(__FILE__) . '/Strategy/Sample/Strategy.php';
 
 /**
  * OpauthTest class

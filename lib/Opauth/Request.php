@@ -19,11 +19,11 @@ use \Exception;
 class Request {
 
 	/**
-	 * Provider url_name
+	 * Strategy urlname, used to switch to correct strategy
 	 *
 	 * @var string
 	 */
-	public $provider = null;
+	public $urlname = null;
 
 	/**
 	 * Action, null for request, 'callback' for callback
@@ -52,7 +52,7 @@ class Request {
 	}
 
 	/**
-	 * Get provider url_name and action form the request
+	 * Get strategy url_name and action form the request
 	 *
 	 * @throws Exception
 	 */
@@ -64,7 +64,7 @@ class Request {
 
 		preg_match_all('/\/([A-Za-z0-9-_]+)/', $request, $matches);
 		if (!empty($matches[1][0])) {
-			$this->provider = $matches[1][0];
+			$this->urlname = $matches[1][0];
 		}
 		if (!empty($matches[1][1])) {
 			$this->action = $matches[1][1];
@@ -86,6 +86,6 @@ class Request {
 	 * @return string Full path to provider url_name
 	 */
 	public function providerUrl() {
-		return $this->getHost() . $this->path . $this->provider;
+		return $this->getHost() . $this->path . $this->urlname;
 	}
 }

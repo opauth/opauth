@@ -19,8 +19,14 @@ class AutoLoader {
  *
  * @param string $baseDirectory
  */
-	public function __construct($baseDirectory = __DIR__) {
-		$this->namespace = __NAMESPACE__ . '\\';
+	public function __construct($namespace = null, $baseDirectory = null) {
+		if (!$namespace) {
+			$namespace = __NAMESPACE__;
+		}
+		if (!$baseDirectory) {
+			$baseDirectory = __DIR__;
+		}
+		$this->namespace = $namespace . '\\';
 		$this->namespaceLength = strlen($this->namespace);
 		$this->directory = $baseDirectory;
 	}
@@ -31,8 +37,8 @@ class AutoLoader {
  *
  * @return void
  */
-	public static function register() {
-		spl_autoload_register(array(new self, 'loadClass'));
+	public static function register($namespace = null, $dir = null) {
+		spl_autoload_register(array(new self($namespace, $dir), 'loadClass'));
 	}
 
 /**
@@ -40,8 +46,8 @@ class AutoLoader {
  *
  * @return void
  */
-	public static function unregister() {
-		spl_autoload_unregister(array(new self, 'loadClass'));
+	public static function unregister($namespace = null, $dir = null) {
+		spl_autoload_unregister(array(new self($namespace, $dir), 'loadClass'));
 	}
 
 /**

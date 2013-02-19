@@ -29,12 +29,12 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testConstruct() {
 		$request = new Request();
-		$this->assertEquals('test_provider', $request->provider);
+		$this->assertEquals('test_provider', $request->urlname);
 		$this->assertEquals('callback', $request->action);
 
 		$_SERVER['REQUEST_URI'] = '/auth/test_provider';
 		$request = new Request();
-		$this->assertEquals('test_provider', $request->provider);
+		$this->assertEquals('test_provider', $request->urlname);
 		$this->assertNull($request->action);
 	}
 

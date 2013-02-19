@@ -8,6 +8,7 @@
  * @license      MIT License
  */
 namespace Opauth;
+use Opauth\AutoLoader;
 use Opauth\HttpClient;
 use \Exception;
 
@@ -35,7 +36,7 @@ class Opauth {
 
 	/**
 	 * Absolute path to strategy dir with trailing slash
-	 * Not required when using composer installs or having the strategies in lib/Opauth/Provider/ directory
+	 * Not required when using composer installs or having the strategies in lib/Opauth/Strategy/ directory
 	 *
 	 * @var string
 	 */
@@ -71,7 +72,7 @@ class Opauth {
 	 * Parses request URI and perform defined authentication actions based based on it.
 	 */
 	public function run() {
-		if (!$this->Request->provider) {
+		if (!$this->Request->urlname) {
 			return false;
 		}
 		$this->loadStrategy();
@@ -150,14 +151,14 @@ class Opauth {
 		if (!$this->strategies) {
 			throw new Exception('No strategies configured');
 		}
-		if (!array_key_exists($this->Request->provider, $this->strategies)) {
-			throw new Exception('Unsupported or undefined Opauth strategy - ' . $this->Request->provider);
+		if (!array_key_exists($this->Request->urlname, $this->strategies)) {
+			throw new Exception('Unsupported or undefined Opauth strategy - ' . $this->Request->urlname);
 		}
 
-		$strategy = $this->strategies[$this->Request->provider];
-		$class = '\Opauth\Provider\\' . $strategy['name'] . '\\' . 'Strategy';
-		if ($this->strategyDir) {
-			require_once $this->strategyDir . $strategy['name'] . DIRECTORY_SEPARATOR . 'Strategy.php';
+		$strategy = $this->strategies[$this->Request->urlname];
+		$class = '\Opauth\Strategy\\' . $strategy['name'] . '\\' . 'Strategy';
+		if (!class_exists($class)) {
+			AutoLoader::register('Opauth\\Strategy', $this->strategyDir);
 		}
 		$this->setStrategy(new $class($this->Request, $strategy));
 	}

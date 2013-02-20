@@ -35,7 +35,7 @@ class Opauth {
 	protected $strategies = array();
 
 	/**
-	 * Absolute path to strategy dir with trailing slash
+	 * Absolute path to strategy dir
 	 * Not required when using composer installs or having the strategies in lib/Opauth/Strategy/ directory
 	 *
 	 * @var string
@@ -157,8 +157,11 @@ class Opauth {
 
 		$strategy = $this->strategies[$this->Request->urlname];
 		$class = '\Opauth\Strategy\\' . $strategy['_name'] . '\\' . 'Strategy';
-		if (!class_exists($class)) {
+		if ($this->strategyDir && is_dir($this->strategyDir)) {
 			AutoLoader::register('Opauth\\Strategy', $this->strategyDir);
+		}
+		if (!class_exists($class)) {
+			throw new Exception(sprintf('Strategy class %s not found', $class));
 		}
 		$this->setStrategy(new $class($this->Request, $strategy));
 	}

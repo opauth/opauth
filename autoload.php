@@ -20,3 +20,10 @@ Opauth\AutoLoader::register('Opauth');
 
 //$strategyDir = __DIR__ . DIRECTORY_SEPARATOR . 'strategies';
 //Opauth\AutoLoader::register('Opauth\\Strategy', $strategyDir);
+
+/**
+ * Non composer users that use one or more strategies that depend on tmhOAuth will need to require the class
+ * Uncomment below line and set correct path
+ */
+
+//require '/path/to/tmhOAuth/tmhOAuth.php';

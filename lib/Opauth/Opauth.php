@@ -88,12 +88,12 @@ class Opauth {
 			$this->run();
 		}
 	}
-	public function runStrategy($strategyId){
+	public function runStrategy($strategyId, $action = null){
 		if (array_key_exists($strategyId, $this->strategyMap)) {
 			$name = $this->strategyMap[$strategyId]['name'];
 			$class = $this->strategyMap[$strategyId]['class'];
 			$strategy = $this->env['Strategy'][$name];
-
+			
 			// Strip out critical parameters
 			$safeEnv = $this->env;
 			unset($safeEnv['Strategy']);
@@ -101,13 +101,9 @@ class Opauth {
 			$actualClass = $this->requireStrategy($class);
 			$this->Strategy = new $actualClass($strategy, $safeEnv);
 			
-			if (empty($this->env['params']['action'])) {
-				$this->env['params']['action'] = 'request';
-			}
-			
-			$this->Strategy->callAction($this->env['params']['action']);
+			$this->Strategy->callAction(null===$action?'request':$action); // 'request' is for compatibility only
 		} else {
-			trigger_error('Unsupported or undefined Opauth strategy - '.$this->env['params']['strategy'], E_USER_ERROR);
+			trigger_error('Unsupported or undefined Opauth strategy - '.$strategyId, E_USER_ERROR);
 		}
 	}
 	/**
@@ -121,7 +117,10 @@ class Opauth {
 			if (strtolower($this->env['params']['strategy']) == 'callback') {
 				$this->callback();
 			} else {
-				$this->runStrategy($this->env['params']['strategy']);
+				if (empty($this->env['params']['action'])) {
+					$this->env['params']['action'] = null;
+				}
+				$this->runStrategy($this->env['params']['strategy'], $this->env['params']['action']);
 			}
 		} else {
 			$sampleStrategy = array_pop($this->env['Strategy']);

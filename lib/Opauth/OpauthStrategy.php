@@ -312,16 +312,7 @@ class OpauthStrategy {
 	 * @param boolean $exit Whether to call exit() right after redirection
 	 */
 	public function redirect($url, $exit = true) {
-		if (isset($this->env['symfony_response'])) {
-			$this->env['symfony_response']->headers->set('Location', $url);
-			// Exit is ignored as the framework should send the headers and save the session.
-		}
-		else {
-			header("Location: $url");
-			if ($exit) {
-				exit();
-			}
-		}
+		$this->env['Environment']->redirect($url, $exit);
 	}
 	
 	/**

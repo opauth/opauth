@@ -50,7 +50,8 @@ class Opauth {
 			'callback_url' => '{path}callback',
 			'callback_transport' => 'session',
 			'debug' => false,
-			
+			'Environment' => '\\OpauthEnvironment',
+
 			/**
 		 	* Security settings
 		 	*/
@@ -73,6 +74,7 @@ class Opauth {
 		if (!class_exists('OpauthStrategy')) {
 			require $this->env['lib_dir'].'OpauthStrategy.php';
 		}
+
 		
 		foreach ($this->env as $key => $value) {
 			$this->env[$key] = OpauthStrategy::envReplace($value, $this->env);
@@ -81,7 +83,8 @@ class Opauth {
 		if ($this->env['security_salt'] == 'LDFmiilYf8Fyw5W10rx4W1KsVrieQCnpBzzpTBWA5vJidQKDx8pMJbmw28R1C4m'){
 			trigger_error('Please change the value of \'security_salt\' to a salt value specific to your application', E_USER_NOTICE);
 		}
-		
+
+		$this->loadEnvironment();
 		$this->loadStrategies();
 		
 		if ($run) {
@@ -179,6 +182,27 @@ class Opauth {
 			}
 		} else {
 			trigger_error('No Opauth strategies defined', E_USER_ERROR);
+		}
+	}
+
+	/**
+	 * Load the environment helper
+	 */
+	private function loadEnvironment() {
+		if (!class_exists('OpauthEnvironment')) {
+			require $this->env['lib_dir'].'OpauthEnvironment.php';
+		}
+
+		if (is_string($this->env['Environment'])) {
+			$uri = $this->env['Environment'];
+			$this->env['Environment'] = new $uri;
+		}
+		elseif (is_callable($this->env['Environment'])) {
+			$this->env['Environment'] = call_user_func($this->env['Environment']);
+		}
+
+		if (!($this->env['Environment'] instanceof OpauthEnvironment)) {
+			trigger_error('Environment must extend OpauthEnvironment', E_USER_ERROR);
 		}
 	}
 		

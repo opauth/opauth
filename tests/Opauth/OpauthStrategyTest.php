@@ -9,6 +9,7 @@
  */
 
 require './lib/Opauth/OpauthStrategy.php';
+require './lib/Opauth/OpauthEnvironment.php';
 require './tests/Opauth/OpauthTest.php';
 
 /**
@@ -16,6 +17,9 @@ require './tests/Opauth/OpauthTest.php';
  */
 class OpauthStrategyTest extends OpauthTest {
 
+	/**
+	 * @var OpauthStrategy
+	 */
 	protected $opauthStrategyInstance;
 
 	public function setUp()
@@ -29,6 +33,7 @@ class OpauthStrategyTest extends OpauthTest {
 			'host' => 'host',
 			'callback_url' => 'callback_url',
 			'path' => 'path',
+			'Environment' => new OpauthEnvironment(),
 		));
 	}
 

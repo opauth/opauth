@@ -409,8 +409,15 @@ class OpauthStrategy {
 	public static function httpRequest($url, $options = null, &$responseHeaders = null) {
 		$context = null;
 		if (!empty($options) && is_array($options)) {
-			$context = stream_context_create($options);
+			if (empty($options['http']['header'])) {
+				$options['http']['header'] = "User-Agent: opauth";
+			} else {
+				$options['http']['header'] . "\r\nUser-Agent: opauth";
+			}
+		} else {
+			$options = array('http' => array('header' => 'User-Agent: opauth'));
 		}
+		$context = stream_context_create($options);
 
 		$content = file_get_contents($url, false, $context);
 		$responseHeaders = implode("\r\n", $http_response_header);

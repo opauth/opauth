@@ -412,7 +412,7 @@ class OpauthStrategy {
 			if (empty($options['http']['header'])) {
 				$options['http']['header'] = "User-Agent: opauth";
 			} else {
-				$options['http']['header'] . "\r\nUser-Agent: opauth";
+				$options['http']['header'] .= "\r\nUser-Agent: opauth";
 			}
 		} else {
 			$options = array('http' => array('header' => 'User-Agent: opauth'));

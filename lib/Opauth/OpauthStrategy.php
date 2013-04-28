@@ -47,7 +47,7 @@ class OpauthStrategy {
 	/**
 	 * Safe env values from Opauth, with critical parameters stripped out
 	 */
-	protected $env;
+	protected static $env;
 	
 	/**
 	 * Constructor
@@ -57,10 +57,10 @@ class OpauthStrategy {
 	 */
 	public function __construct($strategy, $env) {
 		$this->strategy = $strategy;
-		$this->env = $env;
+		self::$env = $env;
 		
 		// Include some useful values from Opauth's env
-		$this->strategy['strategy_callback_url'] = $this->env['host'].$this->env['callback_url'];
+		$this->strategy['strategy_callback_url'] = self::$env['host'].self::$env['callback_url'];
 		
 		if ($this->name === null) {
 			$this->name = (isset($name) ? $name : get_class($this));
@@ -81,11 +81,11 @@ class OpauthStrategy {
 		/**
 		 * Additional helpful values
 		 */
-		$this->strategy['path_to_strategy'] = $this->env['path'].$this->strategy['strategy_url_name'].'/';
-		$this->strategy['complete_url_to_strategy'] = $this->env['host'].$this->strategy['path_to_strategy'];
+		$this->strategy['path_to_strategy'] = self::$env['path'].$this->strategy['strategy_url_name'].'/';
+		$this->strategy['complete_url_to_strategy'] = self::$env['host'].$this->strategy['path_to_strategy'];
 		
 
-		$dictionary = array_merge($this->env, $this->strategy);
+		$dictionary = array_merge(self::$env, $this->strategy);
 		foreach ($this->strategy as $key=>$value) {
 			$this->strategy[$key] = $this->envReplace($value, $dictionary);
 		}
@@ -160,15 +160,15 @@ class OpauthStrategy {
 	 */
 	private function shipToCallback($data, $transport = null) {
 		if (empty($transport)) {
-			$transport = $this->env['callback_transport'];
+			$transport = self::$env['callback_transport'];
 		}
 		
 		switch($transport) {
 			case 'get':
-				$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(serialize($data))), '', '&'));
+				$this->redirect(self::$env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(serialize($data))), '', '&'));
 				break;
 			case 'post':
-				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
+				$this->clientPost(self::$env['callback_url'], array('opauth' => base64_encode(serialize($data))));
 				break;
 			case 'session':
 			default:
@@ -176,7 +176,7 @@ class OpauthStrategy {
 					session_start();
 				}
 				$_SESSION['opauth'] = $data;
-				$this->redirect($this->env['callback_url']);
+				$this->redirect(self::$env['callback_url']);
 		}
 	}
 	
@@ -239,7 +239,7 @@ class OpauthStrategy {
 		if (is_null($timestamp)) $timestamp = date('c');
 		
 		$input = sha1(print_r($this->auth, true));
-		$hash = $this->hash($input, $timestamp, $this->env['security_iteration'], $this->env['security_salt']);
+		$hash = $this->hash($input, $timestamp, self::$env['security_iteration'], self::$env['security_salt']);
 		
 		return $hash;
 	}
@@ -417,6 +417,14 @@ class OpauthStrategy {
 		} else {
 			$options = array('http' => array('header' => 'User-Agent: opauth'));
 		}
+        if (!empty(self::$env['proxy_url'])) {
+            $options['http']['proxy'] = self::$env['proxy_url'];
+            $options['http']['request_fulluri'] = true;
+        }
+        if (!empty(self::$env['proxy_user']) && !empty(self::$env['proxy_password'])) {
+            $auth = base64_encode(self::$env['proxy_user'] . ':' . self::$env['proxy_password']);
+            $options['http']['header'] .= "\r\nProxy-Authorization: Basic $auth";
+        }
 		$context = stream_context_create($options);
 
 		$content = file_get_contents($url, false, $context);

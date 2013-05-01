@@ -170,6 +170,18 @@ class OpauthStrategy {
 			case 'post':
 				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
 				break;
+			case 'memcached':
+				$uid = uniqid();
+				$m = self::getMemcached($this->env['memcached']['servers']);
+				if ($m->set($uid, $data, time() + 300))
+				{
+					$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => $uid), '', '&'));
+				}
+				else
+				{
+					trigger_error('Unable to save data to Memcached.');
+				}
+				break;
 			case 'session':
 			default:
 				if(!session_id()) {

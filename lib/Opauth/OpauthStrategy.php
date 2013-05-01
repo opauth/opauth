@@ -489,5 +489,43 @@ class OpauthStrategy {
 		}
 		return $value;
 	}
-	
+
+	/**
+	 * @param array $servers
+	 *        Config:
+				'memcached' => array(
+					'servers' => array(
+						array(
+							'host'   => '127.0.0.1',
+							'port'   => 11211,
+							'weight' => 0
+						)
+					)
+				),
+	 * @return Memcached
+	 */
+	public static function getMemcached($servers=array()) {
+		if (empty($servers) || !is_array($servers)) {
+			trigger_error('Invalid Memcached servers.');
+			exit();
+		}
+		$memcache_servers = array();
+		foreach($servers as $server) {
+			$server = array_merge(array(
+				'host'   => '127.0.0.1',
+				'port'   => 11211,
+				'weight' => 0
+			), $server);
+			if (count($server) != 3) continue;
+			$memcache_servers[] = array_values($server);
+		}
+		if (empty($memcache_servers)) {
+			trigger_error('Invalid Memcached servers.');
+			exit();
+		}
+		$m = new Memcached();
+		$status = $m->addServers($memcache_servers);
+		if (!$status) trigger_error('Unable to add servers.');
+		return $m;
+	}
 }

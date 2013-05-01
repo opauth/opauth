@@ -172,13 +172,10 @@ class OpauthStrategy {
 				break;
 			case 'memcached':
 				$uid = uniqid();
-				$m = self::getMemcached($this->env['memcached']['servers']);
-				if ($m->set($uid, $data, time() + 300))
-				{
+				$m = self::getMemcached($this->env['memcached']);
+				if ($m->set($uid, $data, time() + 300)) {
 					$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => $uid), '', '&'));
-				}
-				else
-				{
+				} else {
 					trigger_error('Unable to save data to Memcached.');
 				}
 				break;
@@ -506,12 +503,10 @@ class OpauthStrategy {
 	 * @param array $servers
 	 *        Config:
 				'memcached' => array(
-					'servers' => array(
-						array(
-							'host'   => '127.0.0.1',
-							'port'   => 11211,
-							'weight' => 0
-						)
+					array(
+						'host'   => '127.0.0.1',
+						'port'   => 11211,
+						'weight' => 0
 					)
 				),
 	 * @return Memcached

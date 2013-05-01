@@ -54,7 +54,7 @@ switch($Opauth->env['callback_transport']) {
 		break;
 	case 'memcached':
 		$uid = $_GET['opauth'];
-		$m = OpauthStrategy::getMemcached($config['memcached']['servers']);
+		$m = OpauthStrategy::getMemcached($config['memcached']);
 		$response = $m->get($uid);
 		break;
 	default:

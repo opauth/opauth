@@ -71,8 +71,12 @@ class OpauthStrategyTest extends OpauthTest {
 	 * @runInSeparateProcess
 	 */
 	public function testRedirect() {
+		if (!extension_loaded('xdebug')) {
+			$this->markTestSkipped('Xdebug extension is not loaded.');
+		}
+
 		$randomUrl = 'http://random.test?r='.rand();
-		
+
 		$headers_list = xdebug_get_headers();
 		$this->assertNotContains("Location: $randomUrl", $headers_list);
 		
@@ -85,6 +89,10 @@ class OpauthStrategyTest extends OpauthTest {
 	 * @runInSeparateProcess
 	 */
 	public function testClientGet() {
+		if (!extension_loaded('xdebug')) {
+			$this->markTestSkipped('Xdebug extension is not loaded.');
+		}
+
 		$url = 'http://example.test.org';
 		$data = array(
 			'abc' => 'def',

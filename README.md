@@ -10,7 +10,7 @@ Try out Opauth for yourself at http://opauth.org
 
 What is Opauth?
 ---------------
-Opauth provides a standardized method for PHP applications to interface with authentication providers. 
+Opauth provides a standardized method for PHP applications to interface with authentication providers.
 
 Opauth as a framework provides a set of API that allows developers to [create strategies](https://github.com/uzyn/opauth/wiki/Strategy-Contribution-Guide) that work in a predictable manner across PHP frameworks and applications.
 
@@ -24,10 +24,10 @@ Opauth works well with other PHP applications & frameworks. It is currently supp
 - [Laravel](https://github.com/FakeHeal/opauth-laravel) (maintained by [FakeHeal](https://github.com/FakeHeal/))
 - [PrestaShop](https://github.com/Onasusweb/PrestaShop-Opauth) (maintained by [Onasusweb](https://github.com/Onasusweb))
 - [Silex](https://github.com/icehero/silex-opauth) (maintained by [icehero](https://github.com/icehero/))
+- [SilverStripe](https://github.com/BetterBrief/silverstripe-opauth) (maintained by [Better Brief](https://github.com/BetterBrief))
 - [Yii Framework](https://github.com/kahwee/yii-opauth) (maintained by [kahwee](https://github.com/kahwee))
 - [Zend Framework 2](https://github.com/lorenzoferrarajr/LfjOpauth) (maintained by [lorenzoferrarajr](https://github.com/lorenzoferrarajr))
-- [SilverStripe](https://github.com/BetterBrief/silverstripe-opauth) (maintained by [Better Brief](https://github.com/BetterBrief))
-- and more to come.  
+- and more to come.
 
 If your PHP framework of choice is not yet listed, you can still use Opauth like you would a normal PHP component (class).
 
@@ -35,18 +35,18 @@ Quick start
 -----------
 Guide on how to run the bundled example.
 
-1. Set `DocumentRoot` of your web server to `example/`.  
+1. Set `DocumentRoot` of your web server to `example/`.
    (Opauth can be instantiated in your own PHP app, but we will leave that out of this quick start guide)
 
 2. Configure Opauth.
 
-   First, make a copy of opauth config's file by copying or renaming  
+   First, make a copy of opauth config's file by copying or renaming
    `opauth.conf.php.default` to `opauth.conf.php`.
 
    Open up `opauth.conf.php` and make the necessary changes.
 
-3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).  
-   Place the strategy files in `lib/Opauth/Strategy/`.  
+3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).
+   Place the strategy files in `lib/Opauth/Strategy/`.
 
    For this example, we recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook):
 
@@ -54,11 +54,11 @@ Guide on how to run the bundled example.
 
    ii. Follow the steps at [Opauth-Facebook's README](https://github.com/uzyn/opauth-facebook/blob/master/README.md) to set up your Faceobok app.
 
-   iii. Add the following at `opauth.conf.php` under `Strategy` as such:  
+   iii. Add the following at `opauth.conf.php` under `Strategy` as such:
 
 ```php
 <?php
-'Strategy' => array(  
+'Strategy' => array(
     // Define strategies here.
 
     'Facebook' => array(
@@ -184,41 +184,44 @@ Provider-specific:
 
 Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
 
-See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.    
+See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.
 Refer also to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.
 
 Requirements
 -------------
-PHP 5 (>= 5.2)  
+PHP 5 (>= 5.2)
 with [`allow_url_fopen`](http://php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen) enabled
 
 Contribute
 ----------
 Opauth needs your contributions, especially the following:
 
-- More strategies  
+- More strategies
   Refer to [wiki](https://github.com/uzyn/opauth/wiki) for contribution guide and inform us when your work is ready.
 
-- Plugins for more PHP frameworks and CMSes  
+- Plugins for more PHP frameworks and CMSes
   eg. Symfony, Laravel, WordPress, Drupal, etc.
 
-- Guides & tutorials  
+- Guides & tutorials
   On how to implement Opauth on CakePHP app, etc.
 
 
 Issues & questions
 -------------------
-- Discussion group: [Google Groups](https://groups.google.com/group/opauth)  
+- Discussion group: [Google Groups](https://groups.google.com/group/opauth)
   _Primary channel for support, especially usage questions._
-- Issues: [Github Issues](https://github.com/uzyn/opauth/issues)  
-- Twitter: [@uzyn](http://twitter.com/uzyn)  
-- Email me: chua@uzyn.com  
+- Issues: [Github Issues](https://github.com/uzyn/opauth/issues)
+- Twitter: [@uzyn](http://twitter.com/uzyn)
+- Email me: chua@uzyn.com
 - IRC: **#opauth** on [Freenode](http://webchat.freenode.net/?channels=opauth&uio=d4)
 
 <p>Used Opauth in your project? Let us know!</p>
 
 Changelog
 ---------
+
+####v0.4.4 _(10 May 2013)_
+- Added HTTP User-Agent header. _(thanks @rkaldung #41)_
 
 ####v0.4.3 _(10 January 2013)_
 - Fixed a `serverPost()` bug where user-supplied options were not applied correctly. _(thanks @ritou #26)_
@@ -252,10 +255,10 @@ Changelog
 
 License
 ---------
-The MIT License  
+The MIT License
 Copyright © 2012-2013 U-Zyn Chua (http://uzyn.com)
 
 Consultation
 ---------
-U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.com).  
+U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.com).
 Looking for PHP web development solutions or consultation? [Drop me a mail](mailto:chua@uzyn.com).

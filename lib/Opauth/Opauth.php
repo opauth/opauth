@@ -291,20 +291,16 @@ class Opauth {
 				$strategy
 			);
 			
-			$found = false;
 			foreach ($directories as $dir) {
 				foreach ($classNames as $name) {
 					if (file_exists($dir.$name.'.php')) {
-						$found = true;
 						require $dir.$name.'.php';
 						return $name;
 					}
 				}
 			}
 			
-			if (!$found) {
-				trigger_error('Strategy class file ('.$this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php'.') is missing', E_USER_ERROR);
-			}
+			trigger_error('Strategy class file ('.$this->env['strategy_dir'].$strategy.'/'.$strategy.'Strategy.php'.') is missing', E_USER_ERROR);
 		}
 		return $strategy.'Strategy';
 	}

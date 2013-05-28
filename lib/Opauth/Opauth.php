@@ -193,10 +193,7 @@ class Opauth {
 	 * @return boolean true: valid; false: not valid.
 	 */
 	public function validate($input = null, $timestamp = null, $signature = null, &$reason = null) {
-		$functionCall = true;
 		if (!empty($_REQUEST['input']) && !empty($_REQUEST['timestamp']) && !empty($_REQUEST['signature'])) {
-			$functionCall = false;
-			$provider = $_REQUEST['input'];
 			$timestamp = $_REQUEST['timestamp'];
 			$signature = $_REQUEST['signature'];
 		}

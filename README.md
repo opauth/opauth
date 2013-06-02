@@ -210,7 +210,7 @@ Issues & questions
 -------------------
 - Discussion group: [Google Groups](https://groups.google.com/group/opauth)
   _Primary channel for support, especially usage questions._
-- Issues: [Github Issues](https://github.com/uzyn/opauth/issues)
+- Issues: [Github Issues](https://github.com/opauth/opauth/issues)
 - Twitter: [@uzyn](http://twitter.com/uzyn)
 - Email me: chua@uzyn.com
 - IRC: **#opauth** on [Freenode](http://webchat.freenode.net/?channels=opauth&uio=d4)

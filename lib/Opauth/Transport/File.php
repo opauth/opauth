@@ -1,0 +1,42 @@
+<?php
+/**
+ * Opauth
+ * Multi-provider authentication framework for PHP
+ *
+ * @copyright    Copyright © 2013 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @license      MIT License
+ */
+namespace Opauth\Transport;
+use Opauth\Transport\Base;
+use \Exception;
+
+/**
+ * Opauth HttpClient
+ * Very simple httpclient using file_get_contents or curl
+ *
+ * @package      Opauth
+ */
+class File extends Base {
+
+	/**
+	 * Makes a request using file_get_contents
+	 *
+	 * @param string $url
+	 * @param array $options
+	 * @return string Response body
+	 */
+	protected function request($url, $options = array()) {
+		if (!ini_get('allow_url_fopen')) {
+			throw new Exception('file_get_contents not allowed, try using other http_client_method such as curl');
+		}
+		$context = null;
+		if (!empty($options)) {
+			$context = stream_context_create($options);
+		}
+		$content = file_get_contents($url, false, $context);
+		$this->responseHeaders = implode("\r\n", $http_response_header);
+		return $content;
+	}
+
+}

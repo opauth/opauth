@@ -9,7 +9,7 @@
  */
 namespace Opauth;
 use Opauth\AutoLoader;
-use Opauth\HttpClient;
+use Opauth\Transport\TransportInterface;
 use \Exception;
 
 /**
@@ -49,22 +49,23 @@ class Opauth {
 	 * @param array $config User configuration
 	 */
 	public function __construct($config = array()) {
+		$config += array(
+			'strategy_dir' => null,
+			'path' => null,
+			'http_transport' => "\\Opauth\\Transport\\Curl"
+		);
 		if (isset($config['Strategy'])) {
 			$this->buildStrategies($config['Strategy']);
 			unset($config['Strategy']);
 		}
-		if (!empty($config['strategy_dir'])) {
-			$this->strategyDir = $config['strategy_dir'];
-		}
 
-		$path = null;
-		if (!empty($config['path'])) {
-			$path = $config['path'];
+		$this->strategyDir = $config['strategy_dir'];
+
+		if (!HttpClient::transport() instanceof TransportInterface) {
+			$Transport = $config['http_transport'];
+			HttpClient::transport(new $Transport);
 		}
-		if (!empty($config['http_client_method'])) {
-			HttpClient::$method = $config['http_client_method'];
-		}
-		$this->Request = new Request($path);
+		$this->Request = new Request($config['path']);
 	}
 
 	/**

@@ -9,13 +9,39 @@
  */
 
 require './lib/Opauth/OpauthStrategy.php';
+require './lib/Opauth/OpauthEnvironment.php';
 require './tests/Opauth/OpauthTest.php';
 
 /**
  * OpauthTest class
  */
 class OpauthStrategyTest extends OpauthTest {
-	
+
+	/**
+	 * @var OpauthStrategy
+	 */
+	protected $opauthStrategyInstance;
+
+	public function setUp()
+	{
+		parent::setUp();
+
+		$this->opauthStrategyInstance = new OpauthStrategy(array(
+			'strategy_url_name' => 'strategy_url_name',
+			'path_to_strategy' => 'path_to_strategy',
+		), array(
+			'host' => 'host',
+			'callback_url' => 'callback_url',
+			'path' => 'path',
+			'Environment' => new OpauthEnvironment(),
+		));
+	}
+
+	public function tearDown()
+	{
+		unset($this->opauthStrategyInstance);
+	}
+
 	public function testHash() {
 		$input = 'random string';
 		$timestamp = date('c');
@@ -79,8 +105,8 @@ class OpauthStrategyTest extends OpauthTest {
 
 		$headers_list = xdebug_get_headers();
 		$this->assertNotContains("Location: $randomUrl", $headers_list);
-		
-		OpauthStrategy::redirect($randomUrl, false);
+
+		$this->opauthStrategyInstance->redirect($randomUrl, false);
 		$headers_list = xdebug_get_headers();
 		$this->assertContains("Location: $randomUrl", $headers_list);
 	}
@@ -107,8 +133,8 @@ class OpauthStrategyTest extends OpauthTest {
 		$headers_list = xdebug_get_headers();
 		$this->assertNotContains("Location: $url", $headers_list);
 		$this->assertNotContains("Location: $fullUrl", $headers_list);
-		
-		OpauthStrategy::clientGet($url, $data, false);
+
+		$this->opauthStrategyInstance->clientGet($url, $data, false);
 		$headers_list = xdebug_get_headers();
 		$this->assertNotContains("Location: $url", $headers_list);
 		$this->assertContains("Location: $fullUrl", $headers_list);
@@ -133,5 +159,4 @@ class OpauthStrategyTest extends OpauthTest {
 		$OpauthStrategy = new SampleStrategy($strategy, $safeEnv);
 		return $OpauthStrategy;
 	}
-		
 }

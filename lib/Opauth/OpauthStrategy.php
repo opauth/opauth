@@ -311,11 +311,8 @@ class OpauthStrategy {
 	 * @param string $url URL to redirect user to
 	 * @param boolean $exit Whether to call exit() right after redirection
 	 */
-	public static function redirect($url, $exit = true) {
-		header("Location: $url");
-		if ($exit) {
-			exit();
-		}
+	public function redirect($url, $exit = true) {
+		$this->env['Environment']->redirect($url, $exit);
 	}
 	
 	/**
@@ -325,8 +322,8 @@ class OpauthStrategy {
 	 * @param array $data Data
 	 * @param boolean $exit Whether to call exit() right after redirection
 	 */
-	public static function clientGet($url, $data = array(), $exit = true) {
-		self::redirect($url.'?'.http_build_query($data, '', '&'), $exit);
+	public function clientGet($url, $data = array(), $exit = true) {
+		$this->redirect($url.'?'.http_build_query($data, '', '&'), $exit);
 	}
 
 	/**

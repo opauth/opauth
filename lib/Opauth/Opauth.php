@@ -237,6 +237,11 @@ class Opauth {
 			case 'get':
 				$response = unserialize(base64_decode( $_GET['opauth'] ));
 				break;
+			case 'memcached':
+				$uid = $_GET['opauth'];
+				$m = OpauthStrategy::getMemcached($this->env['memcached']);
+				$response = $m->get($uid);
+				break;
 			default:
 				echo '<strong style="color: red;">Error: </strong>Unsupported callback_transport.'."<br>\n";
 				break;

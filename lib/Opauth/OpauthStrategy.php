@@ -170,6 +170,15 @@ class OpauthStrategy {
 			case 'post':
 				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
 				break;
+			case 'memcached':
+				$uid = uniqid();
+				$m = self::getMemcached($this->env['memcached']);
+				if ($m->set($uid, $data, time() + 300)) {
+					$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => $uid), '', '&'));
+				} else {
+					trigger_error('Unable to save data to Memcached.');
+				}
+				break;
 			case 'session':
 			default:
 				if(!session_id()) {
@@ -489,5 +498,41 @@ class OpauthStrategy {
 		}
 		return $value;
 	}
-	
+
+	/**
+	 * @param array $servers
+	 *        Config:
+				'memcached' => array(
+					array(
+						'host'   => '127.0.0.1',
+						'port'   => 11211,
+						'weight' => 0
+					)
+				),
+	 * @return Memcached
+	 */
+	public static function getMemcached($servers=array()) {
+		if (empty($servers) || !is_array($servers)) {
+			trigger_error('Invalid Memcached servers.');
+			exit();
+		}
+		$memcache_servers = array();
+		foreach($servers as $server) {
+			$server = array_merge(array(
+				'host'   => '127.0.0.1',
+				'port'   => 11211,
+				'weight' => 0
+			), $server);
+			if (count($server) != 3) continue;
+			$memcache_servers[] = array_values($server);
+		}
+		if (empty($memcache_servers)) {
+			trigger_error('Invalid Memcached servers.');
+			exit();
+		}
+		$m = new Memcached();
+		$status = $m->addServers($memcache_servers);
+		if (!$status) trigger_error('Unable to add servers.');
+		return $m;
+	}
 }

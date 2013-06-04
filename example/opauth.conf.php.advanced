@@ -29,12 +29,26 @@ $config = array(
 /**
  * Callback transport, for sending of $auth response
  * 
- * 'session': Default. Works best unless callback_url is on a different domain than Opauth
- * 'post'   : Works cross-domain, but relies on availability of client-side JavaScript.
- * 'get'    : Works cross-domain, but may be limited or corrupted by browser URL length limit 
- *            (eg. IE8/IE9 has 2083-char limit)
+ * 'session'   : Default. Works best unless callback_url is on a different domain than Opauth
+ * 'post'      : Works cross-domain, but relies on availability of client-side JavaScript.
+ * 'get'       : Works cross-domain, but may be limited or corrupted by browser URL length limit
+ *               (eg. IE8/IE9 has 2083-char limit)
+ * 'memcached' : Works cross-domain, requires Memcached (http://pecl.php.net/package/memcached) to be installed
  */
 	//'callback_transport' => 'session',
+
+/**
+ * Support for Memcached callback_transport. Memcached server pooling supported.
+ */
+	/*
+	'memcached' => array(
+		array(
+			'host'   => '127.0.0.1',
+			'port'   => 11211,
+			'weight' => 0
+		)
+	),
+	*/
 
 /**
  * A random string used for signing of $auth response.

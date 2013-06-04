@@ -12,8 +12,8 @@ use Opauth\Transport\Base;
 use \Exception;
 
 /**
- * Opauth HttpClient
- * Very simple httpclient using file_get_contents or curl
+ * Opauth Curl
+ * Curl transport class
  *
  * @package      Opauth
  */

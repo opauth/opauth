@@ -25,7 +25,9 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 			'sample_id' => 1234,
 			'sample_secret' => 'fortytwo'
 		);
-		$this->Strategy = new Strategy(new Request(), $config);
+		$this->Strategy = new Strategy($config);
+		$Request = new Request('/auth/');
+		$this->Strategy->callbackUrl($Request->providerUrl() . '/callback');
 	}
 
 	public function tearDown() {
@@ -38,7 +40,7 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 	 * @expectedException Exception
 	 */
 	public function testConstructMissingKeys() {
-		new Strategy(new Request(), array());
+		new Strategy(array());
 	}
 
 	public function testCallbackUrl() {

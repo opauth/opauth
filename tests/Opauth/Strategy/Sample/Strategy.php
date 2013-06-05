@@ -64,13 +64,6 @@ class Strategy extends AbstractStrategy {
 	/**
 	 * overriding to change visbility to public
 	 */
-	public function callbackUrl() {
-		return parent::callbackUrl();
-	}
-
-	/**
-	 * overriding to change visbility to public
-	 */
 	public function sessionData($data = null) {
 		return parent::sessionData($data);
 	}

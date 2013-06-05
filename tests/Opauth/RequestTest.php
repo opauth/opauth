@@ -28,12 +28,12 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 * testConstruct
 	 */
 	public function testConstruct() {
-		$request = new Request();
+		$request = new Request('/auth/');
 		$this->assertEquals('test_provider', $request->urlname);
 		$this->assertEquals('callback', $request->action);
 
 		$_SERVER['REQUEST_URI'] = '/auth/test_provider';
-		$request = new Request();
+		$request = new Request('/auth/');
 		$this->assertEquals('test_provider', $request->urlname);
 		$this->assertNull($request->action);
 	}
@@ -46,7 +46,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testConstructException() {
 		$_SERVER['REQUEST_URI'] = '/';
-		$request = new Request();
+		$request = new Request('/auth/');
 	}
 
 	/**
@@ -61,7 +61,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 * testProviderUrl
 	 */
 	public function testProviderUrl() {
-		$request = new Request();
+		$request = new Request('/auth/');
 		$this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
 
 		$_SERVER['REQUEST_URI'] = '/login/test_provider/callback';
@@ -69,7 +69,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('http://test.example.org/login/test_provider', $request->providerUrl());
 
 		$_SERVER['REQUEST_URI'] = '/test_provider/callback';
-		$request = new Request('/');
+		$request = new Request();
 		$this->assertEquals('http://test.example.org/test_provider', $request->providerUrl());
 	}
 }

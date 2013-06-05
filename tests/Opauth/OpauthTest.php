@@ -114,7 +114,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'provider' => 'Sample',
 		);
 		$Opauth = new Opauth(array());
-		$Strategy = new Strategy(new Request(), $config);
+		$Strategy = new Strategy($config);
 		$Strategy->testRaw = array('id' => 1, 'username' => 'sampling', 'creds' => 'credential array');
 		$Strategy->testMap = array('uid' => 'id', 'name' => 'username', 'credentials' => 'creds');
 		$Opauth->setStrategy($Strategy);

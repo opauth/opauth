@@ -44,7 +44,7 @@ class Request {
 	 *
 	 * @param string $path
 	 */
-	public function __construct($path) {
+	public function __construct($path = '/') {
 		$this->path = $path;
 		$this->parseUri();
 	}

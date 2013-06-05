@@ -37,17 +37,15 @@ class Request {
 	 *
 	 * @var string
 	 */
-	protected $path = '/auth/';
+	protected $path;
 
 	/**
 	 * Set path if '/auth/' isnt the default path, or if application is in a subdir
 	 *
 	 * @param string $path
 	 */
-	public function __construct($path = null) {
-		if ($path) {
-			$this->path = $path;
-		}
+	public function __construct($path) {
+		$this->path = $path;
 		$this->parseUri();
 	}
 

@@ -57,13 +57,18 @@ abstract class AbstractStrategy implements StrategyInterface {
 	protected $responseMap = array();
 
 	/**
+	 *
+	 * @var Callback url which is called after request
+	 */
+	protected $callbackUrl;
+
+	/**
 	 * Constructor
 	 *
-	 * @param Request Request object
+	 * @param string $url callback url
 	 * @param array $config Strategy-specific configuration
 	 */
-	public function __construct(Request $Request, $config = array()) {
-		$this->Request = $Request;
+	public function __construct($config = array()) {
 		$this->strategy = $config;
 		$this->responseMap = $this->addParams(array('responseMap'), $this->responseMap);
 
@@ -88,12 +93,15 @@ abstract class AbstractStrategy implements StrategyInterface {
 	}
 
 	/**
-	 * Returns the complete callbackurl
+	 * Getter/setter for the complete callbackurl
 	 *
 	 * @return string
 	 */
-	protected function callbackUrl() {
-		return $this->Request->providerUrl() . '/callback';
+	public function callbackUrl($url = null) {
+		if ($url) {
+			$this->callbackUrl = $url;
+		}
+		return $this->callbackUrl;
 	}
 
 	/**

@@ -35,12 +35,23 @@ class Opauth {
 	protected $strategies = array();
 
 	/**
-	 * Absolute path to strategy dir
-	 * Not required when using composer installs or having the strategies in lib/Opauth/Strategy/ directory
+	 * The request object
 	 *
-	 * @var string
+	 * @var Request
 	 */
-	protected $strategyDir;
+	public $Request;
+
+	/**
+	 * Configuration array
+	 *
+	 * @var array
+	 */
+	protected $config = array(
+		'http_transport' => "\\Opauth\\Transport\\Curl",
+		'callback' => 'callback',
+		'path' => '/auth/',
+		'strategyDir' => null
+	);
 
 	/**
 	 * Constructor
@@ -49,23 +60,30 @@ class Opauth {
 	 * @param array $config User configuration
 	 */
 	public function __construct($config = array()) {
-		$config += array(
-			'strategy_dir' => null,
-			'path' => null,
-			'http_transport' => "\\Opauth\\Transport\\Curl"
-		);
 		if (isset($config['Strategy'])) {
 			$this->buildStrategies($config['Strategy']);
 			unset($config['Strategy']);
 		}
-
-		$this->strategyDir = $config['strategy_dir'];
+		$this->config = array_merge($this->config, $config);
 
 		if (!HttpClient::transport() instanceof TransportInterface) {
-			$Transport = $config['http_transport'];
+			$Transport = $this->config('http_transport');
 			HttpClient::transport(new $Transport);
 		}
-		$this->Request = new Request($config['path']);
+		$this->Request = new Request($this->config('path'));
+	}
+
+	/**
+	 * Get key from config array, null if not present
+	 *
+	 * @param type $key Configuration key
+	 * @return mixed Config value
+	 */
+	protected function config($key) {
+		if (!isset($this->config[$key])) {
+			return null;
+		}
+		return $this->config[$key];
 	}
 
 	/**
@@ -78,11 +96,11 @@ class Opauth {
 		}
 		$this->loadStrategy();
 
-		if (is_null($this->Request->action)) {
+		if (!$this->Request->action) {
 			return $this->Strategy->request();
 		}
 
-		if ($this->Request->action !== 'callback') {
+		if ($this->Request->action !== $this->config('callback')) {
 			throw new Exception('Invalid callback url element: ' . $this->Request->action);
 		}
 		$response = $this->Strategy->callback();
@@ -158,13 +176,14 @@ class Opauth {
 
 		$strategy = $this->strategies[$this->Request->urlname];
 		$class = '\Opauth\Strategy\\' . $strategy['_name'] . '\\' . 'Strategy';
-		if ($this->strategyDir && is_dir($this->strategyDir)) {
-			AutoLoader::register('Opauth\\Strategy', $this->strategyDir);
+		if ($dir = $this->config('strategyDir') && is_dir($dir)) {
+			AutoLoader::register('Opauth\\Strategy', $dir);
 		}
 		if (!class_exists($class)) {
 			throw new Exception(sprintf('Strategy class %s not found', $class));
 		}
-		$this->setStrategy(new $class($this->Request, $strategy));
+		$this->setStrategy(new $class($strategy));
+		$this->Strategy->callbackUrl($this->Request->providerUrl() . '/' . $this->config('callback'));
 	}
 
 	/**

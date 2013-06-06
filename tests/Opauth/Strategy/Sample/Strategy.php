@@ -31,7 +31,8 @@ class Strategy extends AbstractStrategy {
 	 * eg. array('scope' => 'email');
 	 */
 	public $defaults = array(
-		'scope' => 'test_scope'
+		'scope' => 'test_scope',
+		'return' => true
 	);
 
 	/**
@@ -49,14 +50,17 @@ class Strategy extends AbstractStrategy {
 	 * An arbitrary function
 	 */
 	public function request() {
-		echo 'request() called';
+		if (!$this->strategy['return']) {
+			return 'wrong';
+		}
+		return $this->response('raw', array('message' => 'Error from strategy'));
 	}
 
 	/**
 	 * An arbritary function
 	 */
 	public function callback() {
-		$response = new Response($this->strategy['provider'], $this->testRaw);
+		$response = $this->response($this->testRaw);
 		$response->setMap($this->testMap);
 		return $response;
 	}

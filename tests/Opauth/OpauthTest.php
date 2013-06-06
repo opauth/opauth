@@ -28,15 +28,15 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 
 	public function testConstructor() {
 		$Opauth = new Opauth(array());
-		$this->assertEquals('http://test.example.org', $Opauth->Request->getHost());
+		$this->assertEquals('http://test.example.org', $Opauth->request->getHost());
 
 		$_SERVER['HTTP_HOST'] = 'test2.example.org';
 		$_SERVER['REQUEST_URI'] = '/subdir/auth/sample';
 		$Opauth = new Opauth(array(
 			'path' => '/subdir/auth/',
 		));
-		$this->assertEquals('http://test2.example.org', $Opauth->Request->getHost());
-		$this->assertEquals('http://test2.example.org/subdir/auth/sample', $Opauth->Request->providerUrl());
+		$this->assertEquals('http://test2.example.org', $Opauth->request->getHost());
+		$this->assertEquals('http://test2.example.org/subdir/auth/sample', $Opauth->request->providerUrl());
 	}
 
 	/**
@@ -67,7 +67,8 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 *
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Error from strategy
 	 */
 	public function testRunRequest() {
 		$_SERVER['REQUEST_URI'] = '/auth/sample';
@@ -75,13 +76,32 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'Strategy' => array(
 				'Sample' => array(
 					'sample_id' => 1234,
-					'sample_secret' => 'fortytwo'
+					'sample_secret' => 'fortytwo',
+					'return' => true
 				)
 			)
 		);
 		$Opauth = new Opauth($config);
 		$Opauth->run();
-		$this->expectOutputString('request() called');
+	}
+
+	/**
+	 * @expectedException Exception
+	 * @expectedExceptionMessage Strategy request should redirect or return Response with error
+	 */
+	public function testRunRequestError() {
+		$_SERVER['REQUEST_URI'] = '/auth/sample';
+		$config = array(
+			'Strategy' => array(
+				'Sample' => array(
+					'sample_id' => 1234,
+					'sample_secret' => 'fortytwo',
+					'return' => false
+				)
+			)
+		);
+		$Opauth = new Opauth($config);
+		$Opauth->run();
 	}
 
 	/**

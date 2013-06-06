@@ -27,7 +27,7 @@ class Opauth {
 	 *
 	 * @var Strategy
 	 */
-	protected $Strategy;
+	protected $strategy;
 
 	/**
 	 * Holds array of strategy settings indexed by url_name

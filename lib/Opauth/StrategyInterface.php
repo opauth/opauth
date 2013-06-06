@@ -17,8 +17,18 @@ namespace Opauth;
  */
 interface StrategyInterface {
 
+	/**
+	 * Handles the initial Oauth request
+	 *
+	 * @return void
+	 */
 	public function request();
 
+	/**
+	 * Handles the callback from Oauth
+	 *
+	 * @return Response The Opauth Response object
+	 */
 	public function callback();
 
 }

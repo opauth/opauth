@@ -10,6 +10,7 @@
 namespace Opauth;
 use \Exception;
 use Opauth\Request;
+use Opauth\Response;
 use Opauth\StrategyInterface;
 
 /**
@@ -31,11 +32,6 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * eg. array('scope' => 'email');
 	 */
 	public $defaults;
-
-	/**
-	 * Auth response array, containing results after successful authentication
-	 */
-	public $auth;
 
 	/**
 	 * Configurations and settings unique to a particular strategy
@@ -144,27 +140,25 @@ abstract class AbstractStrategy implements StrategyInterface {
 	}
 
 	/**
-	 * Error callback
+	 * Response callback
 	 *
 	 * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
 	 *
+	 * @param $raw Raw response from Oauth provider
 	 * @param array $error Data on error to be sent back along with the callback
-	 *   $error = array(
-	 *     'provider'	// Provider name
-	 *     'code'		// Error code, can be int (HTTP status) or string (eg. access_denied)
-	 *     'message'	// User-friendly error message
-	 *     'raw'		// Actual detail on the error, as returned by the provider
-	 *   )
-	 *
+	 *	$error = array(
+	 *		'code'		// Error code, can be int (HTTP status) or string (eg. access_denied)
+	 *		'message'	// User-friendly error message
+	 *	)
+	 * @return Response
 	 */
-	public function errorCallback($error) {
-		$error = $this->recursiveGetObjectVars($error);
-		$error['provider'] = $this->strategy['provider'];
-
-		$params = array(
-			'error' => $error,
-		);
-		return $params;
+	public function response($raw, $error = array()) {
+		$response = new Response($this->strategy['provider'], $raw);
+		$response->setMap($this->responseMap);
+		if ($error) {
+			$response->setError($error);
+		}
+		return $response;
 	}
 
 	/**

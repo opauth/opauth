@@ -28,9 +28,44 @@ class Response implements ArrayAccess {
 
 	public $credentials;
 
+	/**
+	 * Info
+	 * @var array
+	 */
 	public $info = array();
 
+	/**
+	 * Key => value pairs to map raw data
+	 *
+	 * Key contains dot formatted path to Response attributes,
+	 * values contain path to raw data to read from.
+	 *
+	 * Strategies can define a response map, or users can add 'responseMap' to
+	 * the config array, to override and define the way they like the response
+	 * data to be formatted
+	 *
+	 * Example:
+	 *	protected $responseMap = array(
+	 *		'uid' => 'id',
+	 *		'name' => 'name',
+	 *		'info.name' => 'name',
+	 *		'info.nickname' => 'screen_name',
+	 *		'info.location' => 'location',
+	 *		'info.description' => 'description',
+	 *		'info.image' => 'profile_image_url',
+	 *		'info.urls.website' => 'url'
+	 *	);
+	 *
+	 * @var array
+	 */
 	protected $map = array();
+
+	/**
+	 * Contains array with error code and message
+	 *
+	 * @var array
+	 */
+	protected $error = array();
 
 	/**
 	 *
@@ -40,6 +75,42 @@ class Response implements ArrayAccess {
 	public function __construct($provider, $raw) {
 		$this->provider = $provider;
 		$this->raw = $raw;
+	}
+
+	/**
+	 * Check if the response has an error
+	 *
+	 * @return boolean
+	 */
+	public function isError() {
+		return !empty($this->error);
+	}
+
+	/**
+	 * Get the error message
+	 *
+	 * @return string
+	 */
+	public function errorMessage() {
+		return $this->error['message'];
+	}
+
+	/**
+	 * Gets error code
+	 *
+	 * @return integer|string
+	 */
+	public function errorCode() {
+		return $this->error['code'];
+	}
+
+	/**
+	 * Sets an error
+	 *
+	 * @param array $error Array with code and message keys
+	 */
+	public function setError(array $error) {
+		$this->error = array_merge(array('code' => 0, 'message' => ''), $error);
 	}
 
 	/**

@@ -32,8 +32,8 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function tearDown() {
-		if (isset($_SESSION['_opauth_data'])) {
-			unset($_SESSION['_opauth_data']);
+		if (isset($_SESSION['_opauth_dataSample'])) {
+			unset($_SESSION['_opauth_dataSample']);
 		}
 	}
 

@@ -178,18 +178,21 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'settings' => 'here',
 			'provider' => 'Sample',
 			'_name' => 'Sample',
-			'_url_name' => 'sample'
+			'_url_name' => 'sample',
+			'_enabled' => true
 		);
 		$this->assertSame($expected, $result);
 
 		$settings = array(
 			'_name' => 'Other',
 			'_url_name' => 'alias',
+			'_enabled' => false
 		);
 		$result = $Opauth->buildStrategy('Sample', $settings);
 		$expected = array(
 			'_name' => 'Other',
 			'_url_name' => 'alias',
+			'_enabled' => false,
 			'provider' => 'Sample',
 		);
 		$this->assertSame($expected, $result);

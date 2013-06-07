@@ -195,6 +195,9 @@ class Opauth {
 		if (empty($settings['_url_name'])) {
 			$settings['_url_name'] = strtolower($name);
 		}
+		if (!isset($settings['_enabled'])) {
+			$settings['_enabled'] = true;
+		}
 
 		return $this->strategies[$settings['_url_name']] = $settings;
 	}
@@ -217,6 +220,9 @@ class Opauth {
 		}
 
 		$settings = $this->strategies[$this->request->urlname];
+		if (!$settings['_enabled']) {
+			throw new Exception('This strategy is not enabled');
+		}
 		$classname = '\Opauth\Strategy\\' . $settings['_name'] . '\\' . 'Strategy';
 		if ($dir = $this->config('strategyDir') && is_dir($dir)) {
 			AutoLoader::register('Opauth\\Strategy', $dir);

@@ -29,10 +29,13 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($raw, $response->raw);
 	}
 
-	public function testMap() {
+	public function testMapping() {
 		$response = $this->buildResponse();
 
-		$response->setMap(array('info.somename' => 'some'));
+		$map = array('info.somename' => 'some');
+		$response->setMap($map);
+		$this->assertSame($map, $response->getMap());
+
 		$response->map();
 		$this->assertEquals('raw data', $response->info['somename']);
 
@@ -45,11 +48,14 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(1234, $response->uid);
 
 		$response = $this->buildResponse();
-		$response->setMap(array(
+		$map = array(
 			'info.somename' => 'some',
 			'info.more' => 'more.nested',
 			'uid' => 'id'
-		));
+		);
+		$response->setMap($map);
+		$this->assertSame($map, $response->getMap());
+
 		$response->map();
 		$this->assertEquals('raw data', $response->info['somename']);
 		$this->assertEquals('raw', $response->info['more']);
@@ -73,6 +79,40 @@ class ResponseTest extends PHPUnit_Framework_TestCase {
 
 		$response->setData('nothere', 'id');
 		$this->assertNull($response->nothere);
+	}
+
+	public function testIsValid() {
+		$response = $this->buildResponse();
+		$this->assertFalse($response->isValid());
+
+		$response->uid = 'id';
+		$response->name = 'fullname';
+		$response->credentials = array('token' => 'token', 'secret' => 'secret');
+		$this->assertTrue($response->isValid());
+	}
+
+	public function testErrors() {
+		$response = $this->buildResponse();
+
+		$this->assertFalse($response->isError());
+
+		$response->setError(array());
+		$this->assertSame(0, $response->errorCode());
+		$this->assertSame('', $response->errorMessage());
+
+		$response->setError(array('message' => 'Error'));
+		$this->assertSame(0, $response->errorCode());
+		$this->assertSame('Error', $response->errorMessage());
+
+		$response->setError(array('code' => 15, 'message' => 'Error'));
+		$this->assertSame(15, $response->errorCode());
+		$this->assertSame('Error', $response->errorMessage());
+
+		$response->setError(array('code' => 'stringcode', 'message' => 'Error'));
+		$this->assertSame('stringcode', $response->errorCode());
+		$this->assertSame('Error', $response->errorMessage());
+
+		$this->assertTrue($response->isError());
 	}
 
 	protected function buildResponse() {

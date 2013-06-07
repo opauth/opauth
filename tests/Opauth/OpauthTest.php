@@ -37,6 +37,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 		));
 		$this->assertEquals('http://test2.example.org', $Opauth->request->getHost());
 		$this->assertEquals('http://test2.example.org/subdir/auth/sample', $Opauth->request->providerUrl());
+		$this->assertInstanceof('Opauth\\Transport\\TransportInterface', HttpClient::transport());
 	}
 
 	/**
@@ -141,6 +142,57 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 
 		$result = $Opauth->run();
 		$this->assertInstanceOf('Opauth\\Response', $result);
+	}
+
+	/**
+	 *
+	 */
+	public function testBuildStrategies() {
+		$Opauth = new Opauth();
+
+		$strategies = array(
+			'Providername' => 'settings',
+			'Other' => 'settings',
+		);
+		$result = $Opauth->buildStrategies($strategies);
+		$this->assertTrue($result);
+	}
+
+		/**
+	 * @expectedException Exception
+	 * @expectedExceptionMessage No strategies found
+	 */
+	public function testBuildStrategiesException() {
+		$Opauth = new Opauth();
+		$Opauth->buildStrategies('wrong');
+	}
+
+	/**
+	 *
+	 */
+	public function testBuildStrategy() {
+		$Opauth = new Opauth();
+
+		$result = $Opauth->buildStrategy('Sample', array('settings' => 'here'));
+		$expected = array(
+			'settings' => 'here',
+			'provider' => 'Sample',
+			'_name' => 'Sample',
+			'_url_name' => 'sample'
+		);
+		$this->assertSame($expected, $result);
+
+		$settings = array(
+			'_name' => 'Other',
+			'_url_name' => 'alias',
+		);
+		$result = $Opauth->buildStrategy('Sample', $settings);
+		$expected = array(
+			'_name' => 'Other',
+			'_url_name' => 'alias',
+			'provider' => 'Sample',
+		);
+		$this->assertSame($expected, $result);
 	}
 
 }

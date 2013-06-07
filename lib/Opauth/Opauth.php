@@ -158,7 +158,7 @@ class Opauth {
 	 * Builds strategies
 	 *
 	 * @param array $strategies Array of strategies and their settings
-	 * @return void
+	 * @return true
 	 * @throws Exception
 	 */
 	public function buildStrategies($strategies) {
@@ -169,6 +169,7 @@ class Opauth {
 		foreach ($strategies as $name => $settings) {
 			$this->buildStrategy($name, $settings);
 		}
+		return true;
 	}
 
 	/**
@@ -176,7 +177,7 @@ class Opauth {
 	 *
 	 * @param string|integer $name
 	 * @param array|string $settings
-	 * @return void
+	 * @return array Settings array
 	 */
 	public function buildStrategy($name, $settings) {
 		if (!is_array($settings)) {
@@ -195,7 +196,7 @@ class Opauth {
 			$settings['_url_name'] = strtolower($name);
 		}
 
-		$this->strategies[$settings['_url_name']] = $settings;
+		return $this->strategies[$settings['_url_name']] = $settings;
 	}
 
 	/**

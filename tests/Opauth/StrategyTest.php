@@ -23,7 +23,8 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 		$_SERVER['REQUEST_URI'] = '/auth/sample';
 		$config = array(
 			'sample_id' => 1234,
-			'sample_secret' => 'fortytwo'
+			'sample_secret' => 'fortytwo',
+			'provider' => 'Sample'
 		);
 		$this->Strategy = new Strategy($config);
 		$Request = new Request('/auth/');
@@ -62,6 +63,16 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 
 		$result = $this->Strategy->sessionData();
 		$this->assertEquals('opauthdata', $result);
+	}
+
+	public function testResponse() {
+		$result = $this->Strategy->response('rawdata');
+		$this->assertInstanceof('Opauth\\Response', $result);
+		$this->assertFalse($result->isError());
+
+		$result = $this->Strategy->response('rawdata', array('code' => 12, 'message' => 'errormessage'));
+		$this->assertInstanceof('Opauth\\Response', $result);
+		$this->assertTrue($result->isError());
 	}
 
 }

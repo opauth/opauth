@@ -110,12 +110,13 @@ abstract class AbstractStrategy implements StrategyInterface {
 		if (!session_id()) {
 			session_start();
 		}
+		$key = $this->sessionKey . $this->strategy['provider'];
 		if (!$data) {
-			$data = $_SESSION[$this->sessionKey];
-			unset($_SESSION[$this->sessionKey]);
+			$data = $_SESSION[$key];
+			unset($_SESSION[$key]);
 			return $data;
 		}
-		return $_SESSION[$this->sessionKey] = $data;
+		return $_SESSION[$key] = $data;
 	}
 
 	/**

@@ -58,7 +58,7 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 
 	public function testSessionData() {
 		$this->Strategy->sessionData('opauthdata');
-		$result = $_SESSION['_opauth_data'];
+		$result = $_SESSION['_opauth_dataSample'];
 		$this->assertEquals('opauthdata', $result);
 
 		$result = $this->Strategy->sessionData();

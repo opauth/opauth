@@ -29,12 +29,13 @@ class Curl extends Base {
 	 */
 	protected function request($url, $options = array()) {
 		if (!function_exists('curl_init')) {
-			throw new Exception('Curl not supported, try using other http_client_method such as file');
+			throw new Exception('Curl not supported, use other http transport');
 		}
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_USERAGENT, 'Opauth');
 		if (!empty($options['http']['method']) && strtoupper($options['http']['method']) === 'POST') {
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $options['http']['content']);

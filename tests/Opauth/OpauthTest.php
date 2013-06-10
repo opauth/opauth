@@ -37,7 +37,6 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 		));
 		$this->assertEquals('http://test2.example.org', $Opauth->request->getHost());
 		$this->assertEquals('http://test2.example.org/subdir/auth/sample', $Opauth->request->providerUrl());
-		$this->assertInstanceof('Opauth\\Transport\\TransportInterface', HttpClient::transport());
 	}
 
 	/**

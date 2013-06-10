@@ -227,9 +227,9 @@ class Opauth {
 			case 'session':
 				if (!session_id()) {
 					session_start();
-					$response = $_SESSION['opauth'];
-					unset($_SESSION['opauth']);
 				}
+				$response = $_SESSION['opauth'];
+				unset($_SESSION['opauth']);
 				break;
 			case 'post':
 				$response = unserialize(base64_decode( $_POST['opauth'] ));

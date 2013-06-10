@@ -8,8 +8,8 @@
  * @license      MIT License
  */
 namespace Opauth\Transport;
+
 use Opauth\Transport\Base;
-use \Exception;
 
 /**
  * Opauth Curl
@@ -29,7 +29,7 @@ class Curl extends Base {
 	 */
 	protected function request($url, $options = array()) {
 		if (!function_exists('curl_init')) {
-			throw new Exception('Curl not supported, use other http transport');
+			throw new \Exception('Curl not supported, use other http transport');
 		}
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

@@ -8,6 +8,7 @@
  * @license      MIT License
  */
 namespace Opauth;
+
 use \ArrayAccess;
 
 /**

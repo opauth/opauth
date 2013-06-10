@@ -1,5 +1,5 @@
 <?php
-namespace Opauth\Transport;
+namespace Opauth;
 
 interface TransportInterface {
 

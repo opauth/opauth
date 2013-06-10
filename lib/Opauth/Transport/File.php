@@ -8,8 +8,8 @@
  * @license      MIT License
  */
 namespace Opauth\Transport;
+
 use Opauth\Transport\Base;
-use \Exception;
 
 /**
  * Opauth Curl
@@ -28,7 +28,7 @@ class File extends Base {
 	 */
 	protected function request($url, $options = array()) {
 		if (!ini_get('allow_url_fopen')) {
-			throw new Exception('file_get_contents not allowed, try using other http_client_method such as curl');
+			throw new \Exception('file_get_contents not allowed, try using other http_client_method such as curl');
 		}
 		$context = null;
 		if (!empty($options)) {

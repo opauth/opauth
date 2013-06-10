@@ -8,8 +8,8 @@
  * @license      MIT License
  */
 namespace Opauth\Transport;
-use Opauth\Transport\TransportInterface;
-use \Exception;
+
+use Opauth\TransportInterface;
 
 /**
  * Opauth Base client

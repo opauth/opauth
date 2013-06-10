@@ -8,9 +8,7 @@
  * @license      MIT License
  */
 namespace Opauth;
-use \Exception;
-use Opauth\Request;
-use Opauth\Response;
+
 use Opauth\StrategyInterface;
 
 /**
@@ -59,6 +57,13 @@ abstract class AbstractStrategy implements StrategyInterface {
 	protected $callbackUrl;
 
 	/**
+	 * Http client transport class
+	 *
+	 * @var Opauth\Transport\TransportInterface
+	 */
+	protected $http;
+
+	/**
 	 * Constructor
 	 *
 	 * @param array $config Strategy-specific configuration
@@ -97,6 +102,15 @@ abstract class AbstractStrategy implements StrategyInterface {
 			$this->callbackUrl = $url;
 		}
 		return $this->callbackUrl;
+	}
+
+	/**
+	 * Set transport class
+	 *
+	 * @param \Opautth\Transport\TransportInterface $transport
+	 */
+	public function setTransport(\Opauth\TransportInterface $transport) {
+		$this->http = $transport;
 	}
 
 	/**
@@ -150,7 +164,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 *		'code'		// Error code, can be int (HTTP status) or string (eg. access_denied)
 	 *		'message'	// User-friendly error message
 	 *	)
-	 * @return Response
+	 * @return Opauth\Response
 	 */
 	public function response($raw, $error = array()) {
 		$response = new Response($this->strategy['provider'], $raw);
@@ -170,12 +184,12 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 */
 	protected function expects($key, $not = null) {
 		if (!array_key_exists($key, $this->strategy)) {
-			throw new Exception(get_class($this) . " config parameter for \"$key\" expected.");
+			throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
 		}
 
 		$value = $this->strategy[$key];
 		if (empty($value) || $value == $not) {
-			throw new Exception(get_class($this) . " config parameter for \"$key\" expected.");
+			throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
 		}
 		return $value;
 	}

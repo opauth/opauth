@@ -8,7 +8,6 @@
  * @license      MIT License
  */
 namespace Opauth;
-use \Exception;
 
 /**
  * Opauth Request
@@ -56,7 +55,7 @@ class Request {
 	 */
 	private function parseUri() {
 		if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
-			throw new Exception('Not an Opauth request, path is not in uri');
+			throw new \Exception('Not an Opauth request, path is not in uri');
 		}
 		$request = substr($_SERVER['REQUEST_URI'], strlen($this->path) - 1);
 

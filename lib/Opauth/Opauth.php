@@ -8,11 +8,6 @@
  * @license      MIT License
  */
 namespace Opauth;
-use Opauth\AutoLoader;
-use Opauth\Transport\TransportInterface;
-use Opauth\Request;
-use Opauth\Response;
-use \Exception;
 
 /**
  * Opauth
@@ -76,10 +71,6 @@ class Opauth {
 		}
 		$this->config = array_merge($this->config, $config);
 
-		if (!HttpClient::transport() instanceof TransportInterface) {
-			$Transport = $this->config('http_transport');
-			HttpClient::transport(new $Transport);
-		}
 		$this->request = new Request($this->config('path'));
 	}
 
@@ -106,7 +97,7 @@ class Opauth {
 	 */
 	public function run() {
 		if (!$this->request->urlname) {
-			throw new Exception('No strategy found in url');
+			throw new \Exception('No strategy found in url');
 		}
 
 		$this->loadStrategy();
@@ -115,7 +106,7 @@ class Opauth {
 		}
 
 		if ($this->request->action !== $this->config('callback')) {
-			throw new Exception('Invalid callback url element: ' . $this->request->action);
+			throw new \Exception('Invalid callback url element: ' . $this->request->action);
 		}
 		return $this->callback();
 	}
@@ -128,9 +119,9 @@ class Opauth {
 	protected function request() {
 		$this->response = $response = $this->strategy->request();
 		if (!$response instanceof Response || !$response->isError()) {
-			throw new Exception('Strategy request should redirect or return Response with error');
+			throw new \Exception('Strategy request should redirect or return Response with error');
 		}
-		throw new Exception($response->errorMessage());
+		throw new \Exception($response->errorMessage());
 	}
 
 	/**
@@ -140,15 +131,15 @@ class Opauth {
 	 */
 	protected function callback() {
 		$this->response = $response = $this->strategy->callback();
-		if (!$response instanceof Response) {
-			throw new Exception('Response should be instance of Opauth\Response');
+		if (!$response instanceof \Opauth\Response) {
+			throw new \Exception('Response should be instance of Opauth\Response');
 		}
 		if ($response->isError()) {
-			throw new Exception($response->errorMessage());
+			throw new \Exception($response->errorMessage());
 		}
 		$response->map();
 		if (!$response->isValid()) {
-			throw new Exception('Invalid response, missing required parameters');
+			throw new \Exception('Invalid response, missing required parameters');
 		}
 		return $response;
 	}
@@ -162,7 +153,7 @@ class Opauth {
 	 */
 	public function buildStrategies($strategies) {
 		if (!$strategies || !is_array($strategies)){
-			throw new Exception('No strategies found');
+			throw new \Exception('No strategies found');
 		}
 
 		foreach ($strategies as $name => $settings) {
@@ -212,24 +203,27 @@ class Opauth {
 			return null;
 		}
 		if (!$this->strategies) {
-			throw new Exception('No strategies configured');
+			throw new \Exception('No strategies configured');
 		}
 		if (!array_key_exists($this->request->urlname, $this->strategies)) {
-			throw new Exception('Unsupported or undefined Opauth strategy - ' . $this->request->urlname);
+			throw new \Exception('Unsupported or undefined Opauth strategy - ' . $this->request->urlname);
 		}
 
 		$settings = $this->strategies[$this->request->urlname];
 		if (!$settings['_enabled']) {
-			throw new Exception('This strategy is not enabled');
+			throw new \Exception('This strategy is not enabled');
 		}
 		$classname = '\Opauth\Strategy\\' . $settings['_name'] . '\\' . 'Strategy';
 		if ($dir = $this->config('strategyDir') && is_dir($dir)) {
-			AutoLoader::register('Opauth\\Strategy', $dir);
+			\Opauth\AutoLoader::register('Opauth\\Strategy', $dir);
 		}
 		if (!class_exists($classname)) {
-			throw new Exception(sprintf('Strategy class %s not found', $classname));
+			throw new \Exception(sprintf('Strategy class %s not found', $classname));
 		}
 		$this->setStrategy(new $classname($settings));
+		$this->strategy->callbackUrl($this->request->providerUrl() . '/' . $this->config('callback'));
+		$Transport = $this->config('http_transport');
+		$this->strategy->setTransport(new $Transport);
 	}
 
 	/**
@@ -237,9 +231,8 @@ class Opauth {
 	 *
 	 * @param \Opauth\AbstractStrategy $strategy
 	 */
-	public function setStrategy(AbstractStrategy $strategy) {
+	public function setStrategy(\Opauth\AbstractStrategy $strategy) {
 		$this->strategy = $strategy;
-		$this->strategy->callbackUrl($this->request->providerUrl() . '/' . $this->config('callback'));
 	}
 
 }

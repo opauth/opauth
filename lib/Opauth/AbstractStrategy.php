@@ -61,7 +61,6 @@ abstract class AbstractStrategy implements StrategyInterface {
 	/**
 	 * Constructor
 	 *
-	 * @param string $url callback url
 	 * @param array $config Strategy-specific configuration
 	 */
 	public function __construct($config = array()) {

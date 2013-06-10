@@ -109,6 +109,7 @@ class Opauth {
 			throw new Exception('No strategy found in url');
 		}
 
+		$this->loadStrategy();
 		if (!$this->request->action) {
 			return $this->request();
 		}
@@ -125,7 +126,6 @@ class Opauth {
 	 * @throws Exception
 	 */
 	protected function request() {
-		$this->loadStrategy();
 		$this->response = $response = $this->strategy->request();
 		if (!$response instanceof Response || !$response->isError()) {
 			throw new Exception('Strategy request should redirect or return Response with error');
@@ -139,7 +139,6 @@ class Opauth {
 	 * @throws Exception
 	 */
 	protected function callback() {
-		$this->loadStrategy();
 		$this->response = $response = $this->strategy->callback();
 		if (!$response instanceof Response) {
 			throw new Exception('Response should be instance of Opauth\Response');
@@ -231,16 +230,16 @@ class Opauth {
 			throw new Exception(sprintf('Strategy class %s not found', $classname));
 		}
 		$this->setStrategy(new $classname($settings));
-		$this->strategy->callbackUrl($this->request->providerUrl() . '/' . $this->config('callback'));
 	}
 
 	/**
 	 * Sets Strategy instance
 	 *
-	 * @param \Opauth\StrategyInterface $strategy
+	 * @param \Opauth\AbstractStrategy $strategy
 	 */
-	public function setStrategy(StrategyInterface $strategy) {
+	public function setStrategy(AbstractStrategy $strategy) {
 		$this->strategy = $strategy;
+		$this->strategy->callbackUrl($this->request->providerUrl() . '/' . $this->config('callback'));
 	}
 
 }

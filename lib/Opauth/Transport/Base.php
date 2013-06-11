@@ -27,6 +27,13 @@ abstract class Base implements TransportInterface {
 	public $responseHeaders;
 
 	/**
+	 * User agent
+	 *
+	 * @var string
+	 */
+	public $userAgent = 'Opauth';
+
+	/**
 	 * Client redirect: This function builds the full HTTP URL with parameters and redirects via Location header.
 	 *
 	 * @param string $url Destination URL
@@ -54,7 +61,11 @@ abstract class Base implements TransportInterface {
 		if ($data) {
 			$url .= '?' . $this->buildQuery($data);
 		}
-		return $this->request($url);
+		$stream = array('http' => array(
+			'header' => "User-Agent: " . $this->userAgent
+		));
+
+		return $this->request($url, $stream);
 	}
 
 	/**
@@ -69,7 +80,7 @@ abstract class Base implements TransportInterface {
 
 		$stream = array('http' => array(
 			'method' => 'POST',
-			'header' => "Content-type: application/x-www-form-urlencoded",
+			'header' => "Content-type: application/x-www-form-urlencoded\r\nUser-Agent: " . $this->userAgent,
 			'content' => $query
 		));
 

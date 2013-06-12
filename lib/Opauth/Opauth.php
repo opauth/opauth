@@ -152,7 +152,7 @@ class Opauth {
 	 * @throws Exception
 	 */
 	public function buildStrategies($strategies) {
-		if (!$strategies || !is_array($strategies)){
+		if (!$strategies || !is_array($strategies)) {
 			throw new \Exception('No strategies found');
 		}
 

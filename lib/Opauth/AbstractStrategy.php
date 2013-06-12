@@ -84,9 +84,6 @@ abstract class AbstractStrategy implements StrategyInterface {
 			}
 		}
 
-		/**
-		 * Additional helpful values
-		 */
 		foreach ($this->strategy as $key => $value) {
 			$this->strategy[$key] = $this->envReplace($value, $this->strategy);
 		}
@@ -181,6 +178,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * @param string $key Expected configuration key
 	 * @param string $not If value is set as $not, throw exception
 	 * @return mixed The loaded value
+	 * @throws \Exception
 	 */
 	protected function expects($key, $not = null) {
 		if (!array_key_exists($key, $this->strategy)) {
@@ -217,17 +215,17 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 */
 
 	/**
-	* Recursively converts object into array
-	* Basically get_object_vars, but recursive.
-	*
-	* @param mixed $obj Object
-	* @return array Array of object properties
-	*/
-	public static function recursiveGetObjectVars($obj){
+	 * Recursively converts object into array
+	 * Basically get_object_vars, but recursive.
+	 *
+	 * @param mixed $obj Object
+	 * @return array Array of object properties
+	 */
+	public static function recursiveGetObjectVars($obj) {
 		$arr = array();
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
 
-		foreach ($_arr as $key => $val){
+		foreach ($_arr as $key => $val) {
 			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
 
 			// Transform boolean into 1 or 0 to make it safe across all Opauth HTTP transports
@@ -248,9 +246,9 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 */
 	public static function envReplace($value, $dictionary) {
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)) {
-			foreach ($matches[1] as $key){
-				if (array_key_exists($key, $dictionary)){
-					$value = str_replace('{'.$key.'}', $dictionary[$key], $value);
+			foreach ($matches[1] as $key) {
+				if (array_key_exists($key, $dictionary)) {
+					$value = str_replace('{' . $key . '}', $dictionary[$key], $value);
 				}
 			}
 			return $value;

@@ -25,6 +25,7 @@ class File extends Base {
 	 * @param string $url
 	 * @param array $options
 	 * @return string Response body
+	 * @throws \Exception
 	 */
 	protected function request($url, $options = array()) {
 		if (!ini_get('allow_url_fopen')) {

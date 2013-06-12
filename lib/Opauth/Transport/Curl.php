@@ -19,13 +19,13 @@ use Opauth\Transport\Base;
  */
 class Curl extends Base {
 
-
 	/**
 	 * Makes a request using curl
 	 *
 	 * @param string $url
 	 * @param array $options
 	 * @return string Response body
+	 * @throws \Exception
 	 */
 	protected function request($url, $options = array()) {
 		if (!function_exists('curl_init')) {

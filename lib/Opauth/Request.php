@@ -53,7 +53,7 @@ class Request {
 	 *
 	 * @throws Exception
 	 */
-	private function parseUri() {
+	protected function parseUri() {
 		if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
 			throw new \Exception('Not an Opauth request, path is not in uri');
 		}

@@ -65,6 +65,10 @@ class Strategy extends AbstractStrategy {
 		return $response;
 	}
 
+	public function response($raw, $error = array()) {
+		return parent::response($raw, $error);
+	}
+
 	/**
 	 * overriding to change visbility to public
 	 */

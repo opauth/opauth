@@ -23,18 +23,18 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * Compulsory config keys, listed as unassociative arrays
 	 * eg. array('app_id', 'app_secret');
 	 */
-	public $expects;
+	public $expects = array();
 
 	/**
 	 * Optional config keys with respective default values, listed as associative arrays
 	 * eg. array('scope' => 'email');
 	 */
-	public $defaults;
+	public $defaults = array();
 
 	/**
 	 * Configurations and settings unique to a particular strategy
 	 */
-	protected $strategy;
+	protected $strategy = array();
 
 	/**
 	 * Key for $_SESSION data
@@ -69,20 +69,11 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * @param array $config Strategy-specific configuration
 	 */
 	public function __construct($config = array()) {
-		$this->strategy = $config;
+		$this->setValues($this->defaults);
+		$this->setValues($config);
+		$this->checkExpected();
+
 		$this->responseMap = $this->addParams(array('responseMap'), $this->responseMap);
-
-		if (is_array($this->expects)) {
-			foreach ($this->expects as $key) {
-				$this->expects($key);
-			}
-		}
-
-		if (is_array($this->defaults)) {
-			foreach ($this->defaults as $key => $value) {
-				$this->optional($key, $value);
-			}
-		}
 
 		foreach ($this->strategy as $key => $value) {
 			$this->strategy[$key] = $this->envReplace($value, $this->strategy);
@@ -163,7 +154,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 *	)
 	 * @return Opauth\Response
 	 */
-	public function response($raw, $error = array()) {
+	protected function response($raw, $error = array()) {
 		$response = new Response($this->strategy['provider'], $raw);
 		$response->setMap($this->responseMap);
 		if ($error) {
@@ -173,46 +164,58 @@ abstract class AbstractStrategy implements StrategyInterface {
 	}
 
 	/**
-	 * Ensures that a compulsory value is set, throws an exception if it's not set
-	 *
-	 * @param string $key Expected configuration key
-	 * @param string $not If value is set as $not, throw exception
-	 * @return mixed The loaded value
-	 * @throws \Exception
+	 * Loads strategy values from default configs
 	 */
-	protected function expects($key, $not = null) {
-		if (!array_key_exists($key, $this->strategy)) {
-			throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
+	protected function setValues($values = array()) {
+		foreach ($values as $key => $value) {
+			$this->value($key, $value);
 		}
-
-		$value = $this->strategy[$key];
-		if (empty($value) || $value == $not) {
-			throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
-		}
-		return $value;
 	}
 
 	/**
-	 * Loads a default value into $strategy if the associated key is not found
+	 * Getter/setter for strategy keys
 	 *
 	 * @param string $key Configuration key to be loaded
 	 * @param string $default Default value for the configuration key if none is set by the user
 	 * @return mixed The loaded value
 	 */
-	protected function optional($key, $default = null) {
-		if (!array_key_exists($key, $this->strategy)) {
+	protected function value($key, $default = null) {
+		if (!isset($this->strategy[$key]) && $default === null) {
+			return null;
+		} elseif ($default !== null) {
 			$this->strategy[$key] = $default;
-			return $default;
 		}
 		return $this->strategy[$key];
 	}
 
 	/**
-	 * *****************************************************
-	 * Utilities
-	 * A collection of static functions for strategy's use
-	 * *****************************************************
+	 * Check expected strategy keys
+	 *
+	 * @return true If all keys are present
+	 * @throws \Exception
 	 */
+	protected function checkExpected() {
+		foreach ($this->expects as $key) {
+			if (!$this->hasKey($key)) {
+				throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Checks if strategy value is set
+	 *
+	 * @param string $key Expected configuration key
+	 * @param string $not Value should not match this
+	 * @return boolean
+	 */
+	protected function hasKey($key, $not = null) {
+		if (!isset($this->strategy[$key]) || $this->strategy[$key] === $not) {
+			return false;
+		}
+		return true;
+	}
 
 	/**
 	 * Recursively converts object into array
@@ -221,7 +224,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * @param mixed $obj Object
 	 * @return array Array of object properties
 	 */
-	public static function recursiveGetObjectVars($obj) {
+	public function recursiveGetObjectVars($obj) {
 		$arr = array();
 		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
 
@@ -244,7 +247,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * @param array $dictionary Dictionary to lookup values from
 	 * @return string String substitued with value from dictionary, if applicable
 	 */
-	public static function envReplace($value, $dictionary) {
+	public function envReplace($value, $dictionary) {
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)) {
 			foreach ($matches[1] as $key) {
 				if (array_key_exists($key, $dictionary)) {

@@ -54,6 +54,12 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 		$expected = array('sample_id' => 1234);
 		$result = $this->Strategy->addParams(array('sample_id', 'not_existing'));
 		$this->assertEquals($expected, $result);
+
+		$result = $this->Strategy->addParams(array('sample_id' => 'sample_id_alias'));
+		$this->assertEquals(array('sample_id_alias' => 1234), $result);
+
+		$result = $this->Strategy->addParams(array('sample_id' => 'sample_id_alias', 'sample_id', 'not_existing'));
+		$this->assertEquals(array('sample_id_alias' => 1234, 'sample_id' => 1234), $result);
 	}
 
 	public function testSessionData() {

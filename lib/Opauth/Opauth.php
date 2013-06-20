@@ -222,7 +222,7 @@ class Opauth {
 	public function callback() {
 		echo "<strong>Note: </strong>Application should set callback URL to application-side for further specific authentication process.\n<br>";
 		
-		$response = null;
+		$response = array();
 		switch($this->env['callback_transport']) {
 			case 'session':
 				if (!session_id()) {

@@ -261,4 +261,3 @@ Copyright © 2012-2013 U-Zyn Chua (http://uzyn.com)
 Consultation
 ---------
 U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.com).
-Looking for PHP web development solutions or consultation? [Drop me a mail](mailto:chua@uzyn.com).

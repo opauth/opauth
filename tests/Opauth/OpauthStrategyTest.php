@@ -114,6 +114,29 @@ class OpauthStrategyTest extends OpauthTest {
 		$this->assertContains("Location: $fullUrl", $headers_list);
 	}
 
+	public function testArrayReplaceRecursive() {
+		$array = array('http' => array(
+			'method' => 'POST',
+			'content' => 'lorem ipsum'
+		));
+
+		$replacement = array('http' => array(
+			'content' => 'New content',
+			'new_key' => 'some value'
+		), 'another_key' => 919);
+
+		$replaced = OpauthStrategy::arrayReplaceRecursive($array, $replacement);
+
+		$this->assertEquals($replaced, array(
+			'http' => array(
+				'method' => 'POST',
+				'content' => 'New content',
+				'new_key' => 'some value'
+			),
+			'another_key' => 919
+		));
+	}
+
 	/**
 	 * Instantiate OpauthStrategy with test config suitable for testing
 	 *

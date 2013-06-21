@@ -386,7 +386,7 @@ class OpauthStrategy {
 			'content' => $query
 		));
 
-		$stream = array_merge_recursive($options, $stream);
+		$stream = array_replace_recursive($stream, $options);
 
 		return self::httpRequest($url, $stream, $responseHeaders);	
 	}

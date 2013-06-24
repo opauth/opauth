@@ -9,8 +9,6 @@
  */
 namespace Opauth;
 
-use Opauth\StrategyInterface;
-
 /**
  * Opauth Strategy
  * Individual strategies are to be extended from this class

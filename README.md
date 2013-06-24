@@ -10,13 +10,13 @@ Try out Opauth for yourself at http://opauth.org
 
 Development branch
 -------
-**DO NOT USE**! 
+**DO NOT USE**!
 
 This is a **work-in-progress** development branch for Opauth v1.0. API may change without notice.
 
 Check out [master](https://github.com/uzyn/opauth/tree/master) or [v0.x of Opauth on Packagist](https://packagist.org/packages/opauth/opauth) for stable use.
 
- 
+
 
 What is Opauth?
 ---------------
@@ -271,4 +271,3 @@ Copyright © 2012-2013 U-Zyn Chua (http://uzyn.com)
 Consultation
 ---------
 U-Zyn Chua is a Principal Consultant at [Zynesis Consulting](http://zynesis.com).
-Looking for PHP web development solutions or consultation? [Drop me a mail](mailto:chua@uzyn.com).

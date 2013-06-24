@@ -22,14 +22,14 @@ class Request {
 	 *
 	 * @var string
 	 */
-	public $urlname = null;
+	public $urlname;
 
 	/**
 	 * Action, null for request, 'callback' for callback
 	 *
 	 * @var string
 	 */
-	public $action = null;
+	public $action;
 
 	/**
 	 * Opauth url path, relative to host

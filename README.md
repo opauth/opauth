@@ -6,7 +6,7 @@ Opauth enables PHP applications to do *user authentication* with ease.
 
 Try out Opauth for yourself at http://opauth.org
 
-[![Build Status](https://secure.travis-ci.org/uzyn/opauth.png?branch=wip/1.0)](http://travis-ci.org/uzyn/opauth)
+[![Build Status](https://secure.travis-ci.org/opauth/opauth.png?branch=wip/1.0)](http://travis-ci.org/opauth/opauth)
 
 Development branch
 -------
@@ -14,7 +14,7 @@ Development branch
 
 This is a **work-in-progress** development branch for Opauth v1.0. API may change without notice.
 
-Check out [master](https://github.com/uzyn/opauth/tree/master) or [v0.x of Opauth on Packagist](https://packagist.org/packages/opauth/opauth) for stable use.
+Check out [master](https://github.com/opauth/opauth/tree/master) or [v0.x of Opauth on Packagist](https://packagist.org/packages/opauth/opauth) for stable use.
 
 
 

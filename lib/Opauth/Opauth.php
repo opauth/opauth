@@ -10,7 +10,6 @@
 namespace Opauth;
 
 use Exception;
-use Opauth\AbstractStrategy;
 
 /**
  * Opauth

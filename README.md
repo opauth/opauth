@@ -7,6 +7,7 @@ Opauth enables PHP applications to do *user authentication* with ease.
 Try out Opauth for yourself at http://opauth.org
 
 [![Build Status](https://secure.travis-ci.org/opauth/opauth.png?branch=wip/1.0)](http://travis-ci.org/opauth/opauth)
+[![Coverage Status](https://coveralls.io/repos/opauth/opauth/badge.png?branch=wip%2F1.0)](https://coveralls.io/r/opauth/opauth?branch=wip%2F1.0)
 
 Development branch
 -------

@@ -16,13 +16,31 @@ namespace Opauth;
  */
 class AutoLoader {
 
+	/**
+	 * Base directory
+	 *
+	 * @var string
+	 */
 	private $directory;
+
+	/**
+	 * Namespace
+	 *
+	 * @var string
+	 */
 	private $namespace;
+
+	/**
+	 * String length of namespace
+	 *
+	 * @var integer
+	 */
 	private $namespaceLength;
 
 	/**
 	 * Constructor
 	 *
+	 * @param string $namespace
 	 * @param string $baseDirectory
 	 */
 	public function __construct($namespace = null, $baseDirectory = null) {
@@ -56,6 +74,7 @@ class AutoLoader {
 	}
 
 	/**
+	 * Loads the class
 	 *
 	 * @param string $className The name of the class to load.
 	 * @return void

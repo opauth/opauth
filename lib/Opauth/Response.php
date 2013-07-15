@@ -19,14 +19,39 @@ use \ArrayAccess;
  */
 class Response implements ArrayAccess {
 
+	/**
+	 * Provider name
+	 *
+	 * @var string
+	 */
 	public $provider;
 
+	/**
+	 * Raw response data
+	 *
+	 * @var mixed
+	 */
 	public $raw;
 
+	/**
+	 * User unique identifier
+	 *
+	 * @var mixed
+	 */
 	public $uid;
 
+	/**
+	 * User name
+	 *
+	 * @var string
+	 */
 	public $name;
 
+	/**
+	 * Oauth credentials
+	 *
+	 * @var array
+	 */
 	public $credentials;
 
 	/**
@@ -69,6 +94,7 @@ class Response implements ArrayAccess {
 	protected $error = array();
 
 	/**
+	 * Constructor
 	 *
 	 * @param string $provider Use $this->strategy['provider'] so aliassed strategies are handled correct
 	 * @param array $raw Raw response data from provider
@@ -159,6 +185,7 @@ class Response implements ArrayAccess {
 	}
 
 	/**
+	 * Getter for the response map
 	 *
 	 * @return array
 	 */
@@ -281,6 +308,7 @@ class Response implements ArrayAccess {
 	}
 
 	/**
+	 * Magic method for `isset()`
 	 *
 	 * @param type $name
 	 * @return type

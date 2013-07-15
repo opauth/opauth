@@ -127,6 +127,7 @@ class Opauth {
 	}
 
 	/**
+	 * Callback method, executed after being redirected back
 	 *
 	 * @return Response
 	 * @throws Exception

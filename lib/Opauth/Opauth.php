@@ -64,16 +64,17 @@ class Opauth {
 	 * Loads user configuration and strategies.
 	 *
 	 * @param array $config User configuration
+	 * @param ParserInterface $parser Request Parser instance
 	 * @return void
 	 */
-	public function __construct($config = array()) {
+	public function __construct($config = array(), ParserInterface $parser = null) {
 		if (isset($config['Strategy'])) {
 			$this->buildStrategies($config['Strategy']);
 			unset($config['Strategy']);
 		}
 		$this->config = array_merge($this->config, $config);
 
-		$this->request = new Request($this->config('path'));
+		$this->setParser($parser);
 	}
 
 	/**
@@ -82,7 +83,7 @@ class Opauth {
 	 * @param type $key Configuration key
 	 * @return mixed Config value
 	 */
-	protected function config($key) {
+	public function config($key) {
 		if (!isset($this->config[$key])) {
 			return null;
 		}
@@ -98,17 +99,17 @@ class Opauth {
 	 * @throws Exception
 	 */
 	public function run() {
-		if (!$this->request->urlname) {
+		if (!$this->request->urlname()) {
 			throw new Exception('No strategy found in url');
 		}
 
-		$this->loadStrategy();
-		if (!$this->request->action) {
+		$action = $this->request->action();
+		if (!$action) {
 			return $this->request();
 		}
 
-		if ($this->request->action !== $this->config('callback')) {
-			throw new Exception('Invalid callback url element: ' . $this->request->action);
+		if ($action !== $this->config('callback')) {
+			throw new Exception('Invalid callback url element: ' . $action);
 		}
 		return $this->callback();
 	}
@@ -118,7 +119,8 @@ class Opauth {
 	 *
 	 * @throws Exception
 	 */
-	protected function request() {
+	public function request() {
+		$this->loadStrategy();
 		$this->response = $response = $this->strategy->request();
 		if (!$response instanceof Response || !$response->isError()) {
 			throw new Exception('Strategy request should redirect or return Response with error');
@@ -132,7 +134,8 @@ class Opauth {
 	 * @return Response
 	 * @throws Exception
 	 */
-	protected function callback() {
+	public function callback() {
+		$this->loadStrategy();
 		$this->response = $response = $this->strategy->callback();
 		if (!$response instanceof Response) {
 			throw new Exception('Response should be instance of Opauth\Response');
@@ -145,6 +148,18 @@ class Opauth {
 			throw new Exception('Invalid response, missing required parameters');
 		}
 		return $response;
+	}
+
+	/**
+	 * Setter method for request url parsing object
+	 *
+	 * @param ParserInterface $parser Request parser object, if null will use built-in Parser
+	 */
+	public function setParser(ParserInterface $parser = null) {
+		if (!$parser) {
+			$parser = new Request\Parser($this->config('path'));
+		}
+		$this->request = $parser;
 	}
 
 	/**
@@ -201,23 +216,27 @@ class Opauth {
 	 * @return void
 	 * @throws Exception
 	 */
-	protected function loadStrategy() {
+	public function loadStrategy() {
 		if (!empty($this->strategy)) {
 			return null;
 		}
 		if (!$this->strategies) {
 			throw new Exception('No strategies configured');
 		}
-		if (!array_key_exists($this->request->urlname, $this->strategies)) {
-			throw new Exception('Unsupported or undefined Opauth strategy - ' . $this->request->urlname);
+
+		$urlname = $this->request->urlname();
+		if (!array_key_exists($urlname, $this->strategies)) {
+			throw new Exception('Unsupported or undefined Opauth strategy - ' . $urlname);
 		}
 
-		$settings = $this->strategies[$this->request->urlname];
+		$settings = $this->strategies[$urlname];
 		if (!$settings['_enabled']) {
 			throw new Exception('This strategy is not enabled');
 		}
 		$classname = 'Opauth\Strategy\\' . $settings['_name'] . '\\' . 'Strategy';
-		if ($dir = $this->config('strategyDir') && is_dir($dir)) {
+
+		$dir = $this->config('strategyDir');
+		if ($dir && is_dir($dir)) {
 			AutoLoader::register('Opauth\\Strategy', $dir);
 		}
 		if (!class_exists($classname, true)) {

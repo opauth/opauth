@@ -41,6 +41,11 @@ class Curl extends Base {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $options['http']['content']);
 		}
 		$content = curl_exec($ch);
+		$errno = curl_errno($ch);
+		if ($errno !== 0) {
+			$msg = curl_error($ch);
+			throw new \Exception($msg);
+		}
 		curl_close($ch);
 		list($headers, $content) = explode("\r\n\r\n", $content, 2);
 		$this->responseHeaders = $headers;

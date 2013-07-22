@@ -7,29 +7,31 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth;
+namespace Opauth\Request;
+
+use Opauth\ParserInterface;
 
 /**
- * Opauth Request
- * Parses current request parameters
+ * Opauth Request Parser
+ * Parses current request url parameters
  *
  * @package      Opauth
  */
-class Request {
+class Parser implements ParserInterface {
 
 	/**
 	 * Strategy urlname, used to switch to correct strategy
 	 *
 	 * @var string
 	 */
-	public $urlname;
+	protected $urlname;
 
 	/**
 	 * Action, null for request, 'callback' for callback
 	 *
 	 * @var string
 	 */
-	public $action;
+	protected $action;
 
 	/**
 	 * Opauth url path, relative to host
@@ -68,12 +70,20 @@ class Request {
 		}
 	}
 
+	public function action() {
+		return $this->action;
+	}
+
+	public function urlname() {
+		return $this->urlname;
+	}
+
 	/**
 	 * getHost
 	 *
 	 * @return string Full host string
 	 */
-	public function getHost() {
+	protected function getHost() {
 		return (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 	}
 

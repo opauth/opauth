@@ -34,11 +34,11 @@ class Opauth {
 	protected $strategies = array();
 
 	/**
-	 * The request object
+	 * The request parser object
 	 *
-	 * @var Request
+	 * @var ParserInterface
 	 */
-	public $request;
+	protected $requestParser;
 
 	/**
 	 * The response object
@@ -99,11 +99,11 @@ class Opauth {
 	 * @throws Exception
 	 */
 	public function run() {
-		if (!$this->request->urlname()) {
+		if (!$this->requestParser->urlname()) {
 			throw new Exception('No strategy found in url');
 		}
 
-		$action = $this->request->action();
+		$action = $this->requestParser->action();
 		if (!$action) {
 			return $this->request();
 		}
@@ -120,12 +120,11 @@ class Opauth {
 	 * @throws Exception
 	 */
 	public function request() {
-		$this->loadStrategy();
-		$this->response = $response = $this->strategy->request();
-		if (!$response instanceof Response || !$response->isError()) {
+		$this->response = $this->getStrategy()->request();
+		if (!$this->response instanceof Response || !$this->response->isError()) {
 			throw new Exception('Strategy request should redirect or return Response with error');
 		}
-		throw new Exception($response->errorMessage());
+		throw new Exception($this->response->errorMessage());
 	}
 
 	/**
@@ -135,19 +134,18 @@ class Opauth {
 	 * @throws Exception
 	 */
 	public function callback() {
-		$this->loadStrategy();
-		$this->response = $response = $this->strategy->callback();
-		if (!$response instanceof Response) {
+		$this->response = $this->getStrategy()->callback();
+		if (!$this->response instanceof Response) {
 			throw new Exception('Response should be instance of Opauth\Response');
 		}
-		if ($response->isError()) {
-			throw new Exception($response->errorMessage());
+		if ($this->response->isError()) {
+			throw new Exception($this->response->errorMessage());
 		}
-		$response->map();
-		if (!$response->isValid()) {
+		$this->response->map();
+		if (!$this->response->isValid()) {
 			throw new Exception('Invalid response, missing required parameters');
 		}
-		return $response;
+		return $this->response;
 	}
 
 	/**
@@ -155,11 +153,11 @@ class Opauth {
 	 *
 	 * @param ParserInterface $parser Request parser object, if null will use built-in Parser
 	 */
-	public function setParser(ParserInterface $parser = null) {
+	protected function setParser(ParserInterface $parser = null) {
 		if (!$parser) {
 			$parser = new Request\Parser($this->config('path'));
 		}
-		$this->request = $parser;
+		$this->requestParser = $parser;
 	}
 
 	/**
@@ -211,20 +209,38 @@ class Opauth {
 	}
 
 	/**
+	 * Sets Strategy instance
+	 *
+	 * @param AbstractStrategy $strategy
+	 */
+	public function setStrategy(AbstractStrategy $strategy) {
+		$this->strategy = $strategy;
+	}
+
+	/**
+	 * Get strategy, if not set load strategy based on url name
+	 *
+	 * @return void
+	 */
+	public function getStrategy() {
+		if (empty($this->strategy)) {
+			$this->loadStrategy();
+		}
+		return $this->strategy;
+	}
+
+	/**
 	 * Loads strategy based on url if not manually set
 	 *
 	 * @return void
 	 * @throws Exception
 	 */
-	public function loadStrategy() {
-		if (!empty($this->strategy)) {
-			return null;
-		}
+	protected function loadStrategy() {
 		if (!$this->strategies) {
 			throw new Exception('No strategies configured');
 		}
 
-		$urlname = $this->request->urlname();
+		$urlname = $this->requestParser->urlname();
 		if (!array_key_exists($urlname, $this->strategies)) {
 			throw new Exception('Unsupported or undefined Opauth strategy - ' . $urlname);
 		}
@@ -242,18 +258,10 @@ class Opauth {
 		if (!class_exists($classname, true)) {
 			throw new Exception(sprintf('Strategy class %s not found', $classname));
 		}
-		$this->setStrategy(new $classname($settings));
-		$this->strategy->callbackUrl($this->request->providerUrl() . '/' . $this->config('callback'));
+
+		$callbackUrl = $this->requestParser->providerUrl() . '/' . $this->config('callback');
 		$Transport = $this->config('http_transport');
-		$this->strategy->setTransport(new $Transport);
+		$this->setStrategy(new $classname($settings, $callbackUrl, new $Transport));
 	}
 
-	/**
-	 * Sets Strategy instance
-	 *
-	 * @param AbstractStrategy $strategy
-	 */
-	public function setStrategy(AbstractStrategy $strategy) {
-		$this->strategy = $strategy;
-	}
 }

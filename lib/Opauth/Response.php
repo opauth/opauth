@@ -272,7 +272,6 @@ class Response implements ArrayAccess {
 	 *
 	 * @param string $name Name of the key being written
 	 * @param mixed $value The value being written.
-	 * @return void
 	 */
 	public function offsetSet($name, $value) {
 		$this->{$name} = $value;
@@ -292,7 +291,6 @@ class Response implements ArrayAccess {
 	 * Array access unset() implementation
 	 *
 	 * @param string $name Name to unset.
-	 * @return void
 	 */
 	public function offsetUnset($name) {
 		unset($this->{$name});

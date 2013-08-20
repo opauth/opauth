@@ -9,7 +9,7 @@
  */
 namespace Opauth;
 use \PHPUnit_Framework_TestCase;
-use Opauth\Request;
+use Opauth\Request\Parser;
 use Opauth\Strategy\Sample\Strategy;
 
 require_once dirname(__FILE__) . '/Strategy/Sample/Strategy.php';
@@ -26,9 +26,10 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 			'sample_secret' => 'fortytwo',
 			'provider' => 'Sample'
 		);
-		$this->Strategy = new Strategy($config);
-		$Request = new Request('/auth/');
-		$this->Strategy->callbackUrl($Request->providerUrl() . '/callback');
+		$Request = new Parser('/auth/');
+		$callbackUrl = $Request->providerUrl() . '/callback';
+		$transport = $this->getMock('Opauth\TransportInterface');
+		$this->Strategy = new Strategy($config, $callbackUrl, $transport);
 	}
 
 	public function tearDown() {

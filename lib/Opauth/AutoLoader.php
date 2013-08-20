@@ -58,7 +58,6 @@ class AutoLoader {
 	/**
 	 * Register autoloader
 	 *
-	 * @return void
 	 */
 	public static function register($namespace = null, $dir = null) {
 		spl_autoload_register(array(new self($namespace, $dir), 'loadClass'));
@@ -67,7 +66,6 @@ class AutoLoader {
 	/**
 	 * Unregister autoloader
 	 *
-	 * @return void
 	 */
 	public static function unregister($namespace = null, $dir = null) {
 		spl_autoload_unregister(array(new self($namespace, $dir), 'loadClass'));
@@ -77,7 +75,6 @@ class AutoLoader {
 	 * Loads the class
 	 *
 	 * @param string $className The name of the class to load.
-	 * @return void
 	 */
 	public function loadClass($className) {
 		if (strpos($className, $this->namespace) === 0) {

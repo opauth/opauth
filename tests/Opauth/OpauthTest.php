@@ -54,7 +54,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 		$stub->__construct($configs);
 	}
 
-		/**
+	/**
 	 * @expectedExceptionMessage No strategy found in url
 	 * @expectedException Exception
 	 * @covers Opauth\Opauth::run

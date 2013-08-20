@@ -65,7 +65,6 @@ class Opauth {
 	 *
 	 * @param array $config User configuration
 	 * @param ParserInterface $parser Request Parser instance
-	 * @return void
 	 */
 	public function __construct($config = array(), ParserInterface $parser = null) {
 		if (isset($config['Strategy'])) {
@@ -220,7 +219,7 @@ class Opauth {
 	/**
 	 * Get strategy, if not set load strategy based on url name
 	 *
-	 * @return void
+	 * @return AbstractStrategy
 	 */
 	public function getStrategy() {
 		if (empty($this->strategy)) {
@@ -232,7 +231,6 @@ class Opauth {
 	/**
 	 * Loads strategy based on url if not manually set
 	 *
-	 * @return void
 	 * @throws Exception
 	 */
 	protected function loadStrategy() {

@@ -108,7 +108,6 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * Set transport class
 	 *
 	 * @param \Opautth\Transport\TransportInterface $transport
-	 * @return void
 	 */
 	public function setTransport(\Opauth\TransportInterface $transport) {
 		$this->http = $transport;

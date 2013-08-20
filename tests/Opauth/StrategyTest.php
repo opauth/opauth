@@ -26,9 +26,10 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 			'sample_secret' => 'fortytwo',
 			'provider' => 'Sample'
 		);
-		$this->Strategy = new Strategy($config);
 		$Request = new Parser('/auth/');
-		$this->Strategy->callbackUrl($Request->providerUrl() . '/callback');
+		$callbackUrl = $Request->providerUrl() . '/callback';
+		$transport = $this->getMock('Opauth\TransportInterface');
+		$this->Strategy = new Strategy($config, $callbackUrl, $transport);
 	}
 
 	public function tearDown() {

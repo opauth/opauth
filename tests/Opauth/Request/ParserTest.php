@@ -13,7 +13,7 @@ use \PHPUnit_Framework_TestCase;
 /**
  * OpauthTest class
  */
-class RequestTest extends PHPUnit_Framework_TestCase {
+class ParserTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Setup
@@ -51,10 +51,11 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * testGetHost
+	 * @covers Opauth\Request\Parser::getHost
 	 */
 	public function testGetHost() {
-		$request = new Parser();
-		//$this->assertEquals('http://test.example.org', $request->getHost());
+		$request = new Parser('/auth/');
+		$this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
 	}
 
 	/**

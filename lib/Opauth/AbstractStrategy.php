@@ -65,11 +65,13 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 * Constructor
 	 *
 	 * @param array $config Strategy-specific configuration
+	 * @param string $callbackUrl Absolute url which is called on receiving the callback
+	 * @param \Opautth\Transport\TransportInterface $transport
 	 */
-	public function __construct($config = array()) {
-		$this->setValues($this->defaults);
-		$this->setValues($config);
-		$this->checkExpected();
+	public function __construct($config = array(), $callbackUrl, $transport) {
+		$this->setUp($config);
+		$this->callbackUrl($callbackUrl);
+		$this->setTransport($transport);
 
 		$this->responseMap = $this->addParams(array('responseMap'), $this->responseMap);
 
@@ -79,8 +81,20 @@ abstract class AbstractStrategy implements StrategyInterface {
 	}
 
 	/**
+	 * Sets up defaults, configs and checks for required keys
+	 *
+	 * @param array $config
+	 */
+	protected function setup($config = array()) {
+		$this->setValues($this->defaults);
+		$this->setValues($config);
+		$this->checkExpected();
+	}
+
+	/**
 	 * Getter/setter for the complete callbackurl
 	 *
+	 * @param null|string $url Null will get, string will set callbackUrl
 	 * @return string
 	 */
 	public function callbackUrl($url = null) {
@@ -97,6 +111,15 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 */
 	public function setTransport(\Opauth\TransportInterface $transport) {
 		$this->http = $transport;
+	}
+
+	/**
+	 * Get transport class
+	 *
+	 * @return \Opauth\Transport\TransportInterface $transport
+	 */
+	public function getTransport() {
+		return $this->http;
 	}
 
 	/**

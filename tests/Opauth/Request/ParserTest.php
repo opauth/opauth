@@ -7,13 +7,13 @@
  * @package      Opauth.OpauthTest
  * @license      MIT License
  */
-namespace Opauth;
+namespace Opauth\Request;
 use \PHPUnit_Framework_TestCase;
 
 /**
  * OpauthTest class
  */
-class RequestTest extends PHPUnit_Framework_TestCase {
+class ParserTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Setup
@@ -28,14 +28,14 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 * testConstruct
 	 */
 	public function testConstruct() {
-		$request = new Request('/auth/');
-		$this->assertEquals('test_provider', $request->urlname);
-		$this->assertEquals('callback', $request->action);
+		$request = new Parser('/auth/');
+		$this->assertEquals('test_provider', $request->urlname());
+		$this->assertEquals('callback', $request->action());
 
 		$_SERVER['REQUEST_URI'] = '/auth/test_provider';
-		$request = new Request('/auth/');
-		$this->assertEquals('test_provider', $request->urlname);
-		$this->assertNull($request->action);
+		$request = new Parser('/auth/');
+		$this->assertEquals('test_provider', $request->urlname());
+		$this->assertNull($request->action());
 	}
 
 	/**
@@ -46,30 +46,31 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testConstructException() {
 		$_SERVER['REQUEST_URI'] = '/';
-		$request = new Request('/auth/');
+		$request = new Parser('/auth/');
 	}
 
 	/**
 	 * testGetHost
+	 * @covers Opauth\Request\Parser::getHost
 	 */
 	public function testGetHost() {
-		$request = new Request();
-		$this->assertEquals('http://test.example.org', $request->getHost());
+		$request = new Parser('/auth/');
+		$this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
 	}
 
 	/**
 	 * testProviderUrl
 	 */
 	public function testProviderUrl() {
-		$request = new Request('/auth/');
+		$request = new Parser('/auth/');
 		$this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
 
 		$_SERVER['REQUEST_URI'] = '/login/test_provider/callback';
-		$request = new Request('/login/');
+		$request = new Parser('/login/');
 		$this->assertEquals('http://test.example.org/login/test_provider', $request->providerUrl());
 
 		$_SERVER['REQUEST_URI'] = '/test_provider/callback';
-		$request = new Request();
+		$request = new Parser();
 		$this->assertEquals('http://test.example.org/test_provider', $request->providerUrl());
 	}
 }

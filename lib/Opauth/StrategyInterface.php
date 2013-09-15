@@ -20,7 +20,6 @@ interface StrategyInterface {
 	/**
 	 * Handles the initial Oauth request
 	 *
-	 * @return void
 	 */
 	public function request();
 

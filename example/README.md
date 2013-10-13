@@ -40,4 +40,4 @@ Getting started
 
 Finally, send user to `http://localhost/facebook` to authenticate.
 
-Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details.
+Check out [the wiki](https://github.com/opauth/opauth/wiki) for more in-depth details.

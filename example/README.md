@@ -18,11 +18,11 @@ Getting started
 3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).  
    Place the strategy files in `../lib/Opauth/Strategy/`.  
 
-   For this example, we recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook):
+   For this example, we recommend that you start with [Opauth-Facebook](https://github.com/opauth/facebook):
 
-   i. [Download the strategy files](https://github.com/uzyn/opauth-facebook/zipball/master) and place them at `../lib/Opauth/Strategy/Facebook/`.
+   i. [Download the strategy files](https://github.com/opauth/facebook/zipball/master) and place them at `../lib/Opauth/Strategy/Facebook/`.
 
-   ii. Follow the steps at [Opauth-Facebook's README](https://github.com/uzyn/opauth-facebook/blob/master/README.md) to set up your Faceobok app.
+   ii. Follow the steps at [Opauth-Facebook's README](https://github.com/opauth/facebook/blob/master/README.md) to set up your Faceobok app.
 
    iii. Add the following at `opauth.conf.php` under `Strategy` as such:  
 
@@ -39,5 +39,3 @@ Getting started
 ```
 
 Finally, send user to `http://localhost/facebook` to authenticate.
-
-Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details.

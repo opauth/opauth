@@ -12,7 +12,7 @@ What is Opauth?
 ---------------
 Opauth provides a standardized method for PHP applications to interface with authentication providers.
 
-Opauth as a framework provides a set of API that allows developers to [create strategies](https://github.com/uzyn/opauth/wiki/Strategy-Contribution-Guide) that work in a predictable manner across PHP frameworks and applications.
+Opauth as a framework provides a set of API that allows developers to [create strategies](https://github.com/opauth/opauth/wiki/Strategy-Contribution-Guide) that work in a predictable manner across PHP frameworks and applications.
 
 Opauth works well with other PHP applications & frameworks. It is currently supported on:
 
@@ -45,14 +45,14 @@ Guide on how to run the bundled example.
 
    Open up `opauth.conf.php` and make the necessary changes.
 
-3. Install some [Opauth strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies).
+3. Install some [Opauth strategies](https://github.com/opauth/opauth/wiki/List-of-strategies).
    Place the strategy files in `lib/Opauth/Strategy/`.
 
-   For this example, we recommend that you start with [Opauth-Facebook](https://github.com/uzyn/opauth-facebook):
+   For this example, we recommend that you start with [Opauth-Facebook](https://github.com/opauth/facebook):
 
-   i. [Download the strategy files](https://github.com/uzyn/opauth-facebook/zipball/master) and place them at `lib/Opauth/Strategy/Facebook/`.
+   i. [Download the strategy files](https://github.com/opauth/facebook/zipball/master) and place them at `lib/Opauth/Strategy/Facebook/`.
 
-   ii. Follow the steps at [Opauth-Facebook's README](https://github.com/uzyn/opauth-facebook/blob/master/README.md) to set up your Faceobok app.
+   ii. Follow the steps at [Opauth-Facebook's README](https://github.com/opauth/facebook/blob/master/README.md) to set up your Faceobok app.
 
    iii. Add the following at `opauth.conf.php` under `Strategy` as such:
 
@@ -71,7 +71,7 @@ Guide on how to run the bundled example.
 Finally, send user to `http://localhost/facebook` to authenticate.
 
 
-Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details, especially on how to use Opauth with your own PHP application.
+Check out [the wiki](https://github.com/opauth/opauth/wiki) for more in-depth details, especially on how to use Opauth with your own PHP application.
 
 Available strategies
 --------------------
@@ -101,7 +101,7 @@ Provider-specific:
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-facebook"><strong>Facebook</strong></a></td>
+		<a href="https://github.com/opauth/facebook"><strong>Facebook</strong></a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
@@ -116,12 +116,12 @@ Provider-specific:
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub" width="16" height="16">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-github">GitHub</a></td>
+		<a href="https://github.com/opauth/github">GitHub</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://google.com" alt="Google" width="16">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-google"><strong>Google</strong></a></td>
+		<a href="https://github.com/opauth/google"><strong>Google</strong></a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
@@ -136,7 +136,7 @@ Provider-specific:
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-live">(Windows) Live</a></td>
+		<a href="https://github.com/opauth/live">(Windows) Live</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
@@ -146,7 +146,7 @@ Provider-specific:
 </tr>
 <tr>
 	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
-		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
+		<a href="https://github.com/opauth/openid">OpenID</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>

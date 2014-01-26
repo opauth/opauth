@@ -349,6 +349,7 @@ class OpauthStrategy {
 		$html .= '<script type="text/javascript">function postit(){ document.auth.submit(); }</script>';
 		$html .= '</body></html>';
 		echo $html;
+		exit;
 	}
 
 	/**

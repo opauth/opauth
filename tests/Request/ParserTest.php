@@ -7,13 +7,14 @@
  * @package      Opauth.OpauthTest
  * @license      MIT License
  */
-namespace Opauth\Request;
-use \PHPUnit_Framework_TestCase;
+namespace Opauth\Opauth\Tests\Request;
+
+use Opauth\Opauth\Request\Parser;
 
 /**
  * OpauthTest class
  */
-class ParserTest extends PHPUnit_Framework_TestCase {
+class ParserTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Setup
@@ -51,7 +52,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * testGetHost
-	 * @covers Opauth\Request\Parser::getHost
+	 * @covers Opauth\Opauth\Request\Parser::getHost
 	 */
 	public function testGetHost() {
 		$request = new Parser('/auth/');

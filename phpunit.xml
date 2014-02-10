@@ -2,12 +2,12 @@
 <phpunit bootstrap="tests/bootstrap.php" colors="true" strict="true">
     <testsuites>
         <testsuite name="Opauth Test Suite">
-            <directory>./tests/Opauth/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">lib/Opauth</directory>
+            <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>
     <logging>

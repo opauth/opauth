@@ -7,9 +7,9 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Transport;
+namespace Opauth\Opauth\Transport;
 
-use Opauth\TransportInterface;
+use Opauth\Opauth\TransportInterface;
 
 /**
  * Opauth Base client

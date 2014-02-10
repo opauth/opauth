@@ -8,7 +8,7 @@
  * new Opauth\Opauth();
  */
 
-require __DIR__ . '/lib/Opauth/AutoLoader.php';
+require __DIR__ . '/src/AutoLoader.php';
 Opauth\AutoLoader::register('Opauth');
 
 /**

@@ -7,7 +7,7 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth;
+namespace Opauth\Opauth;
 
 use \ArrayAccess;
 

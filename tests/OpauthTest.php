@@ -8,17 +8,15 @@
  * @license      MIT License
  */
 
-namespace Opauth;
-use Opauth\Opauth;
-use \PHPUnit_Framework_TestCase;
-use Opauth\Strategy\Sample\Strategy;
+namespace Opauth\Opauth\Tests;
 
-require_once dirname(__FILE__) . '/Strategy/Sample/Strategy.php';
+use Opauth\Opauth\Opauth;
+use Opauth\Opauth\Tests\Strategy\Sample;
 
 /**
  * OpauthTest class
  */
-class OpauthTest extends PHPUnit_Framework_TestCase {
+class OpauthTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp() {
 		// To surpress E_USER_NOTICE on missing $_SERVER indexes
@@ -27,7 +25,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers Opauth\Opauth::__construct
+	 * @covers Opauth\Opauth\Opauth::__construct
 	 */
 	public function testConstructorConfigs() {
 		$_SERVER['REQUEST_URI'] = '/subdir/auth/sample';
@@ -38,13 +36,13 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers Opauth\Opauth::__construct
+	 * @covers Opauth\Opauth\Opauth::__construct
 	 */
 	public function testConstructorStrategy() {
 		$configs = array(
 			'Strategy' => array('Dummy' => array('key' => 'value')),
 		);
-		$stub = $this->getMockBuilder('Opauth\Opauth')
+		$stub = $this->getMockBuilder('Opauth\\Opauth\\Opauth')
 			->setMethods(array('buildStrategies'))
 			->disableOriginalConstructor()
 			->getMock();
@@ -57,7 +55,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedExceptionMessage No strategy found in url
 	 * @expectedException Exception
-	 * @covers Opauth\Opauth::run
+	 * @covers Opauth\Opauth\Opauth::run
 	 */
 	public function testRunNoStrategy() {
 		$_SERVER['REQUEST_URI'] = '/auth/';
@@ -68,7 +66,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedExceptionMessage No strategies configured
 	 * @expectedException Exception
-	 * @covers Opauth\Opauth::loadStrategy
+	 * @covers Opauth\Opauth\Opauth::loadStrategy
 	 */
 	public function testLoadStrategyWithoutStrategies() {
 		$Opauth = new Opauth(array());
@@ -78,7 +76,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedExceptionMessage Unsupported or undefined Opauth strategy - notsample
 	 * @expectedException Exception
-	 * @covers Opauth\Opauth::loadStrategy
+	 * @covers Opauth\Opauth\Opauth::loadStrategy
 	 */
 	public function testLoadStrategyWrongAuthPath() {
 		$_SERVER['REQUEST_URI'] = '/auth/notsample';
@@ -97,7 +95,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Error from strategy
-	 * @covers Opauth\Opauth::request
+	 * @covers Opauth\Opauth\Opauth::request
 	 */
 	public function testRequestStrategyResponseError() {
 		$_SERVER['REQUEST_URI'] = '/auth/sample';
@@ -106,7 +104,8 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 				'Sample' => array(
 					'sample_id' => 1234,
 					'sample_secret' => 'fortytwo',
-					'return' => true
+					'return' => true,
+					'_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
 				)
 			)
 		);
@@ -117,7 +116,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException Exception
 	 * @expectedExceptionMessage Strategy request should redirect or return Response with error
-	 * @covers Opauth\Opauth::request
+	 * @covers Opauth\Opauth\Opauth::request
 	 */
 	public function testRequestStrategyResponseNotRedirecting() {
 		$_SERVER['REQUEST_URI'] = '/auth/sample';
@@ -126,7 +125,8 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 				'Sample' => array(
 					'sample_id' => 1234,
 					'sample_secret' => 'fortytwo',
-					'return' => false
+					'return' => false,
+					'_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
 				)
 			)
 		);
@@ -138,7 +138,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @expectedExceptionMessage Invalid response, missing required parameters
 	 * @expectedException Exception
-	 * @covers Opauth\Opauth::callback
+	 * @covers Opauth\Opauth\Opauth::callback
 	 */
 	public function testCallbackInvalidResponse() {
 		$_SERVER['REQUEST_URI'] = '/auth/sample/callback';
@@ -146,19 +146,20 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'Strategy' => array(
 				'Sample' => array(
 					'sample_id' => 1234,
-					'sample_secret' => 'fortytwo'
+					'sample_secret' => 'fortytwo',
+					'_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
 				)
 			)
 		);
 		$Opauth = new Opauth($config);
-		$result = $Opauth->callback();
+		$Opauth->callback();
 	}
 
 	/**
 	 *
 	 * @expectedExceptionMessage Invalid callback url element: wrongcallback
 	 * @expectedException Exception
-	 * @covers Opauth\Opauth::run
+	 * @covers Opauth\Opauth\Opauth::run
 	 */
 	public function testRunCallbackWrongCallback() {
 		$_SERVER['REQUEST_URI'] = '/auth/sample/wrongcallback';
@@ -166,16 +167,17 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'Strategy' => array(
 				'Sample' => array(
 					'sample_id' => 1234,
-					'sample_secret' => 'fortytwo'
+					'sample_secret' => 'fortytwo',
+					'_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
 				)
 			)
 		);
 		$Opauth = new Opauth($config);
-		$result = $Opauth->run();
+		$Opauth->run();
 	}
 
 	/**
-	 * @covers Opauth\Opauth::callback
+	 * @covers Opauth\Opauth\Opauth::callback
 	 */
 	public function testCallback() {
 		$_SERVER['REQUEST_URI'] = '/auth/sample/callback';
@@ -184,19 +186,19 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 			'sample_secret' => 'fortytwo',
 			'provider' => 'Sample',
 		);
-		$mock = $this->getMock('Opauth\TransportInterface');
+		$mock = $this->getMock('Opauth\\Opauth\\TransportInterface');
 		$Opauth = new Opauth(array());
-		$Strategy = new Strategy($config, 'http://test.example.org/auth/sample/callback', $mock);
+		$Strategy = new Sample($config, 'http://test.example.org/auth/sample/callback', $mock);
 		$Strategy->testRaw = array('id' => 1, 'username' => 'sampling', 'creds' => 'credential array');
 		$Strategy->testMap = array('uid' => 'id', 'name' => 'username', 'credentials' => 'creds');
 		$Opauth->setStrategy($Strategy);
 
 		$result = $Opauth->callback();
-		$this->assertInstanceOf('Opauth\\Response', $result);
+		$this->assertInstanceOf('Opauth\\Opauth\\Response', $result);
 	}
 
 	/**
-	 * @covers Opauth\Opauth::buildStrategies
+	 * @covers Opauth\Opauth\Opauth::buildStrategies
 	 */
 	public function testBuildStrategies() {
 		$Opauth = new Opauth();
@@ -212,7 +214,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException Exception
 	 * @expectedExceptionMessage No strategies found
-	 * @covers Opauth\Opauth::buildStrategies
+	 * @covers Opauth\Opauth\Opauth::buildStrategies
 	 */
 	public function testBuildStrategiesException() {
 		$Opauth = new Opauth();
@@ -220,7 +222,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers Opauth\Opauth::buildStrategy
+	 * @covers Opauth\Opauth\Opauth::buildStrategy
 	 */
 	public function testBuildStrategy() {
 		$Opauth = new Opauth();
@@ -229,7 +231,7 @@ class OpauthTest extends PHPUnit_Framework_TestCase {
 		$expected = array(
 			'settings' => 'here',
 			'provider' => 'Sample',
-			'_name' => 'Sample',
+			'_name' => 'Opauth\\Sample\\Strategy\\Sample',
 			'_url_name' => 'sample',
 			'_enabled' => true
 		);

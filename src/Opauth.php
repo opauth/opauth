@@ -7,7 +7,7 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth;
+namespace Opauth\Opauth;
 
 use Exception;
 
@@ -53,7 +53,7 @@ class Opauth {
 	 * @var array
 	 */
 	protected $config = array(
-		'http_transport' => "Opauth\\Transport\\Curl",
+		'http_transport' => "Opauth\\Opauth\\Transport\\Curl",
 		'callback' => 'callback',
 		'path' => '/auth/',
 		'strategyDir' => null
@@ -135,7 +135,7 @@ class Opauth {
 	public function callback() {
 		$this->response = $this->getStrategy()->callback();
 		if (!$this->response instanceof Response) {
-			throw new Exception('Response should be instance of Opauth\Response');
+			throw new Exception('Response should be instance of Opauth\\Opauth\\Response');
 		}
 		if ($this->response->isError()) {
 			throw new Exception($this->response->errorMessage());
@@ -193,7 +193,7 @@ class Opauth {
 		$settings['provider'] = $name;
 
 		if (empty($settings['_name'])) {
-			$settings['_name'] = $name;
+			$settings['_name'] = 'Opauth\\' . $name . '\\Strategy\\' . $name;
 		}
 
 		// Define a URL-friendly name
@@ -247,12 +247,8 @@ class Opauth {
 		if (!$settings['_enabled']) {
 			throw new Exception('This strategy is not enabled');
 		}
-		$classname = 'Opauth\Strategy\\' . $settings['_name'] . '\\' . 'Strategy';
+		$classname = $settings['_name'];
 
-		$dir = $this->config('strategyDir');
-		if ($dir && is_dir($dir)) {
-			AutoLoader::register('Opauth\\Strategy', $dir);
-		}
 		if (!class_exists($classname, true)) {
 			throw new Exception(sprintf('Strategy class %s not found', $classname));
 		}

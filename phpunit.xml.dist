@@ -2,7 +2,7 @@
 <phpunit bootstrap="tests/bootstrap.php" colors="true" strict="true">
     <testsuites>
         <testsuite name="Opauth Test Suite">
-            <directory>./tests/</directory>
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
     <filter>

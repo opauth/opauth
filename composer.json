@@ -26,8 +26,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-                    "Opauth\\Opauth\\": "src",
-                    "Opauth\\Opauth\\Tests\\": "tests"
+                    "Opauth\\Opauth\\": "src"
             }
 	}
 }

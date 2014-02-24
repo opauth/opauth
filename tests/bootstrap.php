@@ -16,3 +16,5 @@ if ($vendorPos !== false) {
     // Package itself (cloned standalone)
     $loader = require __DIR__.'/../vendor/autoload.php';
 }
+
+$loader->addPsr4('Opauth\\Opauth\\Tests\\', __DIR__);

@@ -7,13 +7,14 @@
  * @package      Opauth.OpauthTest
  * @license      MIT License
  */
-namespace Opauth;
-use \PHPUnit_Framework_TestCase;
+namespace Opauth\Opauth\Tests;
+
+use Opauth\Opauth\Response;
 
 /**
  * OpauthTest class
  */
-class ResponseTest extends PHPUnit_Framework_TestCase {
+class ResponseTest extends \PHPUnit_Framework_TestCase {
 
 	protected function setUp(){
 		// To surpress E_USER_NOTICE on missing $_SERVER indexes

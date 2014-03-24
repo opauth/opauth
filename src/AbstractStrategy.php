@@ -7,7 +7,7 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth;
+namespace Opauth\Opauth;
 
 /**
  * Opauth Strategy
@@ -66,7 +66,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 *
 	 * @param array $config Strategy-specific configuration
 	 * @param string $callbackUrl Absolute url which is called on receiving the callback
-	 * @param \Opautth\Transport\TransportInterface $transport
+	 * @param \Opauth\Opauth\TransportInterface $transport
 	 */
 	public function __construct($config = array(), $callbackUrl, $transport) {
 		$this->setUp($config);
@@ -107,16 +107,16 @@ abstract class AbstractStrategy implements StrategyInterface {
 	/**
 	 * Set transport class
 	 *
-	 * @param \Opautth\Transport\TransportInterface $transport
+	 * @param \Opauth\Opauth\TransportInterface $transport
 	 */
-	public function setTransport(\Opauth\TransportInterface $transport) {
+	public function setTransport(\Opauth\Opauth\TransportInterface $transport) {
 		$this->http = $transport;
 	}
 
 	/**
 	 * Get transport class
 	 *
-	 * @return \Opauth\Transport\TransportInterface $transport
+	 * @return \Opauth\Opauth\TransportInterface $transport
 	 */
 	public function getTransport() {
 		return $this->http;

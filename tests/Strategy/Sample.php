@@ -9,11 +9,11 @@
  * @package      Opauth.OpauthTest.SampleStrategy
  * @license      MIT License
  */
-namespace Opauth\Strategy\Sample;
-use Opauth\AbstractStrategy;
-use Opauth\Response;
+namespace Opauth\Opauth\Tests\Strategy;
 
-class Strategy extends AbstractStrategy {
+use Opauth\Opauth\AbstractStrategy;
+
+class Sample extends AbstractStrategy {
 
 	/**
 	 * Compulsory config keys, listed as unassociative arrays

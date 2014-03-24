@@ -7,16 +7,15 @@
  * @package	  Opauth.OpauthStrategyTest
  * @license	  MIT License
  */
-namespace Opauth;
-use \PHPUnit_Framework_TestCase;
-use Opauth\Request\Parser;
-use Opauth\Strategy\Sample\Strategy;
+namespace Opauth\Opauth\Tests;
 
-require_once dirname(__FILE__) . '/Strategy/Sample/Strategy.php';
+use Opauth\Opauth\Request\Parser;
+use Opauth\Opauth\Tests\Strategy\Sample;
+
 /**
  * OpauthTest class
  */
-class StrategyTest extends PHPUnit_Framework_TestCase {
+class StrategyTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		$_SERVER['HTTP_HOST'] = 'test.example.org';
@@ -28,21 +27,14 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 		);
 		$Request = new Parser('/auth/');
 		$callbackUrl = $Request->providerUrl() . '/callback';
-		$transport = $this->getMock('Opauth\TransportInterface');
-		$this->Strategy = new Strategy($config, $callbackUrl, $transport);
+		$transport = $this->getMock('Opauth\\Opauth\\TransportInterface');
+		$this->Strategy = new Sample($config, $callbackUrl, $transport);
 	}
 
 	public function tearDown() {
 		if (isset($_SESSION['_opauth_dataSample'])) {
 			unset($_SESSION['_opauth_dataSample']);
 		}
-	}
-
-	/**
-	 * @expectedException Exception
-	 */
-	public function testConstructMissingKeys() {
-		new Strategy(array());
 	}
 
 	public function testCallbackUrl() {
@@ -74,11 +66,11 @@ class StrategyTest extends PHPUnit_Framework_TestCase {
 
 	public function testResponse() {
 		$result = $this->Strategy->response('rawdata');
-		$this->assertInstanceof('Opauth\\Response', $result);
+		$this->assertInstanceof('Opauth\\Opauth\\Response', $result);
 		$this->assertFalse($result->isError());
 
 		$result = $this->Strategy->response('rawdata', array('code' => 12, 'message' => 'errormessage'));
-		$this->assertInstanceof('Opauth\\Response', $result);
+		$this->assertInstanceof('Opauth\\Opauth\\Response', $result);
 		$this->assertTrue($result->isError());
 	}
 

@@ -7,9 +7,9 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Transport;
+namespace Opauth\Opauth\Transport;
 
-use Opauth\Transport\Base;
+use Opauth\Opauth\Transport\Base;
 
 /**
  * Opauth Curl

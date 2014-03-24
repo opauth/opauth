@@ -7,9 +7,9 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Request;
+namespace Opauth\Opauth\Request;
 
-use Opauth\ParserInterface;
+use Opauth\Opauth\ParserInterface;
 
 /**
  * Opauth Request Parser

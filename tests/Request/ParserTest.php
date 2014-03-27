@@ -14,12 +14,14 @@ use Opauth\Opauth\Request\Parser;
 /**
  * OpauthTest class
  */
-class ParserTest extends \PHPUnit_Framework_TestCase {
+class ParserTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * Setup
      */
-    protected function setUp(){
+    protected function setUp()
+    {
         // To surpress E_USER_NOTICE on missing $_SERVER indexes
         $_SERVER['HTTP_HOST'] = 'test.example.org';
         $_SERVER['REQUEST_URI'] = '/auth/test_provider/callback';
@@ -28,7 +30,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     /**
      * testConstruct
      */
-    public function testConstruct() {
+    public function testConstruct()
+    {
         $request = new Parser('/auth/');
         $this->assertEquals('test_provider', $request->urlname());
         $this->assertEquals('callback', $request->action());
@@ -45,7 +48,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Not an Opauth request, path is not in uri
      * @expectedException Exception
      */
-    public function testConstructException() {
+    public function testConstructException()
+    {
         $_SERVER['REQUEST_URI'] = '/';
         $request = new Parser('/auth/');
     }
@@ -54,7 +58,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
      * testGetHost
      * @covers Opauth\Opauth\Request\Parser::getHost
      */
-    public function testGetHost() {
+    public function testGetHost()
+    {
         $request = new Parser('/auth/');
         $this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
     }
@@ -62,7 +67,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     /**
      * testProviderUrl
      */
-    public function testProviderUrl() {
+    public function testProviderUrl()
+    {
         $request = new Parser('/auth/');
         $this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
 

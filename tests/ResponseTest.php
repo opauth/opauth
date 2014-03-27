@@ -14,15 +14,18 @@ use Opauth\Opauth\Response;
 /**
  * OpauthTest class
  */
-class ResponseTest extends \PHPUnit_Framework_TestCase {
+class ResponseTest extends \PHPUnit_Framework_TestCase
+{
 
-    protected function setUp(){
+    protected function setUp()
+    {
         // To surpress E_USER_NOTICE on missing $_SERVER indexes
         $_SERVER['HTTP_HOST'] = 'test.example.org';
         $_SERVER['REQUEST_URI'] = '/auth/';
     }
 
-    public function testConstruct() {
+    public function testConstruct()
+    {
         $provider = 'TestProvider';
         $raw = array('some' => 'raw data');
         $response = new Response($provider, $raw);
@@ -30,7 +33,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($raw, $response->raw);
     }
 
-    public function testMapping() {
+    public function testMapping()
+    {
         $response = $this->buildResponse();
 
         $map = array('info.somename' => 'some');
@@ -63,7 +67,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(1234, $response->uid);
     }
 
-    public function testSetData() {
+    public function testSetData()
+    {
         $response = $this->buildResponse();
 
         $response->setData('info.somename', 'some');
@@ -82,7 +87,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertNull($response->nothere);
     }
 
-    public function testIsValid() {
+    public function testIsValid()
+    {
         $response = $this->buildResponse();
         $this->assertFalse($response->isValid());
 
@@ -92,7 +98,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($response->isValid());
     }
 
-    public function testErrors() {
+    public function testErrors()
+    {
         $response = $this->buildResponse();
 
         $this->assertFalse($response->isError());
@@ -116,7 +123,8 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($response->isError());
     }
 
-    protected function buildResponse() {
+    protected function buildResponse()
+    {
         $provider = 'TestProvider';
         $raw = array(
             'id' => 1234,

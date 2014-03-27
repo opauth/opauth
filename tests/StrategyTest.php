@@ -2,10 +2,10 @@
 /**
  * OpauthStrategyTest
  *
- * @copyright	Copyright © 2012 U-Zyn Chua (http://uzyn.com)
- * @link		 http://opauth.org
- * @package	  Opauth.OpauthStrategyTest
- * @license	  MIT License
+ * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @package      Opauth.OpauthStrategyTest
+ * @license      MIT License
  */
 namespace Opauth\Opauth\Tests;
 
@@ -15,9 +15,11 @@ use Opauth\Opauth\Tests\Strategy\Sample;
 /**
  * OpauthTest class
  */
-class StrategyTest extends \PHPUnit_Framework_TestCase {
+class StrategyTest extends \PHPUnit_Framework_TestCase
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         $_SERVER['HTTP_HOST'] = 'test.example.org';
         $_SERVER['REQUEST_URI'] = '/auth/sample';
         $config = array(
@@ -31,19 +33,22 @@ class StrategyTest extends \PHPUnit_Framework_TestCase {
         $this->Strategy = new Sample($config, $callbackUrl, $transport);
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         if (isset($_SESSION['_opauth_dataSample'])) {
             unset($_SESSION['_opauth_dataSample']);
         }
     }
 
-    public function testCallbackUrl() {
+    public function testCallbackUrl()
+    {
         $expected = 'http://test.example.org/auth/sample/callback';
         $result = $this->Strategy->callbackUrl();
         $this->assertEquals($expected, $result);
     }
 
-    public function testAddParams() {
+    public function testAddParams()
+    {
         $expected = array('sample_id' => 1234);
         $result = $this->Strategy->addParams(array('sample_id', 'not_existing'));
         $this->assertEquals($expected, $result);
@@ -55,7 +60,8 @@ class StrategyTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(array('sample_id_alias' => 1234, 'sample_id' => 1234), $result);
     }
 
-    public function testSessionData() {
+    public function testSessionData()
+    {
         $this->Strategy->sessionData('opauthdata');
         $result = $_SESSION['_opauth_dataSample'];
         $this->assertEquals('opauthdata', $result);
@@ -64,7 +70,8 @@ class StrategyTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('opauthdata', $result);
     }
 
-    public function testResponse() {
+    public function testResponse()
+    {
         $result = $this->Strategy->response('rawdata');
         $this->assertInstanceof('Opauth\\Opauth\\Response', $result);
         $this->assertFalse($result->isError());
@@ -73,5 +80,4 @@ class StrategyTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceof('Opauth\\Opauth\\Response', $result);
         $this->assertTrue($result->isError());
     }
-
 }

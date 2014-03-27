@@ -13,7 +13,8 @@ namespace Opauth\Opauth\Tests\Strategy;
 
 use Opauth\Opauth\AbstractStrategy;
 
-class Sample extends AbstractStrategy {
+class Sample extends AbstractStrategy
+{
 
     /**
      * Compulsory config keys, listed as unassociative arrays
@@ -45,11 +46,11 @@ class Sample extends AbstractStrategy {
     public $testMap = array();
 
 
-
     /**
      * An arbitrary function
      */
-    public function request() {
+    public function request()
+    {
         if (!$this->strategy['return']) {
             return 'wrong';
         }
@@ -59,27 +60,31 @@ class Sample extends AbstractStrategy {
     /**
      * An arbritary function
      */
-    public function callback() {
+    public function callback()
+    {
         $response = $this->response($this->testRaw);
         $response->setMap($this->testMap);
         return $response;
     }
 
-    public function response($raw, $error = array()) {
+    public function response($raw, $error = array())
+    {
         return parent::response($raw, $error);
     }
 
     /**
      * overriding to change visbility to public
      */
-    public function sessionData($data = null) {
+    public function sessionData($data = null)
+    {
         return parent::sessionData($data);
     }
 
     /**
      * overriding to change visbility to public
      */
-    public function addParams($configKeys, $params = array()) {
+    public function addParams($configKeys, $params = array())
+    {
         return parent::addParams($configKeys, $params);
     }
 }

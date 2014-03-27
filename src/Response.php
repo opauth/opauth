@@ -17,7 +17,8 @@ use \ArrayAccess;
  *
  * @package      Opauth
  */
-class Response implements ArrayAccess {
+class Response implements ArrayAccess
+{
 
     /**
      * Provider name
@@ -99,7 +100,8 @@ class Response implements ArrayAccess {
      * @param string $provider Use $this->strategy['provider'] so aliassed strategies are handled correct
      * @param array $raw Raw response data from provider
      */
-    public function __construct($provider, $raw) {
+    public function __construct($provider, $raw)
+    {
         $this->provider = $provider;
         $this->raw = $raw;
     }
@@ -109,7 +111,8 @@ class Response implements ArrayAccess {
      *
      * @return boolean
      */
-    public function isError() {
+    public function isError()
+    {
         return !empty($this->error);
     }
 
@@ -118,7 +121,8 @@ class Response implements ArrayAccess {
      *
      * @return string
      */
-    public function errorMessage() {
+    public function errorMessage()
+    {
         return $this->error['message'];
     }
 
@@ -127,7 +131,8 @@ class Response implements ArrayAccess {
      *
      * @return integer|string
      */
-    public function errorCode() {
+    public function errorCode()
+    {
         return $this->error['code'];
     }
 
@@ -136,7 +141,8 @@ class Response implements ArrayAccess {
      *
      * @param array $error Array with code and message keys
      */
-    public function setError(array $error) {
+    public function setError(array $error)
+    {
         $this->error = array_merge(array('code' => 0, 'message' => ''), $error);
     }
 
@@ -145,7 +151,8 @@ class Response implements ArrayAccess {
      *
      * @return boolean
      */
-    public function isValid() {
+    public function isValid()
+    {
         $attributes = array('provider', 'raw', 'uid', 'name', 'credentials');
         foreach ($attributes as $attribute) {
             if (empty($this->{$attribute})) {
@@ -167,7 +174,8 @@ class Response implements ArrayAccess {
      * @param string $rawPath Path to a $raw data. eg 'screen_name' reads from $raw['screen_name']
      * @return boolean
      */
-    public function setData($path, $rawPath) {
+    public function setData($path, $rawPath)
+    {
         $rawValue = $this->getRaw($rawPath);
         if (!$rawValue) {
             return false;
@@ -181,7 +189,8 @@ class Response implements ArrayAccess {
      *
      * @param array $map
      */
-    public function setMap($map = array()) {
+    public function setMap($map = array())
+    {
         $this->map = $map;
     }
 
@@ -190,7 +199,8 @@ class Response implements ArrayAccess {
      *
      * @return array
      */
-    public function getMap() {
+    public function getMap()
+    {
         return $this->map;
     }
 
@@ -198,7 +208,8 @@ class Response implements ArrayAccess {
      * Sets attribute data based on data mapping
      * Use setMap() to set the data mapping
      */
-    public function map() {
+    public function map()
+    {
         $map = $this->getMap();
         foreach ($map as $path => $rawPath) {
             $this->setData($path, $rawPath);
@@ -212,7 +223,8 @@ class Response implements ArrayAccess {
      * @param string $path see setData()
      * @return string Value from raw data or null if not found in path
      */
-    protected function getRaw($path) {
+    protected function getRaw($path)
+    {
         if (strpos($path, '.') === false) {
             return isset($this->raw[$path]) ? $this->raw[$path] : null;
         }
@@ -234,7 +246,8 @@ class Response implements ArrayAccess {
      * @param mixed $value value to set
      * @return boolean
      */
-    protected function mergeValue($path, $value) {
+    protected function mergeValue($path, $value)
+    {
         $keys = explode('.', $path);
         krsort($keys);
         $attribute = array_pop($keys);
@@ -258,7 +271,8 @@ class Response implements ArrayAccess {
      * @param string $name Name of the key being accessed.
      * @return mixed
      */
-    public function offsetGet($name) {
+    public function offsetGet($name)
+    {
         if (in_array($name, array('provider', 'raw', 'uid', 'name', 'info', 'credentials'))) {
             return $this->{$name};
         }
@@ -274,7 +288,8 @@ class Response implements ArrayAccess {
      * @param string $name Name of the key being written
      * @param mixed $value The value being written.
      */
-    public function offsetSet($name, $value) {
+    public function offsetSet($name, $value)
+    {
         $this->{$name} = $value;
     }
 
@@ -284,7 +299,8 @@ class Response implements ArrayAccess {
      * @param string $name thing to check.
      * @return boolean
      */
-    public function offsetExists($name) {
+    public function offsetExists($name)
+    {
         return isset($this->{$name});
     }
 
@@ -293,7 +309,8 @@ class Response implements ArrayAccess {
      *
      * @param string $name Name to unset.
      */
-    public function offsetUnset($name) {
+    public function offsetUnset($name)
+    {
         unset($this->{$name});
     }
 
@@ -302,7 +319,8 @@ class Response implements ArrayAccess {
      * @param type $name
      * @return type
      */
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->offsetGet($name);
     }
 
@@ -312,7 +330,8 @@ class Response implements ArrayAccess {
      * @param type $name
      * @return type
      */
-    public function __isset($name) {
+    public function __isset($name)
+    {
         return $this->offsetExists($name);
     }
 

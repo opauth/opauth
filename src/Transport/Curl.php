@@ -17,7 +17,8 @@ use Opauth\Opauth\Transport\Base;
  *
  * @package      Opauth
  */
-class Curl extends Base {
+class Curl extends Base
+{
 
     /**
      * Makes a request using curl
@@ -27,7 +28,8 @@ class Curl extends Base {
      * @return string Response body
      * @throws \Exception
      */
-    protected function request($url, $options = array()) {
+    protected function request($url, $options = array())
+    {
         if (!function_exists('curl_init')) {
             throw new \Exception('Curl not supported, use other http transport');
         }

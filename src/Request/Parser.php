@@ -17,7 +17,8 @@ use Opauth\Opauth\ParserInterface;
  *
  * @package      Opauth
  */
-class Parser implements ParserInterface {
+class Parser implements ParserInterface
+{
 
     /**
      * Strategy urlname, used to switch to correct strategy
@@ -45,7 +46,8 @@ class Parser implements ParserInterface {
      *
      * @param string $path
      */
-    public function __construct($path = '/') {
+    public function __construct($path = '/')
+    {
         $this->path = $path;
         $this->parseUri();
     }
@@ -55,7 +57,8 @@ class Parser implements ParserInterface {
      *
      * @throws Exception
      */
-    protected function parseUri() {
+    protected function parseUri()
+    {
         if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
             throw new \Exception('Not an Opauth request, path is not in uri');
         }
@@ -70,11 +73,13 @@ class Parser implements ParserInterface {
         }
     }
 
-    public function action() {
+    public function action()
+    {
         return $this->action;
     }
 
-    public function urlname() {
+    public function urlname()
+    {
         return $this->urlname;
     }
 
@@ -83,7 +88,8 @@ class Parser implements ParserInterface {
      *
      * @return string Full host string
      */
-    protected function getHost() {
+    protected function getHost()
+    {
         return (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
     }
 
@@ -92,7 +98,8 @@ class Parser implements ParserInterface {
      *
      * @return string Full path to provider url_name
      */
-    public function providerUrl() {
+    public function providerUrl()
+    {
         return $this->getHost() . $this->path . $this->urlname;
     }
 }

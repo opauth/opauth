@@ -15,7 +15,8 @@ namespace Opauth\Opauth;
  *
  * @package            Opauth
  */
-interface StrategyInterface {
+interface StrategyInterface
+{
 
     /**
      * Handles the initial Oauth request

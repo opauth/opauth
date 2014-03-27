@@ -17,7 +17,8 @@ use Opauth\Opauth\Transport\Base;
  *
  * @package      Opauth
  */
-class File extends Base {
+class File extends Base
+{
 
     /**
      * Makes a request using file_get_contents
@@ -27,7 +28,8 @@ class File extends Base {
      * @return string Response body
      * @throws \Exception
      */
-    protected function request($url, $options = array()) {
+    protected function request($url, $options = array())
+    {
         if (!ini_get('allow_url_fopen')) {
             throw new \Exception('file_get_contents not allowed, try using other http_client_method such as curl');
         }

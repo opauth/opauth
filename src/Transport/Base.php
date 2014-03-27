@@ -17,7 +17,8 @@ use Opauth\Opauth\TransportInterface;
  *
  * @package      Opauth
  */
-abstract class Base implements TransportInterface {
+abstract class Base implements TransportInterface
+{
 
     /**
      * Response headers
@@ -40,7 +41,8 @@ abstract class Base implements TransportInterface {
      * @param array $data Data
      * @param boolean $exit Whether to call exit() right after redirection
      */
-    public function redirect($url, $data = array(), $exit = true) {
+    public function redirect($url, $data = array(), $exit = true)
+    {
         if ($data) {
             $url .= '?' . $this->buildQuery($data);
         }
@@ -57,7 +59,8 @@ abstract class Base implements TransportInterface {
      * @param array $data Data to be submitted via GET
      * @return string Content resulted from request, without headers
      */
-    public function get($url, $data = array()) {
+    public function get($url, $data = array())
+    {
         if ($data) {
             $url .= '?' . $this->buildQuery($data);
         }
@@ -77,7 +80,8 @@ abstract class Base implements TransportInterface {
      * @param array $data Data to be POSTed
      * @return string Content resulted from request, without headers
      */
-    public function post($url, $data) {
+    public function post($url, $data)
+    {
         $query = $this->buildQuery($data);
 
         $stream = array(
@@ -97,7 +101,8 @@ abstract class Base implements TransportInterface {
      * @param array $data
      * @return string Query string
      */
-    protected function buildQuery($data) {
+    protected function buildQuery($data)
+    {
         return http_build_query($data, '', '&');
     }
 

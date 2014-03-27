@@ -17,7 +17,8 @@ use Exception;
  *
  * @package            Opauth
  */
-class Opauth {
+class Opauth
+{
 
     /**
      * Strategy instance
@@ -66,7 +67,8 @@ class Opauth {
      * @param array $config User configuration
      * @param ParserInterface $parser Request Parser instance
      */
-    public function __construct($config = array(), ParserInterface $parser = null) {
+    public function __construct($config = array(), ParserInterface $parser = null)
+    {
         if (isset($config['Strategy'])) {
             $this->buildStrategies($config['Strategy']);
             unset($config['Strategy']);
@@ -82,7 +84,8 @@ class Opauth {
      * @param string $key Configuration key
      * @return mixed Config value
      */
-    public function config($key) {
+    public function config($key)
+    {
         if (!isset($this->config[$key])) {
             return null;
         }
@@ -97,7 +100,8 @@ class Opauth {
      * @return null|Response Response object for callback
      * @throws Exception
      */
-    public function run() {
+    public function run()
+    {
         if (!$this->requestParser->urlname()) {
             throw new Exception('No strategy found in url');
         }
@@ -119,7 +123,8 @@ class Opauth {
      *
      * @throws Exception
      */
-    public function request() {
+    public function request()
+    {
         $this->response = $this->getStrategy()->request();
         if (!$this->response instanceof Response || !$this->response->isError()) {
             throw new Exception('Strategy request should redirect or return Response with error');
@@ -133,7 +138,8 @@ class Opauth {
      * @return Response
      * @throws Exception
      */
-    public function callback() {
+    public function callback()
+    {
         $this->response = $this->getStrategy()->callback();
         if (!$this->response instanceof Response) {
             throw new Exception('Response should be instance of Opauth\\Opauth\\Response');
@@ -153,7 +159,8 @@ class Opauth {
      *
      * @param ParserInterface $parser Request parser object, if null will use built-in Parser
      */
-    protected function setParser(ParserInterface $parser = null) {
+    protected function setParser(ParserInterface $parser = null)
+    {
         if (!$parser) {
             $parser = new Request\Parser($this->config('path'));
         }
@@ -167,7 +174,8 @@ class Opauth {
      * @return true
      * @throws Exception
      */
-    public function buildStrategies($strategies) {
+    public function buildStrategies($strategies)
+    {
         if (!$strategies || !is_array($strategies)) {
             throw new Exception('No strategies found');
         }
@@ -185,7 +193,8 @@ class Opauth {
      * @param array|string $settings
      * @return array Settings array
      */
-    public function buildStrategy($name, $settings) {
+    public function buildStrategy($name, $settings)
+    {
         if (!is_array($settings)) {
             $name = $settings;
             $settings = array();
@@ -213,7 +222,8 @@ class Opauth {
      *
      * @param AbstractStrategy $strategy
      */
-    public function setStrategy(AbstractStrategy $strategy) {
+    public function setStrategy(AbstractStrategy $strategy)
+    {
         $this->strategy = $strategy;
     }
 
@@ -222,7 +232,8 @@ class Opauth {
      *
      * @return AbstractStrategy
      */
-    public function getStrategy() {
+    public function getStrategy()
+    {
         if (empty($this->strategy)) {
             $this->loadStrategy();
         }
@@ -234,7 +245,8 @@ class Opauth {
      *
      * @throws Exception
      */
-    protected function loadStrategy() {
+    protected function loadStrategy()
+    {
         if (!$this->strategies) {
             throw new Exception('No strategies configured');
         }

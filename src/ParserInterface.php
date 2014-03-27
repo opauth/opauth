@@ -15,7 +15,8 @@ namespace Opauth\Opauth;
  *
  * @package            Opauth
  */
-interface ParserInterface {
+interface ParserInterface
+{
 
     public function __construct($path = '/');
 

@@ -15,7 +15,8 @@ namespace Opauth\Opauth;
  *
  * @package            Opauth
  */
-interface TransportInterface {
+interface TransportInterface
+{
 
     /**
      * Redirect method

@@ -15,7 +15,8 @@ namespace Opauth\Opauth;
  *
  * @package            Opauth
  */
-abstract class AbstractStrategy implements StrategyInterface {
+abstract class AbstractStrategy implements StrategyInterface
+{
 
     /**
      * Compulsory config keys, listed as unassociative arrays
@@ -68,7 +69,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param string $callbackUrl Absolute url which is called on receiving the callback
      * @param \Opauth\Opauth\TransportInterface $transport
      */
-    public function __construct($config = array(), $callbackUrl, $transport) {
+    public function __construct($config = array(), $callbackUrl, $transport)
+    {
         $this->setUp($config);
         $this->callbackUrl($callbackUrl);
         $this->setTransport($transport);
@@ -85,7 +87,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      *
      * @param array $config
      */
-    protected function setup($config = array()) {
+    protected function setup($config = array())
+    {
         $this->setValues($this->defaults);
         $this->setValues($config);
         $this->checkExpected();
@@ -97,7 +100,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param null|string $url Null will get, string will set callbackUrl
      * @return string
      */
-    public function callbackUrl($url = null) {
+    public function callbackUrl($url = null)
+    {
         if ($url) {
             $this->callbackUrl = $url;
         }
@@ -109,7 +113,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      *
      * @param \Opauth\Opauth\TransportInterface $transport
      */
-    public function setTransport(TransportInterface $transport) {
+    public function setTransport(TransportInterface $transport)
+    {
         $this->http = $transport;
     }
 
@@ -118,7 +123,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      *
      * @return \Opauth\Opauth\TransportInterface $transport
      */
-    public function getTransport() {
+    public function getTransport()
+    {
         return $this->http;
     }
 
@@ -128,7 +134,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param array $data Array to write or null to read
      * @return array Sessiondata
      */
-    protected function sessionData($data = null) {
+    protected function sessionData($data = null)
+    {
         if (!session_id()) {
             session_start();
         }
@@ -150,7 +157,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param array $params
      * @return array
      */
-    protected function addParams($configKeys, $params = array()) {
+    protected function addParams($configKeys, $params = array())
+    {
         foreach ($configKeys as $configKey => $paramKey) {
             if (is_numeric($configKey)) {
                 $configKey = $paramKey;
@@ -175,7 +183,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      *    )
      * @return Opauth\Response
      */
-    protected function response($raw, $error = array()) {
+    protected function response($raw, $error = array())
+    {
         $response = new Response($this->strategy['provider'], $raw);
         $response->setMap($this->responseMap);
         if ($error) {
@@ -187,7 +196,8 @@ abstract class AbstractStrategy implements StrategyInterface {
     /**
      * Loads strategy values from default configs
      */
-    protected function setValues($values = array()) {
+    protected function setValues($values = array())
+    {
         foreach ($values as $key => $value) {
             $this->value($key, $value);
         }
@@ -200,7 +210,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param string $default Default value for the configuration key if none is set by the user
      * @return mixed The loaded value
      */
-    protected function value($key, $default = null) {
+    protected function value($key, $default = null)
+    {
         if (!isset($this->strategy[$key]) && $default === null) {
             return null;
         } elseif ($default !== null) {
@@ -215,7 +226,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @return true If all keys are present
      * @throws \Exception
      */
-    protected function checkExpected() {
+    protected function checkExpected()
+    {
         foreach ($this->expects as $key) {
             if (!$this->hasKey($key)) {
                 throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
@@ -231,7 +243,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param string $not Value should not match this
      * @return boolean
      */
-    protected function hasKey($key, $not = null) {
+    protected function hasKey($key, $not = null)
+    {
         if (!isset($this->strategy[$key]) || $this->strategy[$key] === $not) {
             return false;
         }
@@ -245,7 +258,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param mixed $obj Object
      * @return array Array of object properties
      */
-    public function recursiveGetObjectVars($obj) {
+    public function recursiveGetObjectVars($obj)
+    {
         $arr = array();
         $_arr = is_object($obj) ? get_object_vars($obj) : $obj;
 
@@ -270,7 +284,8 @@ abstract class AbstractStrategy implements StrategyInterface {
      * @param array $dictionary Dictionary to lookup values from
      * @return string String substituted with value from dictionary, if applicable
      */
-    public function envReplace($value, $dictionary) {
+    public function envReplace($value, $dictionary)
+    {
         if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)) {
             foreach ($matches[1] as $key) {
                 if (array_key_exists($key, $dictionary)) {

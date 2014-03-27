@@ -17,7 +17,7 @@ class Sample extends AbstractStrategy
 {
 
     /**
-     * Compulsory config keys, listed as unassociative arrays
+     * Compulsory config keys, listed as numerical indexed arrays
      * eg. array('app_id', 'app_secret');
      */
     public $expects = array('sample_id', 'sample_secret');
@@ -39,7 +39,7 @@ class Sample extends AbstractStrategy
     /**
      * For testing responses
      *
-     * @var type
+     * @var array
      */
     public $testRaw = array('some' => 'raw data');
 

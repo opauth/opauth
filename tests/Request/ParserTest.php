@@ -51,7 +51,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testConstructException()
     {
         $_SERVER['REQUEST_URI'] = '/';
-        $request = new Parser('/auth/');
+        new Parser('/auth/');
     }
 
     /**

@@ -25,6 +25,7 @@ interface TransportInterface
      * @param array $data
      * @param boolean $exit
      */
+
     public function redirect($url, $data = array(), $exit = true);
 
     /**

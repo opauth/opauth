@@ -19,7 +19,7 @@ abstract class AbstractStrategy implements StrategyInterface
 {
 
     /**
-     * Compulsory config keys, listed as unassociative arrays
+     * Compulsory config keys, listed as numeric indexed arrays
      * eg. array('app_id', 'app_secret');
      */
     public $expects = array();
@@ -58,7 +58,7 @@ abstract class AbstractStrategy implements StrategyInterface
     /**
      * Http client transport class
      *
-     * @var Opauth\TransportInterface
+     * @var TransportInterface
      */
     protected $http;
 
@@ -67,7 +67,7 @@ abstract class AbstractStrategy implements StrategyInterface
      *
      * @param array $config Strategy-specific configuration
      * @param string $callbackUrl Absolute url which is called on receiving the callback
-     * @param \Opauth\Opauth\TransportInterface $transport
+     * @param TransportInterface $transport
      */
     public function __construct($config, $callbackUrl, $transport)
     {
@@ -132,7 +132,7 @@ abstract class AbstractStrategy implements StrategyInterface
      * Getter/setter method for session data
      *
      * @param array $data Array to write or null to read
-     * @return array Sessiondata
+     * @return array Session data
      */
     protected function sessionData($data = null)
     {
@@ -181,7 +181,7 @@ abstract class AbstractStrategy implements StrategyInterface
      *        'code'        // Error code, can be int (HTTP status) or string (eg. access_denied)
      *        'message'    // User-friendly error message
      *    )
-     * @return Opauth\Response
+     * @return Response
      */
     protected function response($raw, $error = array())
     {
@@ -278,7 +278,7 @@ abstract class AbstractStrategy implements StrategyInterface
     }
 
     /**
-     * Replace defined env values enclused in {} with values from $dictionary
+     * Replace defined env values enclosed in {} with values from $dictionary
      *
      * @param string $value Input string
      * @param array $dictionary Dictionary to lookup values from

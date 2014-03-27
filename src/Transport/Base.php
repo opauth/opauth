@@ -35,6 +35,15 @@ abstract class Base implements TransportInterface
     public $userAgent = 'Opauth';
 
     /**
+     * Makes a request, child classes must implement this logic
+     *
+     * @param string $url
+     * @param array $options
+     * @return string Response body
+     */
+    abstract protected function request($url, $options = array());
+
+    /**
      * Client redirect: This function builds the full HTTP URL with parameters and redirects via Location header.
      *
      * @param string $url Destination URL

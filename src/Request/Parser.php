@@ -42,7 +42,7 @@ class Parser implements ParserInterface
     protected $path;
 
     /**
-     * Set path if '/auth/' isnt the default path, or if application is in a subdir
+     * Set path if '/auth/' isn't the default path, or if application is in a subdirectory
      *
      * @param string $path
      */
@@ -55,7 +55,7 @@ class Parser implements ParserInterface
     /**
      * Get strategy url_name and action form the request
      *
-     * @throws Exception
+     * @throws \Exception
      */
     protected function parseUri()
     {

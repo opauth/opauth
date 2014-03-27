@@ -9,8 +9,6 @@
  */
 namespace Opauth\Opauth\Transport;
 
-use Opauth\Opauth\Transport\Base;
-
 /**
  * Opauth Curl
  * Curl transport class

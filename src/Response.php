@@ -317,8 +317,8 @@ class Response implements ArrayAccess
 
     /**
      * Magic getter for raw data, like arrayaccess
-     * @param type $name
-     * @return type
+     * @param string $name
+     * @return mixed
      */
     public function __get($name)
     {
@@ -328,8 +328,8 @@ class Response implements ArrayAccess
     /**
      * Magic method for `isset()`
      *
-     * @param type $name
-     * @return type
+     * @param string $name
+     * @return boolean
      */
     public function __isset($name)
     {

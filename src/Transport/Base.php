@@ -61,9 +61,11 @@ abstract class Base implements TransportInterface {
 		if ($data) {
 			$url .= '?' . $this->buildQuery($data);
 		}
-		$stream = array('http' => array(
-			'header' => "User-Agent: " . $this->userAgent
-		));
+		$stream = array(
+			'http' => array(
+				'header' => "User-Agent: " . $this->userAgent
+			)
+		);
 
 		return $this->request($url, $stream);
 	}
@@ -78,11 +80,13 @@ abstract class Base implements TransportInterface {
 	public function post($url, $data) {
 		$query = $this->buildQuery($data);
 
-		$stream = array('http' => array(
-			'method' => 'POST',
-			'header' => "Content-type: application/x-www-form-urlencoded\r\nUser-Agent: " . $this->userAgent,
-			'content' => $query
-		));
+		$stream = array(
+			'http' => array(
+				'method' => 'POST',
+				'header' => "Content-type: application/x-www-form-urlencoded\r\nUser-Agent: " . $this->userAgent,
+				'content' => $query
+			)
+		);
 
 		return $this->request($url, $stream);
 	}

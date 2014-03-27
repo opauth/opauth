@@ -15,14 +15,14 @@ use Exception;
  * Opauth
  * Multi-provider authentication framework for PHP
  *
- * @package			Opauth
+ * @package            Opauth
  */
 class Opauth {
 
 	/**
 	 * Strategy instance
 	 *
-	 * @var Strategy
+	 * @var AbstractStrategy
 	 */
 	protected $strategy;
 
@@ -79,7 +79,7 @@ class Opauth {
 	/**
 	 * Get key from config array, null if not present
 	 *
-	 * @param type $key Configuration key
+	 * @param string $key Configuration key
 	 * @return mixed Config value
 	 */
 	public function config($key) {
@@ -94,7 +94,7 @@ class Opauth {
 	 * Parses request URI and perform defined authentication actions based based on it.
 	 * When running `request()` it will do a redirect, `callback` returns Opauth Response object
 	 *
-	 * @return Response Response object for callback
+	 * @return null|Response Response object for callback
 	 * @throws Exception
 	 */
 	public function run() {
@@ -104,7 +104,8 @@ class Opauth {
 
 		$action = $this->requestParser->action();
 		if (!$action) {
-			return $this->request();
+			$this->request();
+			return null;
 		}
 
 		if ($action !== $this->config('callback')) {

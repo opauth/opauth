@@ -13,7 +13,7 @@ namespace Opauth\Opauth;
  * Opauth StrategyInterface
  * Individual strategies should implement this interface
  *
- * @package			Opauth
+ * @package            Opauth
  */
 interface StrategyInterface {
 

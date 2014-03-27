@@ -13,7 +13,7 @@ namespace Opauth\Opauth;
  * Opauth Strategy
  * Individual strategies are to be extended from this class
  *
- * @package			Opauth
+ * @package            Opauth
  */
 abstract class AbstractStrategy implements StrategyInterface {
 
@@ -57,7 +57,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	/**
 	 * Http client transport class
 	 *
-	 * @var Opauth\Transport\TransportInterface
+	 * @var Opauth\TransportInterface
 	 */
 	protected $http;
 
@@ -109,7 +109,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 *
 	 * @param \Opauth\Opauth\TransportInterface $transport
 	 */
-	public function setTransport(\Opauth\Opauth\TransportInterface $transport) {
+	public function setTransport(TransportInterface $transport) {
 		$this->http = $transport;
 	}
 
@@ -167,12 +167,12 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 *
 	 * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
 	 *
-	 * @param $raw Raw response from Oauth provider
+	 * @param string $raw Raw response from Oauth provider
 	 * @param array $error Data on error to be sent back along with the callback
-	 *	$error = array(
-	 *		'code'		// Error code, can be int (HTTP status) or string (eg. access_denied)
-	 *		'message'	// User-friendly error message
-	 *	)
+	 *    $error = array(
+	 *        'code'        // Error code, can be int (HTTP status) or string (eg. access_denied)
+	 *        'message'    // User-friendly error message
+	 *    )
 	 * @return Opauth\Response
 	 */
 	protected function response($raw, $error = array()) {
@@ -253,7 +253,9 @@ abstract class AbstractStrategy implements StrategyInterface {
 			$val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
 
 			// Transform boolean into 1 or 0 to make it safe across all Opauth HTTP transports
-			if (is_bool($val)) $val = ($val) ? 1 : 0;
+			if (is_bool($val)) {
+				$val = ($val) ? 1 : 0;
+			}
 
 			$arr[$key] = $val;
 		}
@@ -266,7 +268,7 @@ abstract class AbstractStrategy implements StrategyInterface {
 	 *
 	 * @param string $value Input string
 	 * @param array $dictionary Dictionary to lookup values from
-	 * @return string String substitued with value from dictionary, if applicable
+	 * @return string String substituted with value from dictionary, if applicable
 	 */
 	public function envReplace($value, $dictionary) {
 		if (is_string($value) && preg_match_all('/{([A-Za-z0-9-_]+)}/', $value, $matches)) {

@@ -13,7 +13,7 @@ namespace Opauth\Opauth;
  * Parser Interface
  * Parser classes should implement this
  *
- * @package			Opauth
+ * @package            Opauth
  */
 interface ParserInterface {
 

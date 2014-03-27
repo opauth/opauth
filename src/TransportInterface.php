@@ -13,7 +13,7 @@ namespace Opauth\Opauth;
  * Transport Interface
  * Http transport adapters should implement this
  *
- * @package			Opauth
+ * @package            Opauth
  */
 interface TransportInterface {
 

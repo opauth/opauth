@@ -71,16 +71,16 @@ class Response implements ArrayAccess {
 	 * data to be formatted
 	 *
 	 * Example:
-	 *	protected $responseMap = array(
-	 *		'uid' => 'id',
-	 *		'name' => 'name',
-	 *		'info.name' => 'name',
-	 *		'info.nickname' => 'screen_name',
-	 *		'info.location' => 'location',
-	 *		'info.description' => 'description',
-	 *		'info.image' => 'profile_image_url',
-	 *		'info.urls.website' => 'url'
-	 *	);
+	 *    protected $responseMap = array(
+	 *        'uid' => 'id',
+	 *        'name' => 'name',
+	 *        'info.name' => 'name',
+	 *        'info.nickname' => 'screen_name',
+	 *        'info.location' => 'location',
+	 *        'info.description' => 'description',
+	 *        'info.image' => 'profile_image_url',
+	 *        'info.urls.website' => 'url'
+	 *    );
 	 *
 	 * @var array
 	 */
@@ -165,6 +165,7 @@ class Response implements ArrayAccess {
 	 *
 	 * @param string $path Path to property. eg 'info.nickname' sets to $info['nickname']
 	 * @param string $rawPath Path to a $raw data. eg 'screen_name' reads from $raw['screen_name']
+	 * @return boolean
 	 */
 	public function setData($path, $rawPath) {
 		$rawValue = $this->getRaw($rawPath);
@@ -208,7 +209,7 @@ class Response implements ArrayAccess {
 	/**
 	 * Gets the raw data value through path
 	 *
-	 * @param type $path see setData()
+	 * @param string $path see setData()
 	 * @return string Value from raw data or null if not found in path
 	 */
 	protected function getRaw($path) {
@@ -229,8 +230,8 @@ class Response implements ArrayAccess {
 	/**
 	 * Merges a value into a property
 	 *
-	 * @param type $path path to Property see setData()
-	 * @param type $value value to set
+	 * @param string $path path to Property see setData()
+	 * @param mixed $value value to set
 	 * @return boolean
 	 */
 	protected function mergeValue($path, $value) {
@@ -247,7 +248,7 @@ class Response implements ArrayAccess {
 			$this->{$attribute} = $value;
 			return true;
 		}
-		$this->{$attribute} = array_merge_recursive($this->$attribute, $value);
+		$this->{$attribute} = array_merge_recursive($this->{$attribute}, $value);
 		return true;
 	}
 

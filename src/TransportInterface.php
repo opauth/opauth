@@ -17,29 +17,29 @@ namespace Opauth\Opauth;
  */
 interface TransportInterface {
 
-	/**
-	 * Redirect method
-	 *
-	 * @param string $url
-	 * @param array $data
-	 * @param boolean $exit
-	 */
-	public function redirect($url, $data = array(), $exit = true);
+    /**
+     * Redirect method
+     *
+     * @param string $url
+     * @param array $data
+     * @param boolean $exit
+     */
+    public function redirect($url, $data = array(), $exit = true);
 
-	/**
-	 * Handles GET requests
-	 *
-	 * @param string $url
-	 * @param array $data
-	 */
-	public function get($url, $data = array());
+    /**
+     * Handles GET requests
+     *
+     * @param string $url
+     * @param array $data
+     */
+    public function get($url, $data = array());
 
-	/**
-	 * Handles POST requests
-	 *
-	 * @param string $url
-	 * @param array $data
-	 */
-	public function post($url, $data);
+    /**
+     * Handles POST requests
+     *
+     * @param string $url
+     * @param array $data
+     */
+    public function post($url, $data);
 
 }

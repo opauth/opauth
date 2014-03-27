@@ -19,25 +19,25 @@ use Opauth\Opauth\Transport\Base;
  */
 class File extends Base {
 
-	/**
-	 * Makes a request using file_get_contents
-	 *
-	 * @param string $url
-	 * @param array $options
-	 * @return string Response body
-	 * @throws \Exception
-	 */
-	protected function request($url, $options = array()) {
-		if (!ini_get('allow_url_fopen')) {
-			throw new \Exception('file_get_contents not allowed, try using other http_client_method such as curl');
-		}
-		$context = null;
-		if (!empty($options)) {
-			$context = stream_context_create($options);
-		}
-		$content = file_get_contents($url, false, $context);
-		$this->responseHeaders = implode("\r\n", $http_response_header);
-		return $content;
-	}
+    /**
+     * Makes a request using file_get_contents
+     *
+     * @param string $url
+     * @param array $options
+     * @return string Response body
+     * @throws \Exception
+     */
+    protected function request($url, $options = array()) {
+        if (!ini_get('allow_url_fopen')) {
+            throw new \Exception('file_get_contents not allowed, try using other http_client_method such as curl');
+        }
+        $context = null;
+        if (!empty($options)) {
+            $context = stream_context_create($options);
+        }
+        $content = file_get_contents($url, false, $context);
+        $this->responseHeaders = implode("\r\n", $http_response_header);
+        return $content;
+    }
 
 }

@@ -19,80 +19,80 @@ use Opauth\Opauth\ParserInterface;
  */
 class Parser implements ParserInterface {
 
-	/**
-	 * Strategy urlname, used to switch to correct strategy
-	 *
-	 * @var string
-	 */
-	protected $urlname;
+    /**
+     * Strategy urlname, used to switch to correct strategy
+     *
+     * @var string
+     */
+    protected $urlname;
 
-	/**
-	 * Action, null for request, 'callback' for callback
-	 *
-	 * @var string
-	 */
-	protected $action;
+    /**
+     * Action, null for request, 'callback' for callback
+     *
+     * @var string
+     */
+    protected $action;
 
-	/**
-	 * Opauth url path, relative to host
-	 *
-	 * @var string
-	 */
-	protected $path;
+    /**
+     * Opauth url path, relative to host
+     *
+     * @var string
+     */
+    protected $path;
 
-	/**
-	 * Set path if '/auth/' isnt the default path, or if application is in a subdir
-	 *
-	 * @param string $path
-	 */
-	public function __construct($path = '/') {
-		$this->path = $path;
-		$this->parseUri();
-	}
+    /**
+     * Set path if '/auth/' isnt the default path, or if application is in a subdir
+     *
+     * @param string $path
+     */
+    public function __construct($path = '/') {
+        $this->path = $path;
+        $this->parseUri();
+    }
 
-	/**
-	 * Get strategy url_name and action form the request
-	 *
-	 * @throws Exception
-	 */
-	protected function parseUri() {
-		if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
-			throw new \Exception('Not an Opauth request, path is not in uri');
-		}
-		$request = substr($_SERVER['REQUEST_URI'], strlen($this->path) - 1);
+    /**
+     * Get strategy url_name and action form the request
+     *
+     * @throws Exception
+     */
+    protected function parseUri() {
+        if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
+            throw new \Exception('Not an Opauth request, path is not in uri');
+        }
+        $request = substr($_SERVER['REQUEST_URI'], strlen($this->path) - 1);
 
-		preg_match_all('/\/([A-Za-z0-9-_]+)/', $request, $matches);
-		if (!empty($matches[1][0])) {
-			$this->urlname = $matches[1][0];
-		}
-		if (!empty($matches[1][1])) {
-			$this->action = $matches[1][1];
-		}
-	}
+        preg_match_all('/\/([A-Za-z0-9-_]+)/', $request, $matches);
+        if (!empty($matches[1][0])) {
+            $this->urlname = $matches[1][0];
+        }
+        if (!empty($matches[1][1])) {
+            $this->action = $matches[1][1];
+        }
+    }
 
-	public function action() {
-		return $this->action;
-	}
+    public function action() {
+        return $this->action;
+    }
 
-	public function urlname() {
-		return $this->urlname;
-	}
+    public function urlname() {
+        return $this->urlname;
+    }
 
-	/**
-	 * getHost
-	 *
-	 * @return string Full host string
-	 */
-	protected function getHost() {
-		return (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-	}
+    /**
+     * getHost
+     *
+     * @return string Full host string
+     */
+    protected function getHost() {
+        return (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+    }
 
-	/**
-	 * providerUrl
-	 *
-	 * @return string Full path to provider url_name
-	 */
-	public function providerUrl() {
-		return $this->getHost() . $this->path . $this->urlname;
-	}
+    /**
+     * providerUrl
+     *
+     * @return string Full path to provider url_name
+     */
+    public function providerUrl() {
+        return $this->getHost() . $this->path . $this->urlname;
+    }
 }

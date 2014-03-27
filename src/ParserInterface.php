@@ -17,27 +17,27 @@ namespace Opauth\Opauth;
  */
 interface ParserInterface {
 
-	public function __construct($path = '/');
+    public function __construct($path = '/');
 
-	/**
-	 * Getter for provider's urlname
-	 *
-	 * @return string Request parameter for the provider urlname
-	 */
-	public function urlname();
+    /**
+     * Getter for provider's urlname
+     *
+     * @return string Request parameter for the provider urlname
+     */
+    public function urlname();
 
-	/**
-	 * Getter for action argument, usually `callback`
-	 *
-	 * @return string Request parameter for action
-	 */
-	public function action();
+    /**
+     * Getter for action argument, usually `callback`
+     *
+     * @return string Request parameter for action
+     */
+    public function action();
 
-	/**
-	 * Returns base provider url
-	 *
-	 * @return string Url string to base path for the provider
-	 */
-	public function providerUrl();
+    /**
+     * Returns base provider url
+     *
+     * @return string Url string to base path for the provider
+     */
+    public function providerUrl();
 
 }

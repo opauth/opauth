@@ -53,5 +53,4 @@ class Curl extends Base
         $this->responseHeaders = $headers;
         return $content;
     }
-
 }

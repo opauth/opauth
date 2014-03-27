@@ -167,7 +167,8 @@ class Response implements ArrayAccess
      * Uses paths to data, Use dot(.) to separate levels
      * Examples:
      * - Path to $response->info['a']['b']['c'] would be 'info.a.b.c'
-     * - setData('info.nickname', 'screen_name') sets value from $response->raw['screen_name'] to $response->info['nickname']
+     * - setData('info.nickname', 'screen_name') sets value from $response->raw['screen_name']
+     *   to $response->info['nickname']
      * - setData('uid', 'nested.user_id') sets value from $response->raw['nested']['userid'] to $response->uid
      *
      * @param string $path Path to property. eg 'info.nickname' sets to $info['nickname']
@@ -334,5 +335,4 @@ class Response implements ArrayAccess
     {
         return $this->offsetExists($name);
     }
-
 }

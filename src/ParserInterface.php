@@ -40,5 +40,4 @@ interface ParserInterface
      * @return string Url string to base path for the provider
      */
     public function providerUrl();
-
 }

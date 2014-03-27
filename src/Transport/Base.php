@@ -105,5 +105,4 @@ abstract class Base implements TransportInterface
     {
         return http_build_query($data, '', '&');
     }
-
 }

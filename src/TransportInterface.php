@@ -42,5 +42,4 @@ interface TransportInterface
      * @param array $data
      */
     public function post($url, $data);
-
 }

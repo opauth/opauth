@@ -41,5 +41,4 @@ class File extends Base
         $this->responseHeaders = implode("\r\n", $http_response_header);
         return $content;
     }
-
 }

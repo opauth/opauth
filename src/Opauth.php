@@ -270,5 +270,4 @@ class Opauth
         $Transport = $this->config('http_transport');
         $this->setStrategy(new $classname($settings, $callbackUrl, new $Transport));
     }
-
 }

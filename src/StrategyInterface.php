@@ -30,5 +30,4 @@ interface StrategyInterface
      * @return Response The Opauth Response object
      */
     public function callback();
-
 }

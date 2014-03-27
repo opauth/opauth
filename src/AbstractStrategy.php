@@ -69,7 +69,7 @@ abstract class AbstractStrategy implements StrategyInterface
      * @param string $callbackUrl Absolute url which is called on receiving the callback
      * @param \Opauth\Opauth\TransportInterface $transport
      */
-    public function __construct($config = array(), $callbackUrl, $transport)
+    public function __construct($config, $callbackUrl, $transport)
     {
         $this->setUp($config);
         $this->callbackUrl($callbackUrl);
@@ -296,5 +296,4 @@ abstract class AbstractStrategy implements StrategyInterface
         }
         return $value;
     }
-
 }

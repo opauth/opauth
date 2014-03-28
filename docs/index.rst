@@ -21,13 +21,6 @@ Contents:
    strategies
    contribute
 
-If you want to have your offline documentation, cd to the docs directory and run::
-
-    make html
-
-Next you can open up ``docs/_build/html/index.html`` in your browser to view this documentation locally.
-
-
 Indices and tables
 ==================
 

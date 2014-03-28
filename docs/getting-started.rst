@@ -72,5 +72,5 @@ You need to have rewriting enabled on the webserver, here is an example of .htac
 Set ``DocumentRoot`` of your web server to this directory, or create a vhost as this example does not work when opauth
 is in a subdirectory.
 
-Now point the browser to ``http://localhost/opauth/twitter`` to see it in action.
+Now point the browser to ``http://localhost/opauth/facebook`` to see it in action.
 

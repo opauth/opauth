@@ -43,7 +43,7 @@ the configuration array is entirely up to you. Opauth uses a configuration array
 Simple example
 --------------------
 
-Next we will create index.php with the following contents::
+Next we will create ``opauth.php`` with the following contents::
 
     <?php
     require 'vendor/autoload.php';
@@ -54,23 +54,14 @@ Next we will create index.php with the following contents::
                 'app_secret' => 'your_secret'
             ),
         ),
-        'path' => '/opauth/'
+        'path' => '/opauth.php/'
     );
     $Opauth = new Opauth\Opauth\Opauth($config);
     $response = $Opauth->run();
     echo "Authed as " . $response->name . " with uid" . $response->uid;
 
-You need to have rewriting enabled on the webserver, here is an example of .htaccess for Apache::
-
-    <IfModule mod_rewrite.c>
-        RewriteEngine On
-        RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteCond %{REQUEST_FILENAME} !-f
-        RewriteRule ^(.*)$ index.php [QSA,L]
-    </IfModule>
-
 Set ``DocumentRoot`` of your web server to this directory, or create a vhost as this example does not work when opauth
 is in a subdirectory.
 
-Now point the browser to ``http://localhost/opauth/facebook`` to see it in action.
+Now point the browser to ``http://localhost/opauth.php/facebook`` to see it in action.
 

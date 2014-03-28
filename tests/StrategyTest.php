@@ -17,6 +17,11 @@ use Opauth\Opauth\Tests\Strategy\Sample;
 class StrategyTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @var Sample
+     */
+    protected $Strategy;
+
     public function setUp()
     {
         $_SERVER['HTTP_HOST'] = 'test.example.org';

@@ -4,7 +4,7 @@ Getting started
 The easiest way to start with Opauth is using composer. Choosing to do a manual installation of Opauth will require
 additional code for autoloading in your application.
 
-You can add Opauth and stratetgies to your applications composer.json::
+You can add Opauth and strategies to your applications ``composer.json``::
 
     {
         "require": {
@@ -35,6 +35,10 @@ the configuration array is entirely up to you. Opauth uses a configuration array
             'Twitter' => array(
                 'key' => 'your_key',
                 'secret' => 'your_secret'
+            ),
+            'Facebook' => array(
+                'app_id' => 'your_key',
+                'app_secret' => 'your_secret'
             ),
         ),
         'path' => '/opauth/'

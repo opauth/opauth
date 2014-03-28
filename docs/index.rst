@@ -19,6 +19,7 @@ Contents:
 
    getting-started
    strategies
+   contribute
 
 If you want to have your offline documentation, cd to the docs directory and run::
 

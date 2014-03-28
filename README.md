@@ -267,7 +267,7 @@ Changelog
 License
 ---------
 The MIT License
-Copyright © 2012-2013 U-Zyn Chua (http://uzyn.com)
+Copyright © 2012-2014 U-Zyn Chua (http://uzyn.com)
 
 Consultation
 ---------

@@ -3,7 +3,7 @@
  * Opauth
  * Multi-provider authentication framework for PHP
  *
- * @copyright    Copyright © 2013 U-Zyn Chua (http://uzyn.com)
+ * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org
  * @license      MIT License
  */
@@ -13,7 +13,6 @@ namespace Opauth\Opauth;
  * Transport Interface
  * Http transport adapters should implement this
  *
- * @package            Opauth
  */
 interface TransportInterface
 {

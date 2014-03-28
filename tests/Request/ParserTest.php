@@ -2,9 +2,8 @@
 /**
  * OpauthTest
  *
- * @copyright    Copyright © 2012 U-Zyn Chua (http://uzyn.com)
+ * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org
- * @package      Opauth.OpauthTest
  * @license      MIT License
  */
 namespace Opauth\Opauth\Tests\Request;

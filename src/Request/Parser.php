@@ -3,7 +3,7 @@
  * Opauth
  * Multi-provider authentication framework for PHP
  *
- * @copyright    Copyright © 2013 U-Zyn Chua (http://uzyn.com)
+ * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org
  * @license      MIT License
  */
@@ -15,7 +15,6 @@ use Opauth\Opauth\ParserInterface;
  * Opauth Request Parser
  * Parses current request url parameters
  *
- * @package      Opauth
  */
 class Parser implements ParserInterface
 {

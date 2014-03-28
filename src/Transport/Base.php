@@ -3,7 +3,7 @@
  * Opauth
  * Multi-provider authentication framework for PHP
  *
- * @copyright    Copyright © 2013 U-Zyn Chua (http://uzyn.com)
+ * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org
  * @license      MIT License
  */
@@ -15,7 +15,6 @@ use Opauth\Opauth\TransportInterface;
  * Opauth Base client
  * Base class for built in Curl and File transport classes
  *
- * @package      Opauth
  */
 abstract class Base implements TransportInterface
 {

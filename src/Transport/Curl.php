@@ -10,6 +10,7 @@
 namespace Opauth\Opauth\Transport;
 
 use Opauth\Opauth\OpauthException;
+
 /**
  * Opauth Curl
  * Curl transport class

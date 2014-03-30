@@ -10,6 +10,7 @@
 namespace Opauth\Opauth\Transport;
 
 use Opauth\Opauth\OpauthException;
+
 /**
  * Opauth Curl
  * File transport class, uses file_get_contents for environments where curl is not available

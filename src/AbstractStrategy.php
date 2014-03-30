@@ -193,7 +193,8 @@ abstract class AbstractStrategy implements StrategyInterface
      * @param string $code Error code (eg. access_denied)
      * @param mixed $raw Raw data to help in debug, usually raw HTTP response from provider
      */
-    protected function error($message, $code, $raw = null) {
+    protected function error($message, $code, $raw = null)
+    {
         throw new OpauthException($message, $code, $this->strategy['provider'], $raw);
     }
 
@@ -234,7 +235,11 @@ abstract class AbstractStrategy implements StrategyInterface
     {
         foreach ($this->expects as $key) {
             if (!$this->hasKey($key)) {
-                return $this->error(get_class($this) . " config parameter for \"$key\" expected.", 'missing_parameter', $this);
+                return $this->error(
+                    get_class($this) . " config parameter for \"$key\" expected.",
+                    'missing_parameter',
+                    $this
+                );
             }
         }
         return true;

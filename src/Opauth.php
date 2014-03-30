@@ -144,7 +144,7 @@ class Opauth
             throw new Exception('Response should be instance of Opauth\\Opauth\\Response');
         }
         if ($this->response->isError()) {
-            throw new Exception($this->response->errorMessage());
+            throw new OpauthException($this->response->errorMessage(), $this->response->errorCode(), $this->response->provider, $this->response->raw);
         }
         $this->response->map();
         if (!$this->response->isValid()) {

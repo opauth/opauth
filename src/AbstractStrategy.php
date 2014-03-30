@@ -172,7 +172,7 @@ abstract class AbstractStrategy implements StrategyInterface
     /**
      * Response callback
      *
-     * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
+     * More info: https://github.com/uzyn/opauth/wiki/Auth-response
      *
      * @param string $raw Raw response from Oauth provider
      * @param array $error Data on error to be sent back along with the callback
@@ -190,6 +190,19 @@ abstract class AbstractStrategy implements StrategyInterface
             $response->setError($error);
         }
         return $response;
+    }
+
+    /**
+     * Throws OpauthException from strategy
+     *
+     * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
+     *
+     * @param string $message User-friendly error message (eg. User denied access.)
+     * @param string $code Error code (eg. access_denied)
+     * @param mixed $raw Raw data to help in debug, usually raw HTTP response from provider
+     */
+    protected function error($message, $code, $raw = null) {
+        throw new OpauthException($message, $code, $this->strategy['provider'], $raw);
     }
 
     /**

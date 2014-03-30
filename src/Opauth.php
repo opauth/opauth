@@ -123,8 +123,8 @@ class Opauth
     public function request()
     {
         $this->response = $this->getStrategy()->request();
-        if (!$this->response instanceof Response || !$this->response->isError()) {
-            throw new OpauthException('Strategy request should redirect or return Response with error');
+        if (!$this->response instanceof Response) {
+            throw new OpauthException('Strategy request should redirect or return Response');
         }
         throw new OpauthException($this->response->errorMessage());
     }

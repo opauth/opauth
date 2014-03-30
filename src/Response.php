@@ -87,13 +87,6 @@ class Response implements ArrayAccess
     protected $map = array();
 
     /**
-     * Contains array with error code and message
-     *
-     * @var array
-     */
-    protected $error = array();
-
-    /**
      * Constructor
      *
      * @param string $provider Use $this->strategy['provider'] so aliassed strategies are handled correct
@@ -103,46 +96,6 @@ class Response implements ArrayAccess
     {
         $this->provider = $provider;
         $this->raw = $raw;
-    }
-
-    /**
-     * Check if the response has an error
-     *
-     * @return boolean
-     */
-    public function isError()
-    {
-        return !empty($this->error);
-    }
-
-    /**
-     * Get the error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->error['message'];
-    }
-
-    /**
-     * Gets error code
-     *
-     * @return integer|string
-     */
-    public function errorCode()
-    {
-        return $this->error['code'];
-    }
-
-    /**
-     * Sets an error
-     *
-     * @param array $error Array with code and message keys
-     */
-    public function setError(array $error)
-    {
-        $this->error = array_merge(array('code' => 0, 'message' => ''), $error);
     }
 
     /**

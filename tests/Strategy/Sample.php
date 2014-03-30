@@ -53,7 +53,8 @@ class Sample extends AbstractStrategy
         if (!$this->strategy['return']) {
             return 'wrong';
         }
-        return $this->response('raw', array('message' => 'Error from strategy'));
+
+        return $this->error('Error from strategy', 'strategy_error', 'raw');
     }
 
     /**
@@ -66,9 +67,9 @@ class Sample extends AbstractStrategy
         return $response;
     }
 
-    public function response($raw, $error = array())
+    public function response($raw)
     {
-        return parent::response($raw, $error);
+        return parent::response($raw);
     }
 
     /**

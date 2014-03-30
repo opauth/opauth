@@ -124,7 +124,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Exception
-     * @expectedExceptionMessage Strategy request should redirect or return Response with error
+     * @expectedExceptionMessage Strategy request should redirect or return Response
      * @covers Opauth\Opauth\Opauth::request
      */
     public function testRequestStrategyResponseNotRedirecting()

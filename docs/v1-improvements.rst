@@ -15,10 +15,8 @@ Full PSR compliance
 -------------------
 Opauth is now fully compliant with the following PHP Coding Standards by PHP Framework Interop Group (PHP-FIG):
 
-- `PSR-0 <http://www.php-fig.org/psr/psr-0/>`_
 - `PSR-1 <http://www.php-fig.org/psr/psr-1/>`_
 - `PSR-2 <http://www.php-fig.org/psr/psr-2/>`_
-- `PSR-3 <http://www.php-fig.org/psr/psr-3/>`_
 - `PSR-4 <http://www.php-fig.org/psr/psr-4/>`_
 
 Base strategies

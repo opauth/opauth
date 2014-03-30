@@ -56,6 +56,6 @@ class OpauthException extends \RuntimeException
             $this->raw = $raw;
         }
 
-		parent::__construct($message);
-	}
+        parent::__construct($message);
+    }
 }

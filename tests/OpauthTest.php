@@ -103,7 +103,6 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Opauth\Opauth\OpauthException
      * @expectedExceptionMessage Error from strategy during request
-     * @expectedExceptionCode strategy_error_request
      * @covers Opauth\Opauth\Opauth::request
      */
     public function testRequestStrategyResponseError()

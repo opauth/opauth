@@ -117,8 +117,6 @@ class Opauth
 
     /**
      * Calls request method on current strategy
-     *
-     * @throws Exception
      */
     public function request()
     {

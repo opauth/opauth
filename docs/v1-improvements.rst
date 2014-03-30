@@ -5,11 +5,11 @@ The new release of Opauth has brought about the following changes and improvemen
 
 No more internal callback
 -------------------------
-Opauth no longer does another internal callback to pass data back to your app, thus no longer need an extra callback.
+Opauth no longer does another internal callback to pass data back to your app. Now it simply returns the response. With this change, security components and v0.x transport mechanisms have been dropped.
 
 Cleaner code base and API
 -------------------------
-Opauth is now more extensible than ever. Do not like how our parser works? You can easily extend or override it. The same can be said for transport, etc.
+Opauth is now more extensible than ever. Do not like how our parser works? You can easily extend or override it. The same can be said for many other components on Opauth.
 
 Full PSR compliance
 -------------------

@@ -45,7 +45,7 @@ the configuration array is entirely up to you. Opauth uses a configuration array
     );
 
 Simple example
---------------------
+--------------
 
 Next we will create ``opauth.php`` with the following contents::
 
@@ -69,3 +69,53 @@ is in a subdirectory.
 
 Now point the browser to ``http://localhost/opauth.php/facebook`` to see it in action.
 
+Advanced examples
+-----------------
+
+Opauth v1 is more flexible then the 0.4 series, meaning you can use your own request parser class and inject strategies
+manually. If you want to handle the request parsing yourself, you can create a class for this, which must implement
+``Opauth\Opauth\ParserInterface``
+
+You can now inject your own parser into Opauth`s constructor::
+
+    <?php
+    use Opauth\Opauth\ParserInterface;
+
+    class MyParser implements ParserInterface
+    {
+
+        public function __construct($path = '/')
+        {
+            //your implementation
+        }
+
+        public function action()
+        {
+            //your implementation
+        }
+
+        public function urlname()
+        {
+            //your implementation
+        }
+
+        public function providerUrl()
+        {
+            //your implementation
+        }
+    }
+
+    //Inject your parser object into Opauth constructor
+    $Opauth = new Opauth\Opauth\Opauth($config, new MyParser('opauth-path'));
+    $Opauth->run();
+
+You can also set a strategy manually, instead of letting Opauth decide which strategy to run based off the parsed request::
+
+    $Opauth = new Opauth\Opauth\Opauth();
+    $Opauth->setStrategy(new Opauth\Facebook\Strategy\Facebook($config['Strategy']['Facebook']));
+    $Opauth->request();
+    //or
+    $Opauth->callback();
+
+As you can see in the above example, we are not calling ``run()`` method here, but manually call ``request()`` or
+``callback()`` methods on Opauth.

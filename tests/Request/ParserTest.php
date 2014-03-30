@@ -45,7 +45,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
      * testConstructException
      *
      * @expectedExceptionMessage Not an Opauth request, path is not in uri
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      */
     public function testConstructException()
     {

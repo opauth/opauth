@@ -59,7 +59,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage No strategy found in url
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::run
      */
     public function testRunNoStrategy()
@@ -71,7 +71,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage No strategies configured
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::loadStrategy
      */
     public function testLoadStrategyWithoutStrategies()
@@ -82,7 +82,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage Unsupported or undefined Opauth strategy - notsample
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::loadStrategy
      */
     public function testLoadStrategyWrongAuthPath()
@@ -101,7 +101,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @expectedExceptionMessage Error from strategy
      * @covers Opauth\Opauth\Opauth::request
      */
@@ -123,7 +123,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @expectedExceptionMessage Strategy request should redirect or return Response
      * @covers Opauth\Opauth\Opauth::request
      */
@@ -147,7 +147,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedExceptionMessage Invalid response, missing required parameters
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::callback
      */
     public function testCallbackInvalidResponse()
@@ -169,7 +169,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedExceptionMessage Invalid callback url element: wrongcallback
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::run
      */
     public function testRunCallbackWrongCallback()
@@ -226,7 +226,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @expectedExceptionMessage No strategies found
      * @covers Opauth\Opauth\Opauth::buildStrategies
      */

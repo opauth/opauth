@@ -1,4 +1,4 @@
-![Opauth](https://github.com/uzyn/opauth.org/raw/master/images/opauth-logo-300px-transparent.png)
+![Opauth](https://github.com/opauth/opauth.org/raw/master/images/opauth-logo-300px-transparent.png)
 =================================
 Opauth is a multi-provider authentication framework for PHP, inspired by [OmniAuth for Ruby](https://github.com/intridea/omniauth).
 
@@ -6,8 +6,8 @@ Opauth enables PHP applications to do *user authentication* with ease.
 
 Try out Opauth for yourself at http://opauth.org
 
-[![Build Status](https://secure.travis-ci.org/opauth/opauth.png?branch=wip/1.0)](http://travis-ci.org/opauth/opauth)
-[![Coverage Status](https://coveralls.io/repos/opauth/opauth/badge.png?branch=wip%2F1.0)](https://coveralls.io/r/opauth/opauth?branch=wip%2F1.0)
+[![Build Status](https://travis-ci.org/opauth/opauth.svg?branch=1.0)](https://travis-ci.org/opauth/opauth)
+[![Coverage Status](https://coveralls.io/repos/opauth/opauth/badge.png?branch=wip%2F1.0)](https://coveralls.io/r/opauth/opauth?branch=1.0)
 
 Development branch
 -------

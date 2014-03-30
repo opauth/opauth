@@ -116,17 +116,13 @@ class Opauth
     }
 
     /**
-     * Run request method on current strategy
+     * Calls request method on current strategy
      *
      * @throws Exception
      */
     public function request()
     {
-        $this->response = $this->getStrategy()->request();
-        if (!$this->response instanceof Response) {
-            throw new OpauthException('Strategy request should redirect or return Response');
-        }
-        throw new OpauthException($this->response->errorMessage());
+        $this->getStrategy()->request();
     }
 
     /**

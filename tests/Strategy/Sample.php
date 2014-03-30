@@ -50,11 +50,10 @@ class Sample extends AbstractStrategy
      */
     public function request()
     {
-        if (!$this->strategy['return']) {
-            return 'wrong';
+        if ($this->strategy['force_error']) {
+            return $this->error('Error from strategy during request', 'strategy_error_request', 'raw');
         }
-
-        return $this->error('Error from strategy', 'strategy_error', 'raw');
+        return 'requested';
     }
 
     /**

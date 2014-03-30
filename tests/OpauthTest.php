@@ -102,7 +102,8 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException Opauth\Opauth\OpauthException
-     * @expectedExceptionMessage Error from strategy
+     * @expectedExceptionMessage Error from strategy during request
+     * @expectedExceptionCode strategy_error_request
      * @covers Opauth\Opauth\Opauth::request
      */
     public function testRequestStrategyResponseError()
@@ -113,29 +114,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
                 'Sample' => array(
                     'sample_id' => 1234,
                     'sample_secret' => 'fortytwo',
-                    'return' => true,
-                    '_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
-                )
-            )
-        );
-        $Opauth = new Opauth($config);
-        $Opauth->request();
-    }
-
-    /**
-     * @expectedException Opauth\Opauth\OpauthException
-     * @expectedExceptionMessage Strategy request should redirect or return Response
-     * @covers Opauth\Opauth\Opauth::request
-     */
-    public function testRequestStrategyResponseNotRedirecting()
-    {
-        $_SERVER['REQUEST_URI'] = '/auth/sample';
-        $config = array(
-            'Strategy' => array(
-                'Sample' => array(
-                    'sample_id' => 1234,
-                    'sample_secret' => 'fortytwo',
-                    'return' => false,
+                    'force_error' => true,
                     '_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
                 )
             )

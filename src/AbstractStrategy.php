@@ -175,20 +175,12 @@ abstract class AbstractStrategy implements StrategyInterface
      * More info: https://github.com/uzyn/opauth/wiki/Auth-response
      *
      * @param string $raw Raw response from Oauth provider
-     * @param array $error Data on error to be sent back along with the callback
-     *    $error = array(
-     *        'code'        // Error code, can be int (HTTP status) or string (eg. access_denied)
-     *        'message'    // User-friendly error message
-     *    )
      * @return Response
      */
-    protected function response($raw, $error = array())
+    protected function response($raw)
     {
         $response = new Response($this->strategy['provider'], $raw);
         $response->setMap($this->responseMap);
-        if ($error) {
-            $response->setError($error);
-        }
         return $response;
     }
 
@@ -242,7 +234,7 @@ abstract class AbstractStrategy implements StrategyInterface
     {
         foreach ($this->expects as $key) {
             if (!$this->hasKey($key)) {
-                throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
+                return $this->error(get_class($this) . " config parameter for \"$key\" expected.", 'missing_parameter', $this);
             }
         }
         return true;

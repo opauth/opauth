@@ -9,6 +9,7 @@
  */
 namespace Opauth\Opauth\Transport;
 
+use Opauth\Opauth\OpauthException;
 /**
  * Opauth Curl
  * Curl transport class
@@ -28,7 +29,7 @@ class Curl extends Base
     protected function request($url, $options = array())
     {
         if (!function_exists('curl_init')) {
-            throw new \Exception('Curl not supported, use other http transport');
+            throw new OpauthException('Curl not supported, use other http transport');
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -43,7 +44,7 @@ class Curl extends Base
         $errno = curl_errno($ch);
         if ($errno !== 0) {
             $msg = curl_error($ch);
-            throw new \Exception($msg);
+            throw new OpauthException($msg);
         }
         curl_close($ch);
         list($headers, $content) = explode("\r\n\r\n", $content, 2);

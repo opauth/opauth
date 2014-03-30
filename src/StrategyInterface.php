@@ -18,15 +18,15 @@ interface StrategyInterface
 {
 
     /**
-     * Handles the initial Oauth request
+     * Handles initial authentication request
      *
      */
     public function request();
 
     /**
-     * Handles the callback from Oauth
+     * Handles callback from provider
      *
-     * @return Response The Opauth Response object
+     * @return Response Opauth Response object
      */
     public function callback();
 }

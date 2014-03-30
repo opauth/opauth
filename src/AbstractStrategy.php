@@ -174,7 +174,7 @@ abstract class AbstractStrategy implements StrategyInterface
      *
      * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
      *
-     * @param string $raw Raw response from Oauth provider
+     * @param string $raw Raw response from provider
      * @param array $error Data on error to be sent back along with the callback
      *    $error = array(
      *        'code'        // Error code, can be int (HTTP status) or string (eg. access_denied)

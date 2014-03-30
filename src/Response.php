@@ -48,7 +48,7 @@ class Response implements ArrayAccess
     public $name;
 
     /**
-     * Oauth credentials
+     * User credentials
      *
      * @var array
      */

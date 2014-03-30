@@ -174,7 +174,7 @@ abstract class AbstractStrategy implements StrategyInterface
      *
      * More info: https://github.com/uzyn/opauth/wiki/Auth-response
      *
-     * @param string $raw Raw response from Oauth provider
+     * @param string $raw Raw response from provider
      * @return Response
      */
     protected function response($raw)

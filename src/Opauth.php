@@ -53,8 +53,7 @@ class Opauth
     protected $config = array(
         'http_transport' => "Opauth\\Opauth\\Transport\\Curl",
         'callback' => 'callback',
-        'path' => '/auth/',
-        'strategyDir' => null
+        'path' => '/auth/'
     );
 
     /**

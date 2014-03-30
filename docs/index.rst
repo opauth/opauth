@@ -20,6 +20,7 @@ Contents:
    getting-started
    strategies
    contribute
+   v1-improvements
 
 Indices and tables
 ==================

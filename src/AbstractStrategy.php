@@ -172,24 +172,29 @@ abstract class AbstractStrategy implements StrategyInterface
     /**
      * Response callback
      *
-     * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
+     * More info: https://github.com/uzyn/opauth/wiki/Auth-response
      *
      * @param string $raw Raw response from provider
-     * @param array $error Data on error to be sent back along with the callback
-     *    $error = array(
-     *        'code'        // Error code, can be int (HTTP status) or string (eg. access_denied)
-     *        'message'    // User-friendly error message
-     *    )
      * @return Response
      */
-    protected function response($raw, $error = array())
+    protected function response($raw)
     {
         $response = new Response($this->strategy['provider'], $raw);
         $response->setMap($this->responseMap);
-        if ($error) {
-            $response->setError($error);
-        }
         return $response;
+    }
+
+    /**
+     * Throws OpauthException from strategy
+     *
+     * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
+     *
+     * @param string $message User-friendly error message (eg. User denied access.)
+     * @param string $code Error code (eg. access_denied)
+     * @param mixed $raw Raw data to help in debug, usually raw HTTP response from provider
+     */
+    protected function error($message, $code, $raw = null) {
+        throw new OpauthException($message, $code, $this->strategy['provider'], $raw);
     }
 
     /**
@@ -229,7 +234,7 @@ abstract class AbstractStrategy implements StrategyInterface
     {
         foreach ($this->expects as $key) {
             if (!$this->hasKey($key)) {
-                throw new \Exception(get_class($this) . " config parameter for \"$key\" expected.");
+                return $this->error(get_class($this) . " config parameter for \"$key\" expected.", 'missing_parameter', $this);
             }
         }
         return true;

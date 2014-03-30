@@ -59,7 +59,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage No strategy found in url
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::run
      */
     public function testRunNoStrategy()
@@ -71,7 +71,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage No strategies configured
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::loadStrategy
      */
     public function testLoadStrategyWithoutStrategies()
@@ -82,7 +82,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage Unsupported or undefined Opauth strategy - notsample
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::loadStrategy
      */
     public function testLoadStrategyWrongAuthPath()
@@ -101,8 +101,8 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Error from strategy
+     * @expectedException Opauth\Opauth\OpauthException
+     * @expectedExceptionMessage Error from strategy during request
      * @covers Opauth\Opauth\Opauth::request
      */
     public function testRequestStrategyResponseError()
@@ -113,29 +113,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
                 'Sample' => array(
                     'sample_id' => 1234,
                     'sample_secret' => 'fortytwo',
-                    'return' => true,
-                    '_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
-                )
-            )
-        );
-        $Opauth = new Opauth($config);
-        $Opauth->request();
-    }
-
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Strategy request should redirect or return Response with error
-     * @covers Opauth\Opauth\Opauth::request
-     */
-    public function testRequestStrategyResponseNotRedirecting()
-    {
-        $_SERVER['REQUEST_URI'] = '/auth/sample';
-        $config = array(
-            'Strategy' => array(
-                'Sample' => array(
-                    'sample_id' => 1234,
-                    'sample_secret' => 'fortytwo',
-                    'return' => false,
+                    'force_error' => true,
                     '_name' => 'Opauth\\Opauth\\Tests\\Strategy\\Sample'
                 )
             )
@@ -147,7 +125,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedExceptionMessage Invalid response, missing required parameters
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::callback
      */
     public function testCallbackInvalidResponse()
@@ -169,7 +147,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     /**
      *
      * @expectedExceptionMessage Invalid callback url element: wrongcallback
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @covers Opauth\Opauth\Opauth::run
      */
     public function testRunCallbackWrongCallback()
@@ -226,7 +204,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Opauth\Opauth\OpauthException
      * @expectedExceptionMessage No strategies found
      * @covers Opauth\Opauth\Opauth::buildStrategies
      */

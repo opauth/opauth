@@ -50,10 +50,10 @@ class Sample extends AbstractStrategy
      */
     public function request()
     {
-        if (!$this->strategy['return']) {
-            return 'wrong';
+        if ($this->strategy['force_error']) {
+            return $this->error('Error from strategy during request', 'strategy_error_request', 'raw');
         }
-        return $this->response('raw', array('message' => 'Error from strategy'));
+        return 'requested';
     }
 
     /**
@@ -66,9 +66,9 @@ class Sample extends AbstractStrategy
         return $response;
     }
 
-    public function response($raw, $error = array())
+    public function response($raw)
     {
-        return parent::response($raw, $error);
+        return parent::response($raw);
     }
 
     /**

@@ -9,8 +9,6 @@
  */
 namespace Opauth\Opauth;
 
-use Exception;
-
 /**
  * Opauth
  * Multi-provider authentication framework for PHP
@@ -101,7 +99,7 @@ class Opauth
     public function run()
     {
         if (!$this->requestParser->urlname()) {
-            throw new Exception('No strategy found in url');
+            throw new OpauthException('No strategy found in url');
         }
 
         $action = $this->requestParser->action();
@@ -111,23 +109,17 @@ class Opauth
         }
 
         if ($action !== $this->config('callback')) {
-            throw new Exception('Invalid callback url element: ' . $action);
+            throw new OpauthException('Invalid callback url element: ' . $action);
         }
         return $this->callback();
     }
 
     /**
-     * Run request method on current strategy
-     *
-     * @throws Exception
+     * Calls request method on current strategy
      */
     public function request()
     {
-        $this->response = $this->getStrategy()->request();
-        if (!$this->response instanceof Response || !$this->response->isError()) {
-            throw new Exception('Strategy request should redirect or return Response with error');
-        }
-        throw new Exception($this->response->errorMessage());
+        $this->getStrategy()->request();
     }
 
     /**
@@ -140,14 +132,11 @@ class Opauth
     {
         $this->response = $this->getStrategy()->callback();
         if (!$this->response instanceof Response) {
-            throw new Exception('Response should be instance of Opauth\\Opauth\\Response');
-        }
-        if ($this->response->isError()) {
-            throw new Exception($this->response->errorMessage());
+            throw new OpauthException('Response should be instance of Opauth\\Opauth\\Response');
         }
         $this->response->map();
         if (!$this->response->isValid()) {
-            throw new Exception('Invalid response, missing required parameters');
+            throw new OpauthException('Invalid response, missing required parameters');
         }
         return $this->response;
     }
@@ -170,12 +159,12 @@ class Opauth
      *
      * @param array $strategies Array of strategies and their settings
      * @return true
-     * @throws Exception
+     * @throws OpauthException
      */
     public function buildStrategies($strategies)
     {
         if (!$strategies || !is_array($strategies)) {
-            throw new Exception('No strategies found');
+            throw new OpauthException('No strategies found');
         }
 
         foreach ($strategies as $name => $settings) {
@@ -241,27 +230,27 @@ class Opauth
     /**
      * Loads strategy based on url if not manually set
      *
-     * @throws Exception
+     * @throws OpauthException
      */
     protected function loadStrategy()
     {
         if (!$this->strategies) {
-            throw new Exception('No strategies configured');
+            throw new OpauthException('No strategies configured');
         }
 
         $urlname = $this->requestParser->urlname();
         if (!array_key_exists($urlname, $this->strategies)) {
-            throw new Exception('Unsupported or undefined Opauth strategy - ' . $urlname);
+            throw new OpauthException('Unsupported or undefined Opauth strategy - ' . $urlname);
         }
 
         $settings = $this->strategies[$urlname];
         if (!$settings['_enabled']) {
-            throw new Exception('This strategy is not enabled');
+            throw new OpauthException('This strategy is not enabled');
         }
         $classname = $settings['_name'];
 
         if (!class_exists($classname, true)) {
-            throw new Exception(sprintf('Strategy class %s not found', $classname));
+            throw new OpauthException(sprintf('Strategy class %s not found', $classname));
         }
 
         $callbackUrl = $this->requestParser->providerUrl() . '/' . $this->config('callback');

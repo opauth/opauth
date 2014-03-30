@@ -10,6 +10,7 @@
 namespace Opauth\Opauth\Request;
 
 use Opauth\Opauth\ParserInterface;
+use Opauth\Opauth\OpauthException;
 
 /**
  * Opauth Request Parser
@@ -59,7 +60,7 @@ class Parser implements ParserInterface
     protected function parseUri()
     {
         if (strpos($_SERVER['REQUEST_URI'], $this->path) === false) {
-            throw new \Exception('Not an Opauth request, path is not in uri');
+            throw new OpauthException('Not an Opauth request, path is not in uri');
         }
         $request = substr($_SERVER['REQUEST_URI'], strlen($this->path) - 1);
 

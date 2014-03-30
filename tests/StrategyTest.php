@@ -78,10 +78,5 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->Strategy->response('rawdata');
         $this->assertInstanceof('Opauth\\Opauth\\Response', $result);
-        $this->assertFalse($result->isError());
-
-        $result = $this->Strategy->response('rawdata', array('code' => 12, 'message' => 'errormessage'));
-        $this->assertInstanceof('Opauth\\Opauth\\Response', $result);
-        $this->assertTrue($result->isError());
     }
 }

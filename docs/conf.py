@@ -87,6 +87,8 @@ exclude_patterns = ['_build']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
+highlight_language = 'phpinline'
+
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
@@ -256,3 +258,9 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+from sphinx.highlighting import lexers
+from pygments.lexers.web import PhpLexer
+
+lexers['phpinline'] = PhpLexer(startinline=True)

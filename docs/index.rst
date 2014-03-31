@@ -22,6 +22,7 @@ Contents:
    contribute
    v1-improvements
    upgrade-guide
+   support
 
 Indices and tables
 ==================

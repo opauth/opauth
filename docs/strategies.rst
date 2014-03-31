@@ -1,7 +1,7 @@
 Available strategies
 ====================
 
-The current version of Opauth has strategies for the following strategies
+The current version of Opauth has strategies for the following providers
 
 ==============  =============== ==================
 Provider        Maintainer      Composer require

@@ -16,7 +16,12 @@ namespace Opauth\Opauth;
  */
 interface StrategyInterface
 {
-
+    /**
+     * @param array $config
+     * @param string $callbackUrl
+     * @param TransportInterface $transport
+     */
+    public function __construct($config, $callbackUrl, TransportInterface $transport);
     /**
      * Handles initial authentication request
      *

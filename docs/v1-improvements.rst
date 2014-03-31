@@ -13,6 +13,10 @@ Cleaner code base and API
 Opauth is now more extensible than ever. Do not like how our parser works? You can easily extend or override it. The same
 can be said for many other components on Opauth.
 
+Response object
+---------------
+Opauth now returns a more flexible and consistent Response object
+
 Full PSR compliance
 -------------------
 Opauth is now fully compliant with the following PHP Coding Standards by PHP Framework Interop Group (PHP-FIG):

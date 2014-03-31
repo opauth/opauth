@@ -18,10 +18,11 @@ Contents:
    :maxdepth: 2
 
    getting-started
+   response
    strategies
    contribute
    v1-improvements
-   upgrade-guide
+   migration-guide
    support
 
 Indices and tables

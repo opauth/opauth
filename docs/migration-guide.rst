@@ -1,27 +1,55 @@
-Upgrade guide
-=============
+Migration guide
+===============
 
-Upgrading your application
+Migrating your application
 --------------------------
 
-Upgrading strategies
+To upgrade your application (or framework specific plugin) from v0.4 to v1.0 you need to go through the following changes:
+
+- Update the ``composer.json`` file of your application, if you had any, else you need to create the file in the root
+  of your application. The ``composer.json`` should look something like::
+
+    "require": {
+        "opauth/opauth": "1.0.*@dev",
+        "opauth/facebook": "1.0.*@dev",
+        "opauth/twitter": "1.0.*@dev"
+    },
+
+  You need to point the versions for Opauth and the strategies you use to the 1.0 series.
+
+- Run the following command: ``composer update``, to get the correct versions installed into the ``vendor`` directory.
+
+- Add ``require 'vendor/autoload.php';`` in your application to get composers autoloading, if you don't already have this.
+  Make sure you have a recent composer version, which includes PSR4 support. If you run into errors, run: ``composer self-update``.
+
+- You can keep the existing Opauth configuration array that you were using in v0.4
+
+- In the file where you create an Opauth instance, add the following line at the top::
+
+    use Opauth\Opauth\Opauth;
+
+- Update your code to use the new :doc:`Response</response>` object
+
+- Benefit!
+
+Migrating strategies
 --------------------
 
-For this example we show how to convert ``class ExampleStrategy`` from ``0.4`` to ``1.0``
+For this example we show how to convert ``class ExampleStrategy`` from v0.4 to v1.0
 
 To upgrade existing strategies to Opauth v1 you need to take the following steps:
 
 - Update ``require`` and ``autoload`` in the strategy ``composer.json`` file::
 
-   "require": {
-       "php": ">=5.3.0",
-       "opauth/opauth": "1.0.*@dev",
-       },
-   "autoload": {
-       "psr-4": {
-           "Opauth\\Example\\Strategy\\": "src"
-       }
-   }
+    "require": {
+        "php": ">=5.3.0",
+        "opauth/opauth": "1.0.*@dev",
+    },
+    "autoload": {
+        "psr-4": {
+            "Opauth\\Example\\Strategy\\": "src"
+        }
+    }
 
 - Create ``src/`` directory in the root of the project
 
@@ -29,52 +57,51 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 
 - Change the class declaration from::
 
-   class ExampleStrategy extends OpauthStrategy {
+    class ExampleStrategy extends OpauthStrategy {
 
   to::
 
-   class Example extends AbstractStrategy {
+    class Example extends AbstractStrategy {
 
-  If you would choose not to extend AbstractStrategy, your strategy MUST implement StrategyInterface:
+  If you would choose not to extend AbstractStrategy, your strategy MUST implement StrategyInterface::
 
-  .. code-block:: phpinline
+    interface StrategyInterface
+    {
+        /**
+         * @param array $config
+         * @param string $callbackUrl
+         * @param TransportInterface $transport
+         */
+        public function __construct($config, $callbackUrl, TransportInterface $transport);
 
-        interface StrategyInterface
-        {
-           /**
-            * @param array $config
-            * @param string $callbackUrl
-            * @param TransportInterface $transport
-            */
-           public function __construct($config, $callbackUrl, TransportInterface $transport);
-           /**
-            * Handles initial authentication request
-            *
-            */
-           public function request();
+        /**
+         * Handles initial authentication request
+         *
+         */
+        public function request();
 
-           /**
-            * Handles callback from provider
-            *
-            * @return Response Opauth Response object
-            */
-           public function callback();
-        }
+        /**
+         * Handles callback from provider
+         *
+         * @return Response Opauth Response object
+         */
+        public function callback();
+    }
 
 - Add the following lines on the top of ``Example.php``::
 
-   namespace Opauth\Example\Strategy;
+    namespace Opauth\Example\Strategy;
 
-   use Opauth\Opauth\AbstractStrategy;
+    use Opauth\Opauth\AbstractStrategy;
 
 - If your strategy overrides the constructor, you need to modify its signature to::
 
-   public function __construct($config, $callbackUrl, TransportInterface $transport)
-   {
-       parent::__construct($config, $callbackUrl, $transport);
-   }
+    public function __construct($config, $callbackUrl, TransportInterface $transport)
+    {
+        parent::__construct($config, $callbackUrl, $transport);
+    }
 
-- Next you need make sure your strategy has both ``request()`` and ``callback()`` methods.
+- Next you need to make sure your strategy has both ``request()`` and ``callback()`` methods.
 
   The ``request()`` method handles
   the initial authentication request and MUST redirect or throw an ``OpauthException``. For error handling ``AbstractStrategy``
@@ -91,25 +118,25 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 
   You can do this either using the response map::
 
-   //in your ``callback()`` method
-   $response = $this->response($credentials);
-   $responseMap = array(
-       'uid' => 'id',
-       'name' => 'name',
-       'info.name' => 'name',
-       'info.nickname' => 'screen_name'
-   );
-   $response->setMap($responseMap);
-   return $response;
+    //in your ``callback()`` method
+    $response = $this->response($credentials);
+    $responseMap = array(
+        'uid' => 'id',
+        'name' => 'name',
+        'info.name' => 'name',
+        'info.nickname' => 'screen_name'
+    );
+    $response->setMap($responseMap);
+    return $response;
 
   or directly assiging values to the attributes themselves::
 
-   //in your ``callback()`` method
-   $response->credentials = array(
-       'token' => $results['oauth_token'],
-       'secret' => $results['oauth_token_secret']
-   );
-   return $response;
+    //in your ``callback()`` method
+    $response->credentials = array(
+        'token' => $results['oauth_token'],
+        'secret' => $results['oauth_token_secret']
+    );
+    return $response;
 
   Opauth will use the response map to set values from the raw response to the ``Response`` class attributes.
   This replaces the multiple calls to ``OpauthStrategy::mapProfile($person, 'username._content', 'info.nickname');`` in version 0.4.

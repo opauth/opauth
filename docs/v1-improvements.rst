@@ -6,7 +6,7 @@ The new release of Opauth has brought about the following changes and improvemen
 No more internal callback
 -------------------------
 Opauth no longer does another internal callback to pass data back to your app. Now it simply returns the response. With
-this change, security components and v0.x transport mechanisms have been dropped.
+this change, security components and v0.x transport mechanisms have been dropped, as they are no longer needed.
 
 Cleaner code base and API
 -------------------------
@@ -19,7 +19,7 @@ Opauth now returns a more flexible and consistent Response object
 
 Full PSR compliance
 -------------------
-Opauth is now fully compliant with the following PHP Coding Standards by PHP Framework Interop Group (PHP-FIG):
+Opauth is now fully compliant with the following PSR's by PHP Framework Interop Group (PHP-FIG):
 
 - `PSR-1 <http://www.php-fig.org/psr/psr-1/>`_
 - `PSR-2 <http://www.php-fig.org/psr/psr-2/>`_

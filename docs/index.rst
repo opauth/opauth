@@ -21,6 +21,7 @@ Contents:
    strategies
    contribute
    v1-improvements
+   upgrade-guide
 
 Indices and tables
 ==================

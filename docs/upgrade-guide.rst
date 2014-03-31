@@ -1,0 +1,121 @@
+Upgrade guide
+=============
+
+Upgrading your application
+--------------------------
+
+Upgrading strategies
+--------------------
+
+For this example we show how to convert ``class ExampleStrategy`` from ``0.4`` to ``1.0``
+
+To upgrade existing strategies to Opauth v1 you need to take the following steps:
+
+ - Update ``require`` and ``autoload`` in the strategy ``composer.json`` file::
+
+    "require": {
+        "php": ">=5.3.0",
+        "opauth/opauth": "1.0.*@dev",
+        },
+    "autoload": {
+        "psr-4": {
+            "Opauth\\Example\\Strategy\\": "src"
+        }
+    }
+
+ - Create ``src/`` directory in the root of the project
+
+ - Move ``ExampleStrategy.php`` to ``src/Example.php``
+
+ - Change the class declaration from::
+
+    class ExampleStrategy extends OpauthStrategy {
+
+   to::
+
+    class Example extends AbstractStrategy {
+
+   If you would choose not to extend AbstractStrategy, your strategy MUST implement StrategyInterface::
+
+    interface StrategyInterface
+    {
+        /**
+         * @param array $config
+         * @param string $callbackUrl
+         * @param TransportInterface $transport
+         */
+        public function __construct($config, $callbackUrl, TransportInterface $transport);
+        /**
+         * Handles initial authentication request
+         *
+         */
+        public function request();
+
+        /**
+         * Handles callback from provider
+         *
+         * @return Response Opauth Response object
+         */
+        public function callback();
+    }
+
+ - Add the following lines on the top of ``Example.php``::
+
+    namespace Opauth\Example\Strategy;
+
+    use Opauth\Opauth\AbstractStrategy;
+
+ - If your strategy overrides the constructor, you need to modify its signature to::
+
+    public function __construct($config, $callbackUrl, TransportInterface $transport)
+    {
+        parent::__construct($config, $callbackUrl, $transport);
+    }
+
+ - Next you need make sure your strategy has both ``request()`` and ``callback()`` methods.
+
+   The ``request()`` method handles
+   the initial authentication request and MUST redirect or throw an ``OpauthException``. For error handling ``AbstractStrategy``
+   has a convenience method ``error($message, $code, $raw = null)`` which will throw the exception.
+
+   The ``callback()`` method handles the callback from the provider and MUST return a ``Response`` object or throw ``OpauthException``
+   The ``AbstractStrategy`` also has a convenience method ``response($raw)`` for returning response objects.
+
+ - If your strategy needs to read/write session data, please use the ``AbstractStrategy::sessionData($data = null)`` getter/setter method.
+
+ - To obtain the callback url you can use ``AbstractStrategy::callbackUrl()``
+
+ - ``Response`` attributes ``$uid``, ``$name`` and ``$credentials`` MUST be set.
+
+   You can do this either using the response map::
+
+    //in your ``callback()`` method
+    $response = $this->response($credentials);
+    $responseMap = array(
+        'uid' => 'id',
+        'name' => 'name',
+        'info.name' => 'name',
+        'info.nickname' => 'screen_name'
+    );
+    $response->setMap($responseMap);
+    return $response;
+
+   or directly assiging values to the attributes themselves::
+
+    //in your ``callback()`` method
+    $response->credentials = array(
+        'token' => $results['oauth_token'],
+        'secret' => $results['oauth_token_secret']
+    );
+    return $response;
+
+   Opauth will use the response map to set values from the raw response to the ``Response`` class attributes.
+   This replaces the multiple calls to ``OpauthStrategy::mapProfile($person, 'username._content', 'info.nickname');`` in version 0.4.
+
+   The argument for ``AbstractStrategy::setMap($map)`` should be an array, with keys pointing to dotnotated paths to the
+   ``Response`` attribute names and values containing the path to the raw data value.
+
+ - When you are done with migrating your strategy, please submit it to packagist, as opauth/example and let us know, so
+   we can update the list of strategies for version 1.0
+
+If you need help with upgrading, please contact us.

@@ -35,29 +35,31 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 
    class Example extends AbstractStrategy {
 
-  If you would choose not to extend AbstractStrategy, your strategy MUST implement StrategyInterface::
+  If you would choose not to extend AbstractStrategy, your strategy MUST implement StrategyInterface:
 
-   interface StrategyInterface
-   {
-       /**
-        * @param array $config
-        * @param string $callbackUrl
-        * @param TransportInterface $transport
-        */
-       public function __construct($config, $callbackUrl, TransportInterface $transport);
-       /**
-        * Handles initial authentication request
-        *
-        */
-       public function request();
+  .. code-block:: phpinline
 
-       /**
-        * Handles callback from provider
-        *
-        * @return Response Opauth Response object
-        */
-       public function callback();
-   }
+        interface StrategyInterface
+        {
+           /**
+            * @param array $config
+            * @param string $callbackUrl
+            * @param TransportInterface $transport
+            */
+           public function __construct($config, $callbackUrl, TransportInterface $transport);
+           /**
+            * Handles initial authentication request
+            *
+            */
+           public function request();
+
+           /**
+            * Handles callback from provider
+            *
+            * @return Response Opauth Response object
+            */
+           public function callback();
+        }
 
 - Add the following lines on the top of ``Example.php``::
 

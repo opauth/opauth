@@ -28,4 +28,4 @@ Instatiation of Opauth class expects a configuration array as input.
 
 - ``callback``
     - Default: ``callback``
-    - Strategy method that returns a Response object.
+    - This forms the final section of the callback URL from authentication provider, ie. ``http://example.org/auth/strategy/callback``

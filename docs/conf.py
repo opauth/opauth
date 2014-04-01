@@ -199,7 +199,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'Opauth.tex', u'Opauth Documentation',
-   u'U-Zyn Chua', 'manual'),
+   u'U-Zyn Chua, Marc Ypes', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -229,7 +229,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'opauth', u'Opauth Documentation',
-     [u'U-Zyn Chua'], 1)
+     [u'U-Zyn Chua, Marc Ypes'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -243,7 +243,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'Opauth', u'Opauth Documentation',
-   u'U-Zyn Chua', 'Opauth', 'One line description of project.',
+   u'U-Zyn Chua, Marc Ypes', 'Opauth', 'Multi-provider authentication framework for PHP',
    'Miscellaneous'),
 ]
 

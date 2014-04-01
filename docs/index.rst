@@ -18,9 +18,12 @@ Contents:
    :maxdepth: 2
 
    getting-started
+   configurations
    response
    strategies
    contribute
+   extend
+   opauth-on-frameworks
    v1-improvements
    migration-guide
    support

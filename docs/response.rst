@@ -1,4 +1,4 @@
 Response
 ========
 
-Opauth now return a ``Response`` object.
+Opauth now returns a ``Response`` object.

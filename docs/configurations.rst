@@ -19,9 +19,7 @@ Instatiation of Opauth class expects a configuration array as input.
     - Default: ``/``
     - Path where Opauth is accessed.
     - Begins and ends with ``/``
-    - Examples:
-        - if Opauth is reached at ``http://example.org/auth/``, path should be set to ``/auth/``
-        - if Opauth is reached at ``http://auth.example.org/``, path should be set to ``/``
+    - For example, if Opauth is reached at ``http://example.org/auth/``, ``path`` should be set to ``/auth/``; if Opauth is reached at ``http://auth.example.org/``, ``path`` should be set to ``/``
 
 - ``http_transport``
     - Default: ``Opauth\\Opauth\\Transport\\Curl`` for cURL (requires ``php_curl``)

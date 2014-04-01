@@ -23,7 +23,6 @@ Contents:
    strategies
    contribute
    extend
-   opauth-on-frameworks
    v1-improvements
    migration-guide
    support

@@ -6,11 +6,15 @@
 Welcome to Opauth's documentation!
 ==================================
 
-Opauth is a multi-provider authentication framework for PHP, inspired by `OmniAuth for Ruby <https://github.com/intridea/omniauth>`_
+Opauth is a multi-provider authentication framework for PHP, inspired by
+`OmniAuth for Ruby <https://github.com/intridea/omniauth>`_
 
 Opauth enables PHP applications to do *user authentication* with ease, by providing a standardized method for PHP
 applications to interface with authentication providers.
 
+For many authentication providers we have :doc:`strategies <strategies>`. A strategy is the adapter specific to a certain
+authentication provider. If Opauth does not have a strategy for your favorite provider, it's easy to
+:ref:`create <create>` one.
 
 Contents:
 
@@ -21,10 +25,10 @@ Contents:
    configurations
    response
    strategies
-   contribute
    extend
    v1-improvements
    migration-guide
+   contribute
    support
 
 Indices and tables

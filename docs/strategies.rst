@@ -13,3 +13,12 @@ GitHub          Opauth          opauth/github
 LinkedIn        Opauth          opauth/linkedin
 Live            Opauth          opauth/live
 ==============  =============== ==================
+
+.. _create:
+
+Create a strategy
+-----------------
+
+If there is no strategy listed for your favorite provider, it's easy to create one yourself.
+
+More info soon..

@@ -147,9 +147,11 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 - If your strategy uses tmhOauth library, please add it as composer required library, instead of adding it as gitmodule
   or including the code itself.
 
+For more information about creating 1.0 strategies please check the :ref:`create` section
+
 Now that you are done migrating your strategy we would like to ask you to take the following into account:
 
-- Opauth itself uses PSR2 coding standards. It is recommended to use a coding standard for your strategy. Ofcourse you
+- Opauth itself now uses PSR2 coding standards. It is recommended to choose a coding standard for your strategy. Ofcourse you
   are free not to use this or any other standard. Please at least mention which standard to be used, if any.
   You can easily check if your strategy matches your standard with php-codesniffer.
 

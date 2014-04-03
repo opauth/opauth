@@ -1,0 +1,111 @@
+<?php
+/**
+ * Opauth
+ * Multi-provider authentication framework for PHP
+ *
+ * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
+ * @link         http://opauth.org
+ * @license      MIT License
+ */
+namespace Opauth\Opauth\HttpClient;
+
+use GuzzleHttp\Client;
+use Opauth\Opauth\HttpClientInterface;
+
+/**
+ * Opauth Guzzle client
+ *
+ * Works with Guzzle version 4, which require minimum PHP version 5.4.2. If you use an older version you can use Guzzle
+ * adapter instead.
+ *
+ * Set 'http_client' => 'Opauth\\Opauth\\HttpClient\\GuzzleHttp' in your Opauth config array to use this adapter.
+ * Additionally your applications composer file should have in the require: "guzzlehttp/guzzle": "~4.0"
+ *
+ * Guzzle client for Guzzle 4
+ *
+ */
+class GuzzleHttp implements HttpClientInterface
+{
+
+    /**
+     * Response headers
+     *
+     * @var string
+     */
+    public $responseHeaders;
+
+    /**
+     * User agent
+     *
+     * @var string
+     */
+    public $userAgent = 'Opauth';
+
+    /**
+     * Client redirect: This function builds the full HTTP URL with parameters and redirects via Location header.
+     *
+     * @param string $url Destination URL
+     * @param array $data Data
+     * @param boolean $exit Whether to call exit() right after redirection
+     */
+    public function redirect($url, $data = array(), $exit = true)
+    {
+        if ($data) {
+            $url .= '?' . http_build_query($data, '', '&');
+        }
+        header("Location: $url");
+        if ($exit) {
+            exit();
+        }
+    }
+
+    /**
+     * Makes a GET request
+     *
+     * @param string $url Destination URL
+     * @param array $data Data to be submitted via GET
+     * @return string Content resulted from request, without headers
+     */
+    public function get($url, $data = array())
+    {
+        $client = $this->getClient($url);
+        $response = $client->get($url, array('query' => $data));
+        $this->responseHeaders = $response->getHeaders();
+        return $response->getBody();
+    }
+
+    /**
+     * Makes a POST request
+     *
+     * @param string $url Destination URL
+     * @param array $data Data to be POSTed
+     * @return string Content resulted from request, without headers
+     */
+    public function post($url, $data)
+    {
+        $client = $this->getClient($url);
+        $response = $client->post($url, array('body' => $data));
+        $this->responseHeaders = $response->getHeaders();
+        return $response->getBody();
+    }
+
+    /**
+     * Get a Guzzle Client instance
+     *
+     * @param string $url Base url for request
+     * @return Client
+     */
+    protected function getClient($url)
+    {
+        $config = array(
+            'base_url' => $url,
+            'defaults' => array(
+                'headers' => array(
+                    'User-Agent' => $this->userAgent
+                )
+            )
+        );
+        $client = new Client($config);
+        return $client;
+    }
+}

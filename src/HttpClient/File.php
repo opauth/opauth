@@ -7,13 +7,13 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Opauth\Transport;
+namespace Opauth\Opauth\HttpClient;
 
 use Opauth\Opauth\OpauthException;
 
 /**
- * Opauth Curl
- * File transport class, uses file_get_contents for environments where curl is not available
+ * Opauth File
+ * File client class, uses file_get_contents for environments where curl is not available
  *
  */
 class File extends Base
@@ -30,7 +30,7 @@ class File extends Base
     protected function request($url, $options = array())
     {
         if (!ini_get('allow_url_fopen')) {
-            throw new OpauthException('file_get_contents not allowed, try using other http_client_method such as curl');
+            throw new OpauthException('file_get_contents not allowed, try using other http_client such as curl');
         }
         $context = null;
         if (!empty($options)) {

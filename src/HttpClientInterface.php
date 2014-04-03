@@ -10,11 +10,11 @@
 namespace Opauth\Opauth;
 
 /**
- * Transport Interface
- * Http transport adapters should implement this
+ * Http client Interface
+ * Http client adapters should implement this
  *
  */
-interface TransportInterface
+interface HttpClientInterface
 {
 
     /**

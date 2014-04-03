@@ -55,9 +55,9 @@ abstract class AbstractStrategy implements StrategyInterface
     protected $callbackUrl;
 
     /**
-     * Http client transport class
+     * Http client class
      *
-     * @var TransportInterface
+     * @var HttpClientInterface
      */
     protected $http;
 
@@ -66,13 +66,13 @@ abstract class AbstractStrategy implements StrategyInterface
      *
      * @param array $config Strategy-specific configuration
      * @param string $callbackUrl Absolute url which is called on receiving the callback
-     * @param TransportInterface $transport
+     * @param HttpClientInterface $client
      */
-    public function __construct($config, $callbackUrl, TransportInterface $transport)
+    public function __construct($config, $callbackUrl, HttpClientInterface $client)
     {
         $this->setUp($config);
         $this->callbackUrl($callbackUrl);
-        $this->setTransport($transport);
+        $this->setClient($client);
 
         $this->responseMap = $this->addParams(array('responseMap'), $this->responseMap);
 
@@ -108,21 +108,21 @@ abstract class AbstractStrategy implements StrategyInterface
     }
 
     /**
-     * Set transport class
+     * Set HttpClient class
      *
-     * @param TransportInterface $transport
+     * @param HttpClientInterface $client
      */
-    public function setTransport(TransportInterface $transport)
+    public function setClient(HttpClientInterface $client)
     {
-        $this->http = $transport;
+        $this->http = $client;
     }
 
     /**
-     * Get transport class
+     * Get HttpClient class
      *
-     * @return TransportInterface $transport
+     * @return HttpClientInterface
      */
-    public function getTransport()
+    public function getClient()
     {
         return $this->http;
     }
@@ -275,7 +275,7 @@ abstract class AbstractStrategy implements StrategyInterface
         foreach ($_arr as $key => $val) {
             $val = (is_array($val) || is_object($val)) ? self::recursiveGetObjectVars($val) : $val;
 
-            // Transform boolean into 1 or 0 to make it safe across all Opauth HTTP transports
+            // Transform boolean into 1 or 0 to make it safe across all Opauth HTTP requests
             if (is_bool($val)) {
                 $val = ($val) ? 1 : 0;
             }

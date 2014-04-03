@@ -19,9 +19,9 @@ interface StrategyInterface
     /**
      * @param array $config
      * @param string $callbackUrl
-     * @param TransportInterface $transport
+     * @param HttpClientInterface $client
      */
-    public function __construct($config, $callbackUrl, TransportInterface $transport);
+    public function __construct($config, $callbackUrl, HttpClientInterface $client);
 
     /**
      * Handles initial authentication request

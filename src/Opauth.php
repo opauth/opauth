@@ -51,7 +51,7 @@ class Opauth
      * @var array
      */
     protected $config = array(
-        'http_transport' => "Opauth\\Opauth\\Transport\\Curl",
+        'http_client' => "Opauth\\Opauth\\HttpClient\\Curl",
         'callback' => 'callback',
         'path' => '/auth/'
     );
@@ -254,7 +254,7 @@ class Opauth
         }
 
         $callbackUrl = $this->requestParser->providerUrl() . '/' . $this->config('callback');
-        $Transport = $this->config('http_transport');
-        $this->setStrategy(new $classname($settings, $callbackUrl, new $Transport));
+        $Client = $this->config('http_client');
+        $this->setStrategy(new $classname($settings, $callbackUrl, new $Client));
     }
 }

@@ -7,16 +7,16 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Opauth\Transport;
+namespace Opauth\Opauth\HttpClient;
 
-use Opauth\Opauth\TransportInterface;
+use Opauth\Opauth\HttpClientInterface;
 
 /**
  * Opauth Base client
- * Base class for built in Curl and File transport classes
+ * Base class for built in Curl and File client classes
  *
  */
-abstract class Base implements TransportInterface
+abstract class Base implements HttpClientInterface
 {
 
     /**

@@ -177,7 +177,7 @@ class OpauthTest extends \PHPUnit_Framework_TestCase
             'sample_secret' => 'fortytwo',
             'provider' => 'Sample',
         );
-        $mock = $this->getMock('Opauth\\Opauth\\TransportInterface');
+        $mock = $this->getMock('Opauth\\Opauth\\HttpClientInterface');
         $Opauth = new Opauth(array());
         $Strategy = new Sample($config, 'http://test.example.org/auth/sample/callback', $mock);
         $Strategy->testRaw = array('id' => 1, 'username' => 'sampling', 'creds' => 'credential array');

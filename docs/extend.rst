@@ -12,7 +12,7 @@ The following components of Opauth v1 is fully extensible:
 
 - HTTP Client
     - Opauth uses `Guzzle <http://guzzlephp.org/>`_ for HTTP client.
-    - Refer to ``TransportInterface.php`` for more details if you wish to use some other HTTP clients.
+    - Refer to ``HttpClientInterface.php`` for more details if you wish to use some other HTTP clients.
 
 - Strategy
     - Strategies are specific instructions for Opauth on how to handle 3rd-party provider's authentication steps, which can be hugely different from one to other.

@@ -7,13 +7,13 @@
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Opauth\Transport;
+namespace Opauth\Opauth\HttpClient;
 
 use Opauth\Opauth\OpauthException;
 
 /**
  * Opauth Curl
- * Curl transport class
+ * Curl client class
  *
  */
 class Curl extends Base
@@ -30,7 +30,7 @@ class Curl extends Base
     protected function request($url, $options = array())
     {
         if (!function_exists('curl_init')) {
-            throw new OpauthException('Curl not supported, use other http transport');
+            throw new OpauthException('Curl not supported, use other http_client in your config');
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

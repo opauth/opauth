@@ -70,9 +70,9 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
         /**
          * @param array $config
          * @param string $callbackUrl
-         * @param TransportInterface $transport
+         * @param HttpClientInterface $client
          */
-        public function __construct($config, $callbackUrl, TransportInterface $transport);
+        public function __construct($config, $callbackUrl, HttpClientInterface $client);
 
         /**
          * Handles initial authentication request
@@ -96,9 +96,9 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 
 - If your strategy overrides the constructor, you need to modify its signature to::
 
-    public function __construct($config, $callbackUrl, TransportInterface $transport)
+    public function __construct($config, $callbackUrl, HttpClientInterface $client)
     {
-        parent::__construct($config, $callbackUrl, $transport);
+        parent::__construct($config, $callbackUrl, $client);
     }
 
 - Next you need to make sure your strategy has both ``request()`` and ``callback()`` methods.

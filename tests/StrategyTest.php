@@ -33,8 +33,8 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
         );
         $Request = new Parser('/auth/');
         $callbackUrl = $Request->providerUrl() . '/callback';
-        $transport = $this->getMock('Opauth\\Opauth\\TransportInterface');
-        $this->Strategy = new Sample($config, $callbackUrl, $transport);
+        $client = $this->getMock('Opauth\\Opauth\\HttpClientInterface');
+        $this->Strategy = new Sample($config, $callbackUrl, $client);
     }
 
     public function tearDown()

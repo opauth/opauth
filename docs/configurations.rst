@@ -9,7 +9,7 @@ Instatiation of Opauth class expects a configuration array as input.
     require 'vendor/autoload.php';
     $config = array(
         'path' => '/auth/',
-        'http_transport' => "Opauth\\Opauth\\Transport\\Curl",
+        'http_client' => "Opauth\\Opauth\\HttpClient\\Curl",
         'callback' => 'callback'
     )
     $Opauth = new Opauth\Opauth\Opauth($config);
@@ -21,10 +21,10 @@ Instatiation of Opauth class expects a configuration array as input.
     - Begins and ends with ``/``
     - For example, if Opauth is reached at ``http://example.org/auth/``, ``path`` should be set to ``/auth/``; if Opauth is reached at ``http://auth.example.org/``, ``path`` should be set to ``/``
 
-- ``http_transport``
-    - Default: ``Opauth\\Opauth\\Transport\\Curl`` for cURL (requires ``php_curl``)
+- ``http_client``
+    - Default: ``Opauth\\Opauth\\HttpClient\\Curl`` for cURL (requires ``php_curl``)
     - Client to be used by Opauth for making HTTP calls to authentication providers.
-    - Opauth also ships with File transport, for making HTTP calls via ``file_get_contents()``. To use File, set ``http_transport`` to ``Opauth\\Opauth\\Transport\\File``
+    - Opauth also ships with File HttpClient, for making HTTP calls via ``file_get_contents()``. To use File, set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\File``
 
 - ``callback``
     - Default: ``callback``

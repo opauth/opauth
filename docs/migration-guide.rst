@@ -20,9 +20,11 @@ To upgrade your application (or framework specific plugin) from v0.4 to v1.0 you
 - Run the following command: ``composer update``, to get the correct versions installed into the ``vendor`` directory.
 
 - Add ``require 'vendor/autoload.php';`` in your application to get composers autoloading, if you don't already have this.
-  Make sure you have a recent composer version, which includes PSR4 support. If you run into errors, run: ``composer self-update``.
+  Make sure you have a recent composer version, which includes PSR4 support. If you run into errors, run:
+  ``composer self-update``.
 
-- You can keep the existing Opauth configuration array that you were using in v0.4
+- You can keep the existing Opauth configuration array that you were using in v0.4, although many configuration options
+  have been removed. Please check the :doc:`configurations </configurations>` section to see the current options.
 
 - In the file where you create an Opauth instance, add the following line at the top::
 
@@ -65,28 +67,7 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 
   If you would choose not to extend AbstractStrategy, your strategy MUST implement StrategyInterface::
 
-    interface StrategyInterface
-    {
-        /**
-         * @param array $config
-         * @param string $callbackUrl
-         * @param HttpClientInterface $client
-         */
-        public function __construct($config, $callbackUrl, HttpClientInterface $client);
-
-        /**
-         * Handles initial authentication request
-         *
-         */
-        public function request();
-
-        /**
-         * Handles callback from provider
-         *
-         * @return Response Opauth Response object
-         */
-        public function callback();
-    }
+    class Example implements StrategyInterface {
 
 - Add the following lines on the top of ``Example.php``::
 
@@ -104,13 +85,19 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 - Next you need to make sure your strategy has both ``request()`` and ``callback()`` methods.
 
   The ``request()`` method handles
-  the initial authentication request and MUST redirect or throw an ``OpauthException``. For error handling ``AbstractStrategy``
-  has a convenience method ``error($message, $code, $raw = null)`` which will throw the exception.
+  the initial authentication request and MUST redirect or throw an ``OpauthException``. To redirect you can use
+  ``AbstractStrategy::redirect($url, $data = array(), $exit = true)``.
 
-  The ``callback()`` method handles the callback from the provider and MUST return a ``Response`` object or throw ``OpauthException``
+  The ``callback()`` method handles the callback from the provider and MUST return a ``Response`` object or throw
+  ``OpauthException``.
+
+  For error handling ``AbstractStrategy`` has a convenience method ``error($message, $code, $raw = null)`` which will
+  throw the exception.
+
   The ``AbstractStrategy`` also has a convenience method ``response($raw)`` for returning response objects.
 
-- If your strategy needs to read/write session data, please use the ``AbstractStrategy::sessionData($data = null)`` getter/setter method.
+- If your strategy needs to read/write session data, please use the ``AbstractStrategy::sessionData($data = null)``
+  getter/setter method.
 
 - To obtain the callback url you can use ``AbstractStrategy::callbackUrl()``
 
@@ -139,7 +126,8 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
     return $response;
 
   Opauth will use the response map to set values from the raw response to the ``Response`` class attributes.
-  This replaces the multiple calls to ``OpauthStrategy::mapProfile($person, 'username._content', 'info.nickname');`` in version 0.4.
+  This replaces the multiple calls to ``OpauthStrategy::mapProfile($person, 'username._content', 'info.nickname');`` in
+  version 0.4.
 
   The argument for ``AbstractStrategy::setMap($map)`` should be an array, with keys pointing to dotnotated paths to the
   ``Response`` attribute names and values containing the path to the raw data value.
@@ -151,11 +139,11 @@ For more information about creating 1.0 strategies please check the :ref:`create
 
 Now that you are done migrating your strategy we would like to ask you to take the following into account:
 
-- Opauth itself now uses PSR2 coding standards. It is recommended to choose a coding standard for your strategy. Ofcourse you
-  are free not to use this or any other standard. Please at least mention which standard to be used, if any.
+- Opauth itself now uses PSR2 coding standards. It is recommended to choose a coding standard for your strategy.
+  Ofcourse you are free not to use this or any other standard. Please at least mention which standard to be used, if any.
   You can easily check if your strategy matches your standard with php-codesniffer.
 
-  Just run from commandline: ``phpcs --standard=PSR2 --extensions=php ./src`` and fix any errors/warnings if there are any.
+  Just run from commandline: ``phpcs --standard=PSR2 --extensions=php src/`` and fix any errors/warnings if there are any.
 
   Using a standard helps readabilty for other developers to contribute.
 

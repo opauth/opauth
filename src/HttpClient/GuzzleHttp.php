@@ -95,6 +95,7 @@ class GuzzleHttp implements HttpClientInterface
      *
      * @param string $url Base url for request
      * @return Client
+     * @throws OpauthException
      */
     protected function getClient($url)
     {

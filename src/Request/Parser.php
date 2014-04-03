@@ -55,7 +55,7 @@ class Parser implements ParserInterface
     /**
      * Get strategy url_name and action form the request
      *
-     * @throws \Exception
+     * @throws OpauthException
      */
     protected function parseUri()
     {

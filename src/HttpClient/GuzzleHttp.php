@@ -10,6 +10,7 @@
 namespace Opauth\Opauth\HttpClient;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Opauth\Opauth\HttpClientInterface;
 use Opauth\Opauth\OpauthException;
 
@@ -66,11 +67,16 @@ class GuzzleHttp implements HttpClientInterface
      * @param string $url Destination URL
      * @param array $data Data to be submitted via GET
      * @return string Content resulted from request, without headers
+     * @throws OpauthException
      */
     public function get($url, $data = array())
     {
         $client = $this->getClient($url);
-        $response = $client->get($url, array('query' => $data));
+        try {
+            $response = $client->get($url, array('query' => $data));
+        } catch (TransferException $e) {
+            throw new OpauthException('[GuzzleHttp][TransferException]' . $e->getMessage());
+        }
         $this->responseHeaders = $response->getHeaders();
         return $response->getBody();
     }
@@ -81,11 +87,16 @@ class GuzzleHttp implements HttpClientInterface
      * @param string $url Destination URL
      * @param array $data Data to be POSTed
      * @return string Content resulted from request, without headers
+     * @throws OpauthException
      */
     public function post($url, $data)
     {
         $client = $this->getClient($url);
-        $response = $client->post($url, array('body' => $data));
+        try {
+            $response = $client->post($url, array('body' => $data));
+        } catch (TransferException $e) {
+            throw new OpauthException('[GuzzleHttp][TransferException]' . $e->getMessage());
+        }
         $this->responseHeaders = $response->getHeaders();
         return $response->getBody();
     }

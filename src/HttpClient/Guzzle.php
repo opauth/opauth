@@ -9,6 +9,7 @@
  */
 namespace Opauth\Opauth\HttpClient;
 
+use Guzzle\Common\Exception\GuzzleException;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Client;
 use Opauth\Opauth\HttpClientInterface;
@@ -111,10 +112,15 @@ class Guzzle implements HttpClientInterface
      *
      * @param RequestInterface $request
      * @return string Response body
+     * @throws OpauthException
      */
     protected function send(RequestInterface $request)
     {
-        $response = $request->send();
+        try {
+            $response = $request->send();
+        } catch (GuzzleException $e) {
+            throw new OpauthException('[Guzzle][GuzzleException]' . $e->getMessage());
+        }
         $this->responseHeaders = $response->getHeaderLines();
         return $response->getBody(true);
     }

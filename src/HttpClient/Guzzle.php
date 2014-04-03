@@ -12,6 +12,7 @@ namespace Opauth\Opauth\HttpClient;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Client;
 use Opauth\Opauth\HttpClientInterface;
+use Opauth\Opauth\OpauthException;
 
 /**
  * Opauth Guzzle client
@@ -96,6 +97,9 @@ class Guzzle implements HttpClientInterface
      */
     protected function getClient($url)
     {
+        if (!class_exists('Guzzle\\Http\\Client')) {
+            throw new OpauthException('Guzzle 3 not installed. Install or use other http_client');
+        }
         $client = new Client($url);
         $client->setUserAgent($this->userAgent);
         return $client;

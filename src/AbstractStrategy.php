@@ -172,8 +172,6 @@ abstract class AbstractStrategy implements StrategyInterface
     /**
      * Response callback
      *
-     * More info: https://github.com/uzyn/opauth/wiki/Auth-response
-     *
      * @param string $raw Raw response from provider
      * @return Response
      */
@@ -187,15 +185,32 @@ abstract class AbstractStrategy implements StrategyInterface
     /**
      * Throws OpauthException from strategy
      *
-     * More info: https://github.com/uzyn/opauth/wiki/Auth-response#wiki-error-response
-     *
      * @param string $message User-friendly error message (eg. User denied access.)
      * @param string $code Error code (eg. access_denied)
      * @param mixed $raw Raw data to help in debug, usually raw HTTP response from provider
+     * @throws OpauthException
      */
     protected function error($message, $code, $raw = null)
     {
         throw new OpauthException($message, $code, $this->strategy['provider'], $raw);
+    }
+
+    /**
+     * Builds the full HTTP URL with parameters and redirects via Location header.
+     *
+     * @param string $url Destination URL
+     * @param array $data Data
+     * @param boolean $exit Whether to call exit() right after redirection
+     */
+    public function redirect($url, $data = array(), $exit = true)
+    {
+        if ($data) {
+            $url .= '?' . http_build_query($data, '', '&');
+        }
+        header("Location: $url");
+        if ($exit) {
+            exit();
+        }
     }
 
     /**

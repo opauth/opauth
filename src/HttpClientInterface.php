@@ -11,22 +11,12 @@ namespace Opauth\Opauth;
 
 /**
  * Http client Interface
- * Http client adapters should implement this
+ *
+ * Http client adapters MUST implement this
  *
  */
 interface HttpClientInterface
 {
-
-    /**
-     * Redirect method
-     *
-     * @param string $url
-     * @param array $data
-     * @param boolean $exit
-     */
-
-    public function redirect($url, $data = array(), $exit = true);
-
     /**
      * Handles GET requests
      *

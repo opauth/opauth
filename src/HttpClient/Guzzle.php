@@ -45,24 +45,6 @@ class Guzzle implements HttpClientInterface
     public $userAgent = 'Opauth';
 
     /**
-     * Client redirect: This function builds the full HTTP URL with parameters and redirects via Location header.
-     *
-     * @param string $url Destination URL
-     * @param array $data Data
-     * @param boolean $exit Whether to call exit() right after redirection
-     */
-    public function redirect($url, $data = array(), $exit = true)
-    {
-        if ($data) {
-            $url .= '?' . http_build_query($data, '', '&');
-        }
-        header("Location: $url");
-        if ($exit) {
-            exit();
-        }
-    }
-
-    /**
      * Makes a GET request
      *
      * @param string $url Destination URL

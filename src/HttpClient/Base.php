@@ -43,24 +43,6 @@ abstract class Base implements HttpClientInterface
     abstract protected function request($url, $options = array());
 
     /**
-     * Client redirect: This function builds the full HTTP URL with parameters and redirects via Location header.
-     *
-     * @param string $url Destination URL
-     * @param array $data Data
-     * @param boolean $exit Whether to call exit() right after redirection
-     */
-    public function redirect($url, $data = array(), $exit = true)
-    {
-        if ($data) {
-            $url .= '?' . $this->buildQuery($data);
-        }
-        header("Location: $url");
-        if ($exit) {
-            exit();
-        }
-    }
-
-    /**
      * Basic HTTP GET request via request(), wrapper of file_get_contents/curl
      *
      * @param string $url Destination URL

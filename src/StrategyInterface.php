@@ -35,4 +35,13 @@ interface StrategyInterface
      * @return Response Opauth Response object
      */
     public function callback();
+
+    /**
+     * Builds the full HTTP URL with parameters and redirects via Location header.
+     *
+     * @param string $url Destination URL
+     * @param array $data Data
+     * @param boolean $exit Whether to call exit() right after redirection
+     */
+    public function redirect($url, $data = array(), $exit = true);
 }

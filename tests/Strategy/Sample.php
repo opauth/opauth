@@ -72,7 +72,7 @@ class Sample extends AbstractStrategy
     }
 
     /**
-     * overriding to change visbility to public
+     * overriding to change visibility to public
      */
     public function sessionData($data = null)
     {
@@ -80,7 +80,7 @@ class Sample extends AbstractStrategy
     }
 
     /**
-     * overriding to change visbility to public
+     * overriding to change visibility to public
      */
     public function addParams($configKeys, $params = array())
     {

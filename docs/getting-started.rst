@@ -67,10 +67,10 @@ Next we will create ``opauth.php`` with the following contents::
     );
     $Opauth = new Opauth\Opauth\Opauth($config);
     try {
-	    $response = $Opauth->run();
-	    echo "Authed as " . $response->name . " with uid" . $response->uid;
+        $response = $Opauth->run();
+        echo "Authed as " . $response->name . " with uid" . $response->uid;
     } catch (OpauthException $e) {
-    	echo "Authentication error: " . $e->getMessage();
+        echo "Authentication error: " . $e->getMessage();
     }
 
 Set ``DocumentRoot`` of your web server to this directory, or create a vhost as this example does not work when opauth

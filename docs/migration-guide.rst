@@ -4,7 +4,7 @@ Migration guide
 Migrating your application
 --------------------------
 
-To upgrade your application (or framework specific plugin) from v0.4 to v1.0 you need to go through the following changes:
+To upgrade your application (or framework specific plugin) from v0.4 to v1.0 you need to use Composer and go through the following changes:
 
 - Update the ``composer.json`` file of your application, if you had any, else you need to create the file in the root
   of your application. The ``composer.json`` should look something like::

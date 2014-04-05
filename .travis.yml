@@ -24,7 +24,7 @@ before_script:
   - composer dump-autoload
   - export PHP_VERSION=`php --version`;
   - composer require guzzle/guzzle:~3.7
-  - sh -c "if [[ ! '$PHP_VERSION' =~ 'PHP 5.3' ]]; then composer require guzzlehttp/guzzle:~4.0; fi"
+  - if [[ ! '$PHP_VERSION' =~ 'PHP 5.3' ]]; then composer require guzzlehttp/guzzle:~4.0; fi
   - sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
   - sh -c "if [ '$COVERALLS' = '1' ]; then composer install --dev --no-interaction --prefer-source; fi"
   - sh -c "if [ '$PHPCS' = '1' ]; then pyrus install pear/PHP_CodeSniffer && phpenv rehash; fi"

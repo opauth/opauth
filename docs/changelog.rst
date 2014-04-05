@@ -3,7 +3,7 @@ Changelog
 
 1.x
 ----
-1.0.0-alpha
+1.0.0-alpha.1
     - Scheduled for release in April, 2014.
     - This release is not backward-compatible with v0.x strategies or consumer plugins.
     - Initial v1.x release.

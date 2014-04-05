@@ -141,4 +141,24 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($array, $expected);
     }
+
+    public function testEnvReplace()
+    {
+        $dictionary = array(
+            'provider' => 'Sample',
+            'sample_id' => 1234,
+        );
+
+        $result = $this->Strategy->envReplace('in {provider}-between', $dictionary);
+        $this->assertEquals('in Sample-between', $result);
+        $result = $this->Strategy->envReplace('Numeric-{sample_id}', $dictionary);
+        $this->assertEquals('Numeric-1234', $result);
+        $result = $this->Strategy->envReplace('Multi: {provider} & {sample_id}', $dictionary);
+        $this->assertEquals('Multi: Sample & 1234', $result);
+        $result = $this->Strategy->envReplace('Incomplete brackets: {provider}-{sample_id', $dictionary);
+        $this->assertEquals('Incomplete brackets: Sample-{sample_id', $result);
+        $result = $this->Strategy->envReplace(6484265, $dictionary);
+        $this->assertEquals(6484265, $result);
+
+    }
 }

@@ -65,6 +65,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * testProviderUrl
+     * @covers Opauth\Opauth\Opauth::run
      */
     public function testProviderUrl()
     {
@@ -78,5 +79,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $_SERVER['REQUEST_URI'] = '/test_provider/callback';
         $request = new Parser();
         $this->assertEquals('http://test.example.org/test_provider', $request->providerUrl());
+
+        $_SERVER['REQUEST_URI'] = '/auth/test_provider/non_existent_action';
+        $request = new Parser('/auth/');
+        $this->assertEquals('http://test.example.org/auth/test_provider', $request->providerUrl());
     }
 }

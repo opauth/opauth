@@ -105,7 +105,8 @@ class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
         $this->checkPostCall($this->GuzzleHttp, 'GuzzleHttp');
     }
 
-    protected function checkGetCall($client, $name) {
+    protected function checkGetCall($client, $name)
+    {
         if (is_null($client)) {
             $this->markTestSkipped(
                 $name. ' HTTP client is not available.'
@@ -120,7 +121,8 @@ class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function checkPostCall($client, $name) {
+    protected function checkPostCall($client, $name)
+    {
         if (is_null($client)) {
             $this->markTestSkipped(
                 $name. ' HTTP client is not available.'

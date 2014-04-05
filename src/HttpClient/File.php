@@ -30,7 +30,7 @@ class File extends Base
     protected function request($url, $options = array())
     {
         if (!ini_get('allow_url_fopen')) {
-            throw new OpauthException('file_get_contents not allowed, try using other http_client such as curl');
+            throw new OpauthException('allow_url_fopen is not enabled. Either enable allow_url_fopen or try using other HTTP client such as curl.');
         }
         $context = null;
         if (!empty($options)) {

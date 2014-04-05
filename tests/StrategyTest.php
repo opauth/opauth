@@ -47,7 +47,8 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException Opauth\Opauth\OpauthException
      */
-    public function testCheckExpected() {
+    public function testCheckMissingExpected()
+    {
         $config = array(
             'provider' => 'Sample',
             'sample_id' => 1234,
@@ -58,7 +59,8 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
         $Strategy = new Sample($config, $callbackUrl, $client);
     }
 
-    public function testGetHttpClient() {
+    public function testGetHttpClient()
+    {
         $this->assertInstanceOf('Opauth\\Opauth\\HttpClientInterface', $this->Strategy->getHttpClient());
     }
 
@@ -96,5 +98,47 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
     {
         $result = $this->Strategy->response('rawdata');
         $this->assertInstanceof('Opauth\\Opauth\\Response', $result);
+    }
+
+    public function testRecursiveGetObjectVars()
+    {
+        $object = new \stdClass();
+        $object->first_level = 'level 1';
+        $object->another = new \stdClass();
+        $object->another->second_level = 'level 2';
+        $object->another->utf8_string = '第二';
+        $object->another->numeric = 987;
+        $object->another->boolean_true_value = true;
+        $object->another->boolean_false_value = false;
+        $object->another->some_array = array(
+            'string' => 'This is a string.',
+            'utf8' => '你好',
+            'true_val' => true,
+            'false_val' => false
+        );
+        $this->assertFalse(is_array($object));
+        $this->assertTrue(is_object($object));
+
+        $array = $this->Strategy->recursiveGetObjectVars($object);
+        $this->assertTrue(is_array($array));
+        $this->assertFalse(is_object($array));
+        $this->assertTrue(is_array($array['another']));
+        $expected = array(
+            'first_level' => 'level 1',
+            'another' => array(
+                'second_level' => 'level 2',
+                'utf8_string' => '第二',
+                'numeric' => 987,
+                'boolean_true_value' => 1,
+                'boolean_false_value' => 0,
+                'some_array' => array(
+                    'string' => 'This is a string.',
+                    'utf8' => '你好',
+                    'true_val' => 1,
+                    'false_val' => 0
+                )
+            )
+        );
+        $this->assertEquals($array, $expected);
     }
 }

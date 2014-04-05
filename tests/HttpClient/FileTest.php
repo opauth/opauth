@@ -13,7 +13,7 @@ use Opauth\Opauth\HttpClient\File;
  /**
   * OpauthHttpClientBaseTest class
   */
- class OpauthHttpClientFileTest extends \PHPUnit_Framework_TestCase
+class OpauthHttpClientFileTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var File

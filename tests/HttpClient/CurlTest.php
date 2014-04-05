@@ -13,7 +13,7 @@ use Opauth\Opauth\HttpClient\Curl;
  /**
   * OpauthHttpClientBaseTest class
   */
- class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
+class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Curl

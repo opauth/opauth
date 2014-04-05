@@ -44,6 +44,24 @@ class StrategyTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @expectedException Opauth\Opauth\OpauthException
+     */
+    public function testCheckExpected() {
+        $config = array(
+            'provider' => 'Sample',
+            'sample_id' => 1234,
+        );
+        $Request = new Parser('/auth/');
+        $callbackUrl = $Request->providerUrl() . '/callback';
+        $client = $this->getMock('Opauth\\Opauth\\HttpClientInterface');
+        $Strategy = new Sample($config, $callbackUrl, $client);
+    }
+
+    public function testGetHttpClient() {
+        $this->assertInstanceOf('Opauth\\Opauth\\HttpClientInterface', $this->Strategy->getHttpClient());
+    }
+
     public function testCallbackUrl()
     {
         $expected = 'http://test.example.org/auth/sample/callback';

@@ -10,9 +10,9 @@
 namespace Opauth\Opauth;
 
 /**
- * Http client Interface
+ * HTTP client Interface
  *
- * Http client adapters MUST implement this
+ * HTTP client adapters MUST implement this
  *
  */
 interface HttpClientInterface

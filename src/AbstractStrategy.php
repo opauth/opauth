@@ -55,7 +55,7 @@ abstract class AbstractStrategy implements StrategyInterface
     protected $callbackUrl;
 
     /**
-     * Http client class
+     * HTTP client class
      *
      * @var HttpClientInterface
      */
@@ -122,7 +122,7 @@ abstract class AbstractStrategy implements StrategyInterface
      *
      * @return HttpClientInterface
      */
-    public function getClient()
+    public function getHttpClient()
     {
         return $this->http;
     }

@@ -54,13 +54,13 @@ Guzzle version 4
     - Recommended HTTP client for Opauth
     - Not set as default for Opauth due to minimum PHP requirement being >= 5.4.2.
     - To use:
-      1. Composer require ``guzzlehttp/guzzle: ~4.0``
+      1. Composer require ``guzzlehttp/guzzle:~4.0``
       1. set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\GuzzleHttp``
 
 Guzzle version 3
     - Uses `Guzzle version 3<https://github.com/guzzle/guzzle>`_ for making HTTP calls.
     - To use:
-      1. Composer require ``guzzle/guzzle: ~3.7``
+      1. Composer require ``guzzle/guzzle:~3.7``
       1. set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\Guzzle``
 
 

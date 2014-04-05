@@ -78,10 +78,9 @@ Quick start
 
 1. Point your browser to `http://localhost/opauth.php/facebook` to see it in action.
 
-Check out [the wiki](https://github.com/uzyn/opauth/wiki) for more in-depth details, especially on how to use Opauth with your own PHP application.
-
-See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.
-Refer also to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.
+References
+----------
+See [Opauth documentations](http://docs.opauth.org/) for more infomation.
 
 Requirements
 -------------

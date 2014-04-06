@@ -94,7 +94,7 @@ class Opauth
      * When running `request()` it will do a redirect, `callback` returns Opauth Response object
      *
      * @return null|Response Response object for callback
-     * @throws Exception
+     * @throws OpauthException
      */
     public function run()
     {
@@ -126,7 +126,7 @@ class Opauth
      * Callback method, executed after being redirected back
      *
      * @return Response
-     * @throws Exception
+     * @throws OpauthException
      */
     public function callback()
     {

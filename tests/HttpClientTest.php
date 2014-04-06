@@ -1,6 +1,6 @@
 <?php
 /**
- * OpauthHttpClientTest
+ * HttpClientTest
  *
  * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org

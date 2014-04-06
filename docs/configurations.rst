@@ -1,7 +1,7 @@
 Opauth configurations
 =====================
 
-Instantiation of Opauth class expects a configuration array as input.
+Instantiation of Opauth class accepts a configuration array as input.
 
 ::
 

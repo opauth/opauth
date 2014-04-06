@@ -58,7 +58,7 @@ Guzzle version 4
       1. set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\Guzzle``
 
 Guzzle version 3
-    - Uses `Guzzle version 3 <https://github.com/guzzle/guzzle>`_ for making HTTP calls.
+    - Uses `Guzzle version 3 <https://github.com/guzzle/guzzle3>`_ for making HTTP calls.
     - To use:
       1. Composer require ``guzzle/guzzle:~3.7``
       1. set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\Guzzle3``

@@ -30,6 +30,7 @@ Contents:
    migration-guide
    contribute
    support
+   changelog
 
 Indices and tables
 ==================

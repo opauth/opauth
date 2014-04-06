@@ -40,7 +40,7 @@ Changelog
 
 0.2.0
     - Released on May 23, 2012.
-    - Opauth is now Composer compatible and listed on `Packagist<http://packagist.org/packages/opauth/opauth>`_.
+    - Opauth is now Composer compatible and listed on `Packagist <http://packagist.org/packages/opauth/opauth>`_.
     - Opauth now supports autoloaders.
     - If a strategy is not autoloaded, Opauth falls back and searches for it at ``strategy_dir`` defined in config.
     - Class name for strategy Foo should now be FooStrategy instead of Foo.

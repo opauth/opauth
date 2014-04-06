@@ -29,7 +29,7 @@ Instantiation of Opauth class expects a configuration array as input.
 - ``http_client``
     - Default: ``Opauth\\Opauth\\HttpClient\\Curl`` for cURL (requires ``php_curl``)
     - Client to be used by Opauth for making HTTP calls to authentication providers.
-    - Opauth also ships with other `HTTP clients`.
+    - Opauth also ships with other `HTTP clients`_.
 
 - ``callback``
     - Default: ``callback``
@@ -46,11 +46,11 @@ cURL
 
 File
     - Uses ``file_get_contents()`` for making of HTTP calls.
-    - Requires `allow_url_fopen<http://php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen>`_ to be enabled.
+    - Requires `allow_url_fopen <http://php.net/manual/en/filesystem.configuration.php#ini.allow-url-fopen>`_ to be enabled.
     - To use, set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\File``
 
 Guzzle version 4
-    - Uses latest stable version of `Guzzle<https://github.com/guzzle/guzzle>`_ for making HTTP calls.
+    - Uses latest stable version of `Guzzle <https://github.com/guzzle/guzzle>`_ for making HTTP calls.
     - Recommended HTTP client for Opauth
     - Not set as default for Opauth due to minimum PHP requirement being >= 5.4.2.
     - To use:
@@ -58,7 +58,7 @@ Guzzle version 4
       1. set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\GuzzleHttp``
 
 Guzzle version 3
-    - Uses `Guzzle version 3<https://github.com/guzzle/guzzle>`_ for making HTTP calls.
+    - Uses `Guzzle version 3 <https://github.com/guzzle/guzzle>`_ for making HTTP calls.
     - To use:
       1. Composer require ``guzzle/guzzle:~3.7``
       1. set ``http_client`` to ``Opauth\\Opauth\\HttpClient\\Guzzle``

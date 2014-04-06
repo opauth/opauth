@@ -9,22 +9,21 @@
  */
 namespace Opauth\Opauth\HttpClient;
 
-use Guzzle\Common\Exception\GuzzleException;
-use Guzzle\Http\Message\RequestInterface;
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\TransferException;
 use Opauth\Opauth\HttpClientInterface;
 use Opauth\Opauth\OpauthException;
 
 /**
  * Opauth Guzzle client
  *
- * Works with Guzzle version 3.7 and 3.8, which require minimum PHP version 5.3.3. If you have PHP 5.4.2 or higher we
- * advice you to use GuzzleHttp adapter instead.
+ * Works with Guzzle version 4, which require minimum PHP version 5.4.2. If you use an older version you can use Guzzle
+ * adapter instead.
  *
- * Set 'http_client' => 'Opauth\\Opauth\\HttpClient\\Guzzle' in your Opauth config array to use this adapter
- * Additionally your applications composer file should have in the require: "guzzle/guzzle": "~3.7"
+ * Set 'http_client' => 'Opauth\\Opauth\\HttpClient\\Guzzle' in your Opauth config array to use this adapter.
+ * Additionally your applications composer file should have in the require: "guzzlehttp/guzzle": "~4.0"
  *
- * Guzzle client for Guzzle 3
+ * Guzzle client for Guzzle 4
  *
  */
 class Guzzle implements HttpClientInterface
@@ -50,12 +49,18 @@ class Guzzle implements HttpClientInterface
      * @param string $url Destination URL
      * @param array $data Data to be submitted via GET
      * @return string Content resulted from request, without headers
+     * @throws OpauthException
      */
     public function get($url, $data = array())
     {
         $client = $this->getClient($url);
-        $request = $client->get($url, array(), array('query' => $data));
-        return $this->send($request);
+        try {
+            $response = $client->get($url, array('query' => $data));
+        } catch (TransferException $e) {
+            throw new OpauthException('[Guzzle][TransferException]' . $e->getMessage());
+        }
+        $this->responseHeaders = $response->getHeaders();
+        return $response->getBody();
     }
 
     /**
@@ -64,12 +69,18 @@ class Guzzle implements HttpClientInterface
      * @param string $url Destination URL
      * @param array $data Data to be POSTed
      * @return string Content resulted from request, without headers
+     * @throws OpauthException
      */
     public function post($url, $data)
     {
         $client = $this->getClient($url);
-        $request = $client->post($url, array(), $data);
-        return $this->send($request);
+        try {
+            $response = $client->post($url, array('body' => $data));
+        } catch (TransferException $e) {
+            throw new OpauthException('[Guzzle][TransferException]' . $e->getMessage());
+        }
+        $this->responseHeaders = $response->getHeaders();
+        return $response->getBody();
     }
 
     /**
@@ -81,29 +92,18 @@ class Guzzle implements HttpClientInterface
      */
     protected function getClient($url)
     {
-        if (!class_exists('Guzzle\\Http\\Client')) {
-            throw new OpauthException('Guzzle 3 not installed. Install or use other http_client');
+        if (!class_exists('GuzzleHttp\\Client')) {
+            throw new OpauthException('Guzzle 4 not installed. Install or use other http_client');
         }
-        $client = new Client($url);
-        $client->setUserAgent($this->userAgent);
+        $config = array(
+            'base_url' => $url,
+            'defaults' => array(
+                'headers' => array(
+                    'User-Agent' => $this->userAgent
+                )
+            )
+        );
+        $client = new Client($config);
         return $client;
-    }
-
-    /**
-     * Sends the Guzzle request
-     *
-     * @param RequestInterface $request
-     * @return string Response body
-     * @throws OpauthException
-     */
-    protected function send(RequestInterface $request)
-    {
-        try {
-            $response = $request->send();
-        } catch (GuzzleException $e) {
-            throw new OpauthException('[Guzzle][GuzzleException]' . $e->getMessage());
-        }
-        $this->responseHeaders = $response->getHeaderLines();
-        return $response->getBody(true);
     }
 }

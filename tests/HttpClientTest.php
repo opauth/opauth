@@ -1,111 +1,36 @@
 <?php
 /**
- * OpauthHttpClientCurlTest
+ * OpauthHttpClientTest
  *
  * @copyright    Copyright © 2014 U-Zyn Chua (http://uzyn.com)
  * @link         http://opauth.org
  * @license      MIT License
  */
-namespace Opauth\Opauth\Tests\HttpClient;
+namespace Opauth\Opauth\Tests;
 
  /**
-  * OpauthHttpClientBaseTest class
+  * HttpClientTest class
+  *
   * Tests for all shipped HTTP clients
   */
-class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
+class HttpClientTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Curl
-     */
-    protected $Curl = null;
-
-    /**
-     * @var File
-     */
-    protected $File = null;
-
-    /**
-     * @var Guzzle
-     */
-    protected $Guzzle = null;
-
-    /**
-     * @var GuzzleHttp
-     */
-    protected $GuzzleHttp = null;
-
-    /**
-     * @var array Test URLs
-     */
-    protected $clients = array('Curl', 'File', 'Guzzle', 'GuzzleHttp');
-
     /**
      * @var array Parameters for HTTP GET or POST
      */
     protected $params = array(
         'param1' => 'value1',
-        //'numericParam' => 2, //GuzzleHttp does not support integer, only string
+        //'numericParam' => 2, //Guzzle does not support integer, only string
         'numericParam' => '2',
         'utf8' => '你好'
     );
 
-    protected function setUp()
-    {
-        if (ini_get('allow_url_fopen')) {
-            $this->File = new \Opauth\Opauth\HttpClient\File();
-        }
-        if (function_exists('curl_init')) {
-            $this->Curl = new \Opauth\Opauth\HttpClient\Curl();
-        }
-        if (class_exists('Guzzle\\Http\\Client')) {
-            $this->Guzzle = new \Opauth\Opauth\HttpClient\Guzzle();
-        }
-        if (class_exists('GuzzleHttp\\Client')) {
-            $this->GuzzleHttp = new \Opauth\Opauth\HttpClient\GuzzleHttp();
-        }
-    }
-
-    public function testFileGet()
-    {
-        $this->checkGetCall($this->File, 'File');
-    }
-
-    public function testFilePost()
-    {
-        $this->checkPostCall($this->File, 'File');
-    }
-
-    public function testCurlGet()
-    {
-        $this->checkGetCall($this->Curl, 'Curl');
-    }
-
-    public function testCurlPost()
-    {
-        $this->checkGetCall($this->Curl, 'Curl');
-    }
-
-    public function testGuzzleGet()
-    {
-        $this->checkGetCall($this->Guzzle, 'Guzzle');
-    }
-
-    public function testGuzzlePost()
-    {
-        $this->checkPostCall($this->Guzzle, 'Guzzle');
-    }
-
-    public function testGuzzleHttpGet()
-    {
-        $this->checkGetCall($this->GuzzleHttp, 'GuzzleHttp');
-    }
-
-    public function testGuzzleHttpPost()
-    {
-        $this->checkPostCall($this->GuzzleHttp, 'GuzzleHttp');
-    }
-
-    protected function checkGetCall($client, $name)
+    /**
+     * @param $client
+     * @param $name
+     * @dataProvider clientProvider
+     */
+    public function testGet($client, $name)
     {
         if (is_null($client)) {
             $this->markTestSkipped(
@@ -121,7 +46,12 @@ class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    protected function checkPostCall($client, $name)
+    /**
+     * @param $client
+     * @param $name
+     * @dataProvider clientProvider
+     */
+    public function testPost($client, $name)
     {
         if (is_null($client)) {
             $this->markTestSkipped(
@@ -135,5 +65,15 @@ class OpauthHttpClientCurlTest extends \PHPUnit_Framework_TestCase
         foreach ($this->params as $key => $value) {
             $this->assertEquals($response->form->{$key}, $value);
         }
+    }
+
+    public function clientProvider()
+    {
+        return array(
+            array(ini_get('allow_url_fopen') ? new \Opauth\Opauth\HttpClient\File() : null, 'File'),
+            array(function_exists('curl_init') ? new \Opauth\Opauth\HttpClient\Curl() : null, 'Curl'),
+            array(class_exists('Guzzle\\Http\\Client') ? new \Opauth\Opauth\HttpClient\Guzzle3() : null, 'Guzzle3'),
+            array(class_exists('GuzzleHttp\\Client') ? new \Opauth\Opauth\HttpClient\Guzzle() : null, 'Guzzle')
+        );
     }
 }

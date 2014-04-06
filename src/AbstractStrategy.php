@@ -72,7 +72,7 @@ abstract class AbstractStrategy implements StrategyInterface
     {
         $this->setUp($config);
         $this->callbackUrl($callbackUrl);
-        $this->setClient($client);
+        $this->setHttpClient($client);
 
         $this->responseMap = $this->addParams(array('responseMap'), $this->responseMap);
 
@@ -112,7 +112,7 @@ abstract class AbstractStrategy implements StrategyInterface
      *
      * @param HttpClientInterface $client
      */
-    public function setClient(HttpClientInterface $client)
+    public function setHttpClient(HttpClientInterface $client)
     {
         $this->http = $client;
     }

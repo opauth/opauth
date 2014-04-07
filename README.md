@@ -7,7 +7,7 @@ Opauth enables PHP applications to perform *user authentication* really easily.
 Try out Opauth for yourself at http://opauth.org
 
 ### Notes on 1.0.x
-1.0.x is scheduled for alpha release.
+1.0.x is currently under preview release and not to be used for production yet. See [release notes](https://github.com/opauth/opauth/releases) for details.
 
 Opauth API and functionalities are fully ready for evaluation. Please try it out and let us know what you think.
 

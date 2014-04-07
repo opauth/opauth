@@ -18,9 +18,9 @@ You can add Opauth and strategies to your applications ``composer.json``::
         }
     }
 
-.. note:: While Opauth still is ``alpha`` your root ``composer.json`` also needs to have::
+.. note:: While Opauth and the strategies have not reached ``stable`` your root ``composer.json`` also needs to have::
 
-  "minimum-stability": "alpha"
+  "minimum-stability": "dev"
 
 Next you need to run::
 

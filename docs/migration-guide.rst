@@ -17,9 +17,9 @@ To upgrade your application (or framework specific plugin) from v0.4 to v1.0 you
 
   You need to point the versions for Opauth and the strategies you use to the 1.0 series.
 
-  .. note:: While Opauth still is ``alpha`` your root ``composer.json`` also needs to have::
+  .. note:: While Opauth and the strategies have not reached ``stable`` your root ``composer.json`` also needs to have::
 
-    "minimum-stability": "alpha"
+    "minimum-stability": "dev"
 
 - Run the following command: ``composer update``, to get the correct versions installed into the ``vendor`` directory.
 
@@ -49,13 +49,17 @@ To upgrade existing strategies to Opauth v1 you need to take the following steps
 
     "require": {
         "php": ">=5.3.0",
-        "opauth/opauth": "1.0.*@dev",
+        "opauth/opauth": "~1.0",
     },
     "autoload": {
         "psr-4": {
             "Opauth\\Example\\Strategy\\": "src"
         }
     }
+
+  .. note:: While Opauth and the strategies have not reached ``stable`` your root ``composer.json`` also needs to have::
+
+    "minimum-stability": "dev"
 
 - Create ``src/`` directory in the root of the project
 

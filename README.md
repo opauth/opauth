@@ -33,12 +33,14 @@ Quick start
 
     ```json
     {
+        "minimum-stability": "alpha",
         "require": {
-            "opauth/opauth": "1.0.*@dev",
-            "opauth/facebook": "1.0.*@dev"
+            "opauth/opauth": "~1.0",
+            "opauth/facebook": "~1.0"
         }
     }
     ```
+    Note: While Opauth 1.0.x still is in alpha, your root `composer.json` will need to set its minimum-stability to `alpha`.
 
     Install them
 

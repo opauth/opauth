@@ -15,7 +15,7 @@ The new release of Opauth has brought about the following changes and improvemen
 
 - Response object
 
-  Opauth now returns a more flexible and consistent Response object
+  Opauth now returns a more flexible and consistent :doc:`Response object <response>`.
 
 - Full PSR compliance
 
@@ -24,12 +24,6 @@ The new release of Opauth has brought about the following changes and improvemen
     - `PSR-1 <http://www.php-fig.org/psr/psr-1/>`_
     - `PSR-2 <http://www.php-fig.org/psr/psr-2/>`_
     - `PSR-4 <http://www.php-fig.org/psr/psr-4/>`_
-
-- State support
-
-  Opauth 1.0 now supports state _(?)_
-
-  _(To be verified)_
 
 - Moving beyond personal project
 

@@ -10,12 +10,16 @@ To upgrade your application (or framework specific plugin) from v0.4 to v1.0 you
   of your application. The ``composer.json`` should look something like::
 
     "require": {
-        "opauth/opauth": "1.0.*@dev",
-        "opauth/facebook": "1.0.*@dev",
-        "opauth/twitter": "1.0.*@dev"
+        "opauth/opauth": "~1.0",
+        "opauth/facebook": "~1.0",
+        "opauth/twitter": "~1.0"
     },
 
   You need to point the versions for Opauth and the strategies you use to the 1.0 series.
+
+  .. note:: While Opauth still is ``alpha`` your root ``composer.json`` also needs to have::
+
+    "minimum-stability": "alpha"
 
 - Run the following command: ``composer update``, to get the correct versions installed into the ``vendor`` directory.
 

@@ -13,10 +13,14 @@ You can add Opauth and strategies to your applications ``composer.json``::
 
     {
         "require": {
-            "opauth/opauth": "1.0.*@dev",
-            "opauth/facebook": "1.0.*@dev"
+            "opauth/opauth": "~1.0",
+            "opauth/facebook": "~1.0"
         }
     }
+
+.. note:: While Opauth still is ``alpha`` your root ``composer.json`` also needs to have::
+
+  "minimum-stability": "alpha"
 
 Next you need to run::
 
@@ -24,8 +28,8 @@ Next you need to run::
 
 Alternatively you can use the command line::
 
-   $ composer require opauth/opauth:1.0.*@dev
-   $ composer require opauth/facebook:1.0.*@dev
+   $ composer require opauth/opauth:~1.0
+   $ composer require opauth/facebook:~1.0
 
 This will add Opauth and Facebook strategy to your applications ``composer.json`` and install them immediately.
 

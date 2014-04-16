@@ -12,6 +12,7 @@ Google          Opauth          opauth/google
 GitHub          Opauth          opauth/github
 LinkedIn        Opauth          opauth/linkedin
 Live            Opauth          opauth/live
+Elance          augusto-cdxs    opauth/elance
 ==============  =============== ==================
 
 .. _create:

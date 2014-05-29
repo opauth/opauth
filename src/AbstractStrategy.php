@@ -202,7 +202,7 @@ abstract class AbstractStrategy implements StrategyInterface
      * @param array $data Data
      * @param boolean $exit Whether to call exit() right after redirection
      */
-    public function redirect($url, $data = array(), $exit = true)
+    public function redirect($url, $data = array(), $exit = false)
     {
         if ($data) {
             $url .= '?' . http_build_query($data, '', '&');

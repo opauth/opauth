@@ -43,5 +43,5 @@ interface StrategyInterface
      * @param array $data Data
      * @param boolean $exit Whether to call exit() right after redirection
      */
-    public function redirect($url, $data = array(), $exit = true);
+    public function redirect($url, $data = array(), $exit = false);
 }

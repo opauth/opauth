@@ -10,10 +10,14 @@
 			"name": "U-Zyn Chua",
 			"email": "chua@uzyn.com",
 			"homepage": "http://uzyn.com"
+		},
+		{
+			"name": "Ceeram",
+			"email": "c33ram@gmail.com"
 		}
 	],
 	"require": {
-		"php": ">=5.2.0"
+		"php": ">=5.3.0"
 	},
 	"suggest": {
 		"opauth/facebook": "Allows Facebook authentication",
@@ -21,8 +25,8 @@
 		"opauth/twitter": "Allows Twitter authentication"
 	},
 	"autoload": {
-		"classmap": [ 
-			"lib/Opauth/"
-		]
+		"psr-4": {
+                    "Opauth\\Opauth\\": "src"
+            }
 	}
 }

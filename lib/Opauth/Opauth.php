@@ -355,9 +355,12 @@ class Opauth {
 	private function determineHost() {
 
 		$protocol = 'http';
+		$clientIp = (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '';
 		$proto = (isset($_SERVER[$this->httpsHeaderName])) ? $_SERVER[$this->httpsHeaderName] : '';
-		if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) || in_array(strtolower(current(explode(',', $proto))), array('https', 'on', 'ssl', '1'))) {
-			$protocol = 'https';
+		if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ||
+			(in_array(strtolower(current(explode(',', $proto))), array('https', 'on', 'ssl', '1')) &&
+			$clientIp == $this->proxy)) {
+				$protocol = 'https';
 		}
 		$host = 'localhost';
 		if (isset($_SERVER['HTTP_HOST'])) {

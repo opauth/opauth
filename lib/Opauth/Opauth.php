@@ -77,7 +77,7 @@ class Opauth {
 		 * Used mainly as accessors
 		 */
 		$this->env = array_merge(array(
-			'request_uri' => $_SERVER['REQUEST_URI'],
+			'request_uri' => isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '',
 			'complete_path' => $this->config['host'].$this->config['path'],
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'

@@ -1,4 +1,4 @@
-![Opauth](https://github.com/uzyn/opauth.org/raw/master/images/opauth-logo-300px-transparent.png)
+![Opauth](https://github.com/opauth/opauth.github.io/raw/master/images/opauth-logo-300px-transparent.png)
 =================================
 Opauth is a multi-provider authentication framework for PHP, inspired by [OmniAuth for Ruby](https://github.com/intridea/omniauth).
 
@@ -181,7 +181,7 @@ Provider-specific:
 
 </table>
 
-Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
+Generic strategy: [OAuth](https://github.com/opauth/oauth)
 
 See [wiki's list of strategies](https://github.com/opauth/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.
 Refer also to [strategy contribution guide](https://github.com/opauth/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.

@@ -84,99 +84,104 @@ Provider-specific:
 	<th>Maintained by</th>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://bitbucket.org" alt="Bitbucket" width="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=bitbucket.org" alt="Bitbucket" width="16">&nbsp;&nbsp;
 		<a href="http://github.com/fancyguy/opauth-bitbucket">Bitbucket</a></td>
 	<td>fancyguy</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://disqus.com" alt="Disqus" width="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=disqus.com" alt="Disqus" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/rasa/opauth-disqus">Disqus</a></td>
 	<td>rasa</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://do.com" alt="Do" width="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=do.com" alt="Do" width="16">&nbsp;&nbsp;
 		<a href="https://github.com/arbales/opauth-do">Do</a></td>
 	<td>arbales</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=facebook.com" alt="Facebook">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/facebook"><strong>Facebook</strong></a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://www.flickr.com" alt="Flickr" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=www.flickr.com" alt="Flickr" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/pocket7878/opauth-flickr">Flickr</a></td>
 	<td>pocket7878</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://www.foursquare.com" alt="Foursquare" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=www.foursquare.com" alt="Foursquare" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/pocket7878/opauth-foursquare">Foursquare</a></td>
 	<td>pocket7878</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://github.com" alt="GitHub" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=github.com" alt="GitHub" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/github">GitHub</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://google.com" alt="Google" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=google.com" alt="Google" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/google"><strong>Google</strong></a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=instagram.com" alt="Instagram" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/muhdazrain/opauth-instagram">Instagram</a></td>
 	<td>muhdazrain</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=linkedin.com" alt="LinkedIn" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/linkedin">LinkedIn</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://live.com" alt="Live Connect" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=live.com" alt="Live Connect" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/live">(Windows) Live</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=mixi.co.jp" alt="mixi" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
 	<td>ritou</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=openid.net" alt="OpenID" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/openid">OpenID</a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://paypal.com" alt="PayPal" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=paypal.com" alt="PayPal" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/24hours/opauth-paypal">PayPal</a></td>
 	<td>24hours</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://weibo.com" alt="Sina Weibo" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=weibo.com" alt="Sina Weibo" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/dgrabla/opauth-sinaweibo">Sina Weibo (新浪微博)</a></td>
 	<td>dgrabla</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=twitter.com" alt="Twitter" width="16" height="16">&nbsp;&nbsp;
 		<a href="https://github.com/opauth/twitter"><strong>Twitter</strong></a></td>
 	<td>uzyn</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://vimeo.com" alt="Vimeo" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=vimeo.com" alt="Vimeo" width="16" height="16">&nbsp;&nbsp;
 <a href="https://github.com/LubosRemplik/opauth-vimeo">Vimeo</a></td>
 	<td>LubosRemplik</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://vk.com" alt="VK" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=vk.com" alt="VK" width="16" height="16">&nbsp;&nbsp;
 <a href="https://github.com/dgrabla/opauth-vkontakte">VKontakte</a></td>
 	<td>dgrabla</td>
 </tr>
 <tr>
-	<td><img src="http://g.etfv.co/http://developer.yahoo.co.jp" width="16" height="16">&nbsp;&nbsp;
+	<td><img src="http://www.google.com/s2/favicons?domain=developer.yahoo.co.jp" width="16" height="16">&nbsp;&nbsp;
 <a href="https://github.com/ritou/opauth-yahoojp">Yahoo! Japan (YConnect)</a></td>
 	<td>ritou</td>
+</tr>
+<tr>
+	<td><img src="http://www.google.com/s2/favicons?domain=business.line.me" width="16" height="16">&nbsp;&nbsp;
+<a href="https://github.com/opauth/line">LINE</a></td>
+	<td>Yuzuru Suzuki</td>
 </tr>
 
 </table>

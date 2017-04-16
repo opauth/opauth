@@ -96,6 +96,13 @@ class Opauth {
 	public function run() {
 		$this->parseUri();
 
+		// If strategy is set in the query
+		if ( isset( $_GET['strategy'] ) )
+		{
+			// Override strategy in the enviroment holder
+			$this->env['params']['strategy'] = $_GET['strategy'];
+		}
+
 		if (!empty($this->env['params']['strategy'])) {
 			if (strtolower($this->env['params']['strategy']) == 'callback') {
 				$this->callback();

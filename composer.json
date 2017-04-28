@@ -16,6 +16,7 @@
 		"php": ">=5.2.0"
 	},
 	"suggest": {
+		"lib-curl": "Allows curl transport",
 		"opauth/facebook": "Allows Facebook authentication",
 		"opauth/google": "Allows Google authentication",
 		"opauth/twitter": "Allows Twitter authentication"

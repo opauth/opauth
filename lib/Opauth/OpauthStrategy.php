@@ -408,6 +408,9 @@ class OpauthStrategy {
 	 * @return string Content resulted from request, without headers
 	 */
 	public static function httpRequest($url, $options = null, &$responseHeaders = null) {
+		if(extension_loaded('curl')) {
+			return self::curlHttpRequest($url, $options, $responseHeaders);
+		}
 		$context = null;
 		if (!empty($options) && is_array($options)) {
 			if (empty($options['http']['header'])) {
@@ -423,6 +426,30 @@ class OpauthStrategy {
 		$content = file_get_contents($url, false, $context);
 		$responseHeaders = implode("\r\n", $http_response_header);
 
+		return $content;
+	}
+	
+	/**
+	 * cURL HTTP request function. Used if cURL is available instead of file_get_contents.
+	 * Acts as a transparent polyfill for httpRequest
+	 *
+	 * @param string $url Full URL to load
+	 * @param array $options A converted set of options see self::streamToCurlOpts()
+	 * @param string $responseHeaders Response headers after HTTP call. Useful for error debugging.
+	 * @return string Content resulted from request, without headers
+	 */
+	protected static function curlHttpRequest($url, $options = null, &$responseHeaders = null) {
+		$ch = curl_init($url);
+		// set required options first (user generated might fail)
+		curl_setopt_array($ch, array(
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_HEADER => true,
+		));
+		if(!empty($options)) {
+			curl_setopt_array($ch, self::streamToCurlOpts($options));
+		}
+		$response = curl_exec($ch);
+		list($responseHeaders, $content) = explode("\r\n\r\n", $response, 2);
 		return $content;
 	}
 
@@ -489,6 +516,33 @@ class OpauthStrategy {
 			return $value;
 		}
 		return $value;
+	}
+	
+	/**
+	 * For a cURL fallback, convert as many relevant stream based options in to
+	 * their cURL equivalent formats.
+	 * If none was found then return an empty array to prevent errors.
+	 * @param array of options used in stream_context_create
+	 * @return array
+	 */
+	protected static function streamToCurlOpts($options) {
+		if(!isset($options['http'])) {
+			return array();
+		}
+		$http = $options['http'];
+		$curlOpts = array();
+		if(isset($http['header'])) {
+			$stripped = str_replace("\r", '', $http['header']);
+			$curlOpts[CURLOPT_HTTPHEADER] = explode("\n", $stripped);
+		}
+		if(isset($http['content'])) {
+			$curlOpts[CURLOPT_POSTFIELDS] = $http['content'];
+		}
+		if(isset($http['method'])) {
+			$curlOpts[CURLOPT_CUSTOMREQUEST] = $http['method'];
+		}
+		return $curlOpts;
+
 	}
 
 	/**

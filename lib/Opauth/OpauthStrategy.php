@@ -165,10 +165,10 @@ class OpauthStrategy {
 
 		switch($transport) {
 			case 'get':
-				$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(serialize($data))), '', '&'));
+				$this->redirect($this->env['callback_url'].'?'.http_build_query(array('opauth' => base64_encode(json_encode($data))), '', '&'));
 				break;
 			case 'post':
-				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(serialize($data))));
+				$this->clientPost($this->env['callback_url'], array('opauth' => base64_encode(json_encode($data))));
 				break;
 			case 'session':
 			default:

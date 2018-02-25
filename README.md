@@ -223,6 +223,8 @@ Issues & questions
 
 Changelog
 ---------
+####v0.4.5 _(25 Feb 2018)_
+- Fixed a Security Incident for unsafe serialize/unserialize. _(thanks @YuzuruS #124)_
 
 ####v0.4.4 _(10 May 2013)_
 - Added HTTP User-Agent header. _(thanks @rkaldung #41)_

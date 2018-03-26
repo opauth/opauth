@@ -34,6 +34,16 @@ class Opauth {
 	public $strategyMap;
 
 	/**
+	 * Proxy server IP for when using SSL via a loadbalancer
+	 */
+	private $proxy = '127.0.0.1';
+
+	/**
+	 * The header sent through to check if the request is secure
+	 */
+	private $httpsHeaderName = 'HTTP_X_FORWARDED_PROTO';
+
+	/**
 	 * Constructor
 	 * Loads user configuration and strategies.
 	 *
@@ -44,8 +54,11 @@ class Opauth {
 		/**
 		 * Configurable settings
 		 */
+
+		$host = $this->determineHost();
+
 		$this->config = array_merge(array(
-			'host' => ((array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'])?'https':'http').'://'.$_SERVER['HTTP_HOST'],
+			'host' => $host,
 			'path' => '/',
 			'callback_url' => '{path}callback',
 			'callback_transport' => 'session',
@@ -64,7 +77,7 @@ class Opauth {
 		 * Used mainly as accessors
 		 */
 		$this->env = array_merge(array(
-			'request_uri' => $_SERVER['REQUEST_URI'],
+			'request_uri' => isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '',
 			'complete_path' => $this->config['host'].$this->config['path'],
 			'lib_dir' => dirname(__FILE__).'/',
 			'strategy_dir' => dirname(__FILE__).'/Strategy/'
@@ -314,5 +327,47 @@ class Opauth {
 			print_r($var);
 			echo "</pre>";
 		}
+	}
+
+	/**
+	 * Set the loadbalancer IP as the trusted proxy for secure requests
+	 *
+	 * @param $proxy
+	 */
+	public function setTrustedProxy($proxy) {
+		$this->proxy = $proxy;
+	}
+
+	/**
+	 * Sets the header to check for.  Values must be https, on, ssl or 1 to pass through that it's a secure request
+	 *
+	 * @param $header
+	 */
+	public function setTrustedHeaderName($header) {
+		$this->httpsHeaderName = $header;
+	}
+
+	/**
+	 * Determine the host for the callback url
+	 *
+	 * @return string
+	 */
+	private function determineHost() {
+
+		$protocol = 'http';
+		$clientIp = (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '';
+		$proto = (isset($_SERVER[$this->httpsHeaderName])) ? $_SERVER[$this->httpsHeaderName] : '';
+		if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ||
+			(in_array(strtolower(current(explode(',', $proto))), array('https', 'on', 'ssl', '1')) &&
+			$clientIp == $this->proxy)) {
+				$protocol = 'https';
+		}
+		$host = 'localhost';
+		if (isset($_SERVER['HTTP_HOST'])) {
+			$host = $_SERVER['HTTP_HOST'];
+		}
+		$host = $protocol.'://'.$host;
+
+		return $host;
 	}
 }

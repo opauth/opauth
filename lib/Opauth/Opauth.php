@@ -129,7 +129,8 @@ class Opauth {
 	 * Parses Request URI
 	 */
 	private function parseUri() {
-		$this->env['request'] = substr($this->env['request_uri'], strlen($this->env['path']) - 1);
+		$this->env['request'] = substr($this->env['request_uri'],
+			strpos($this->env['request_uri'], $this->env['path']) + strlen($this->env['path']) - 1);
 
 		if (preg_match_all('/\/([A-Za-z0-9-_]+)/', $this->env['request'], $matches)) {
 			foreach ($matches[1] as $match) {

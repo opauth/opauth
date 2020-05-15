@@ -421,7 +421,9 @@ class OpauthStrategy {
 		$context = stream_context_create($options);
 
 		$content = file_get_contents($url, false, $context);
-		$responseHeaders = implode("\r\n", $http_response_header);
+
+		if (isset($http_response_header))
+			$responseHeaders = implode("\r\n", $http_response_header);
 
 		return $content;
 	}
